@@ -1,38 +1,38 @@
 ---
 version: alpha
 name: Agent Engineering Kit site — The Review Copy
-description: Visual system for agentengineeringkit.vishalg.in. A broadsheet engineering spec sheet going through code review, marked up in red pen as you read. Extends the installer's Spec Sheet system (../DESIGN.md) with display type, a 12-column ruled grid, an edition bar, pen marks and stamps. Tokens are implemented in site/style.css; colors with a -dark suffix are the dark-mode values.
+description: Visual system for agentengineeringkit.vishalg.in. A broadsheet engineering spec sheet going through code review, marked up in red pen as you read. Extends the installer's Spec Sheet system (../DESIGN.md) with a plain white/near-black page and a margin rule, display type, a 12-column ruled grid, an edition bar, pen marks and stamps. Tokens are implemented in site/style.css; colors with a -dark suffix are the dark-mode values.
 colors:
   primary: "#d1401f"
   primary-text: "#b5341a"
   on-primary: "#fffdf7"
-  surface: "#f4f1e8"
-  surface-card: "#fffdf7"
-  on-surface: "#1b2330"
-  on-surface-soft: "#4a5260"
-  muted: "#5d616b"
-  rule: "#d9d3c4"
-  grid: "rgba(28, 45, 70, 0.07)"
-  code-surface: "#ece7da"
+  surface: "#ffffff"
+  surface-card: "#ffffff"
+  on-surface: "#141414"
+  on-surface-soft: "#3d3d3d"
+  muted: "#5f5f5f"
+  rule: "#e6e6e2"
+  margin-rule: "rgba(209, 64, 31, 0.45)"
+  code-surface: "#f4f4f2"
   success: "#2f6b4f"
-  diff-add-bg: "#e2efe5"
+  diff-add-bg: "#e8f2ea"
   error: "#b2321a"
-  error-soft: "#f9e3dc"
+  error-soft: "#fbe8e3"
   primary-dark: "#f2a33a"
   primary-text-dark: "#f2a33a"
-  on-primary-dark: "#111a26"
-  surface-dark: "#111a26"
-  surface-card-dark: "#172232"
-  on-surface-dark: "#e6ecf3"
-  on-surface-soft-dark: "#b8c2cf"
-  muted-dark: "#8b97a6"
-  rule-dark: "#2a3a4f"
-  grid-dark: "rgba(120, 190, 230, 0.07)"
-  code-surface-dark: "#0f1823"
+  on-primary-dark: "#111111"
+  surface-dark: "#111111"
+  surface-card-dark: "#181818"
+  on-surface-dark: "#ededed"
+  on-surface-soft-dark: "#c4c4c4"
+  muted-dark: "#9b9b9b"
+  rule-dark: "#2a2a2a"
+  margin-rule-dark: "rgba(242, 163, 58, 0.35)"
+  code-surface-dark: "#0c0c0c"
   success-dark: "#79c9a0"
-  diff-add-bg-dark: "#15302a"
+  diff-add-bg-dark: "#16261c"
   error-dark: "#ff9f88"
-  error-soft-dark: "#3a1f1d"
+  error-soft-dark: "#311e1b"
 typography:
   display:
     fontFamily: Newsreader, Charter, "Iowan Old Style", Georgia, serif
@@ -122,13 +122,17 @@ This file follows the [DESIGN.md format](https://github.com/google-labs-code/des
 
 **A broadsheet engineering spec sheet going through code review.** The page is a printed technical document, and a strict senior engineer marks it up in red pen as you read. That is what the kit does to an agent's work, so the design carries the message. The page is broadsheet in structure (ruled columns, an edition bar, dramatic serif headlines, dense information), Swiss in discipline (strict grid, one signal colour, generous air in narrative sections), and terminal only inside code and install blocks.
 
+The page itself is plain: pure white in light mode and near-black in dark mode, with no drafting grid (the installer keeps its cream paper and grid; the site doesn't). The one decoration is a thin margin rule in the pen colour down the left of the sheet, like the ruled margin of a printout someone is marking up. It sits 36px left of the text column and only shows from 1340px wide, where it clears the text.
+
 It must never look like a generic AI landing page: no gradients, glass, glows, blurred shadows, purple or blue palettes, emoji, sparkle icons, rounded cards or logo walls.
 
 ## Colors
 
 - `primary` is the **red pen** (amber in dark mode), and the only accent. Use it for pen strokes, the focus ring, kickers, stamps and links on hover. Never use it as a fill behind body text, and never for decoration.
-- `primary-text` is the pen colour for **text** on light paper: `primary` itself is 4.17:1 on `surface`, below AA for small text, so small red text uses `primary-text` (5.36:1). Strokes and borders, which need 3:1, use `primary`. In dark mode both are the amber.
-- `muted` is darkened from the installer's `#6f7480` (4.15:1 on `surface`) to `#5d616b` (5.49:1), so labels pass AA.
+- `primary-text` is the pen colour for **text**: `primary` is 4.70:1 on white, and lower on the code and diff tints, so small red text uses `primary-text` (6.05:1 on white, 5.49:1 on `code-surface`). Strokes and borders, which need 3:1, use `primary`. In dark mode both are the amber.
+- `muted` is `#5f5f5f` (6.39:1 on white, 5.57:1 on the added-line tint), darker than the installer's `#6f7480`, so labels pass AA everywhere they sit.
+- `surface` and `surface-card` are both white (`#181818` cards on `#111111` in dark mode): cards are set apart by their ink border and offset shadow, not by a tint.
+- `margin-rule` is the pen colour at partial opacity, used only for the margin rule.
 - `on-surface` is ink: text, 1.5px borders, column rules and the offset shadow. `rule` is for hairlines inside a column.
 - `success` and `diff-add-bg` mark added lines and passing checks; `error` and `error-soft` mark removed lines. They are status colours, not accents.
 
@@ -151,7 +155,7 @@ It must never look like a generic AI landing page: no gradients, glass, glows, b
 
 ## Elevation & Depth
 
-As in the installer: one solid offset shadow, `4px 4px 0` in ink, for objects you treat as one thing (the review sheet, the traveling change card). Nothing else casts a shadow, and no shadow is ever blurred.
+As in the installer: one solid offset shadow, `4px 4px 0` in ink (pure black in dark mode), for objects you treat as one thing (the review sheet, the traveling change card). Nothing else casts a shadow, and no shadow is ever blurred.
 
 ## Shapes
 

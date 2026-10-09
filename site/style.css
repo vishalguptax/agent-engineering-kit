@@ -25,20 +25,20 @@
 }
 
 :root {
-  --paper: #f4f1e8;
-  --grid: rgba(28, 45, 70, 0.07);
-  --card: #fffdf7;
-  --ink: #1b2330;
-  --ink-soft: #4a5260;
-  --muted: #5d616b;
-  --rule: #d9d3c4;
+  --paper: #ffffff;
+  --margin-rule: rgba(209, 64, 31, 0.45);
+  --card: #ffffff;
+  --ink: #141414;
+  --ink-soft: #3d3d3d;
+  --muted: #5f5f5f;
+  --rule: #e6e6e2;
   --pen: #d1401f;
   --pen-text: #b5341a;
   --ok: #2f6b4f;
-  --code: #ece7da;
-  --add-bg: #e2efe5;
+  --code: #f4f4f2;
+  --add-bg: #e8f2ea;
   --del: #b2321a;
-  --del-bg: #f9e3dc;
+  --del-bg: #fbe8e3;
   --shadow: 4px 4px 0 var(--ink);
   --serif: "Newsreader", Charter, "Iowan Old Style", Georgia, serif;
   --sans: system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
@@ -53,22 +53,21 @@
 
 @media (prefers-color-scheme: dark) {
   :root {
-    --paper: #111a26;
-    --grid: rgba(120, 190, 230, 0.07);
-    --card: #172232;
-    --ink: #e6ecf3;
-    --ink-soft: #b8c2cf;
-    --muted: #8b97a6;
-    --rule: #2a3a4f;
+    --paper: #111111;
+    --margin-rule: rgba(242, 163, 58, 0.35);
+    --card: #181818;
+    --ink: #ededed;
+    --ink-soft: #c4c4c4;
+    --muted: #9b9b9b;
+    --rule: #2a2a2a;
     --pen: #f2a33a;
     --pen-text: #f2a33a;
-    --pen-ink: #111a26;
     --ok: #79c9a0;
-    --code: #0f1823;
-    --add-bg: #15302a;
+    --code: #0c0c0c;
+    --add-bg: #16261c;
     --del: #ff9f88;
-    --del-bg: #3a1f1d;
-    --shadow: 4px 4px 0 #050a10;
+    --del-bg: #311e1b;
+    --shadow: 4px 4px 0 #000000;
     color-scheme: dark;
   }
 }
@@ -94,12 +93,23 @@ body {
   color: var(--ink);
   font: 17px/1.6 var(--sans);
   background-color: var(--paper);
-  background-image:
-    linear-gradient(var(--grid) 1px, transparent 1px),
-    linear-gradient(90deg, var(--grid) 1px, transparent 1px);
-  background-size: 24px 24px;
   -webkit-font-smoothing: antialiased;
   overflow-wrap: break-word;
+}
+
+/* One margin rule left of the sheet, like a marked-up printout, shown only where it clears the text. */
+@media (min-width: 1340px) {
+  body::before {
+    content: "";
+    position: fixed;
+    top: 0;
+    bottom: 0;
+    left: calc(50% - var(--sheet) / 2 - 36px);
+    z-index: -1;
+    width: 1px;
+    background: var(--margin-rule);
+    pointer-events: none;
+  }
 }
 
 h1,

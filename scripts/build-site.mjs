@@ -448,8 +448,8 @@ export function renderHead(page, data) {
     );
   }
   lines.push(
-    `<meta name="theme-color" content="#f4f1e8" media="(prefers-color-scheme: light)">`,
-    `<meta name="theme-color" content="#111a26" media="(prefers-color-scheme: dark)">`,
+    `<meta name="theme-color" content="#ffffff" media="(prefers-color-scheme: light)">`,
+    `<meta name="theme-color" content="#111111" media="(prefers-color-scheme: dark)">`,
     `<link rel="icon" href="/favicon.svg" type="image/svg+xml">`,
     `<link rel="icon" href="/favicon-32.png" sizes="32x32" type="image/png">`,
     `<link rel="apple-touch-icon" href="/apple-touch-icon.png">`,
@@ -737,13 +737,13 @@ function ogHtml(page, data) {
   const label = page.nav ?? "Front page";
   return `<!doctype html><html><head><meta charset="utf-8"><style>${fontFaces()}
 *{box-sizing:border-box;margin:0}
-body{width:1200px;height:630px;padding:56px 72px;background:#f4f1e8;color:#1b2330;display:flex;flex-direction:column;
-background-image:linear-gradient(rgba(28,45,70,.07) 1px,transparent 1px),linear-gradient(90deg,rgba(28,45,70,.07) 1px,transparent 1px);background-size:24px 24px}
-.bar{display:flex;justify-content:space-between;padding-bottom:14px;border-bottom:3px solid #1b2330;font:600 20px/1 "JetBrains Mono";letter-spacing:.08em;text-transform:uppercase}
+body{width:1200px;height:630px;padding:56px 72px;background:#fff;color:#141414;display:flex;flex-direction:column;
+background-image:linear-gradient(90deg,transparent 40px,rgba(209,64,31,.45) 40px,rgba(209,64,31,.45) 41px,transparent 41px)}
+.bar{display:flex;justify-content:space-between;padding-bottom:14px;border-bottom:3px solid #141414;font:600 20px/1 "JetBrains Mono";letter-spacing:.08em;text-transform:uppercase}
 .bar span:last-child{color:#b5341a}
 h1{margin-top:auto;max-width:980px;font:600 ${page.ogTitle.length > 44 ? 76 : 92}px/1 "Newsreader";letter-spacing:-.025em}
 svg{display:block;margin:14px 0 0 -6px}
-.foot{display:flex;justify-content:space-between;align-items:center;margin-top:38px;padding-top:18px;border-top:1px solid #1b2330;font:500 24px/1 "JetBrains Mono"}
+.foot{display:flex;justify-content:space-between;align-items:center;margin-top:38px;padding-top:18px;border-top:1px solid #141414;font:500 24px/1 "JetBrains Mono"}
 .stamp{padding:8px 16px 6px;border:3px solid #d1401f;color:#b5341a;font:700 24px/1 "JetBrains Mono";letter-spacing:.18em;text-transform:uppercase;transform:rotate(-6deg)}
 </style></head><body>
 <div class="bar"><span>The Agent Engineering Kit</span><span>${escapeHtml(label)}</span></div>
@@ -758,7 +758,7 @@ function iconHtml(size) {
   const svg = readFileSync(path.join(SITE, "favicon.svg"), "utf8");
   const square = size >= 180;
   const inner = square ? Math.round(size * 0.84) : size;
-  return `<!doctype html><html><head><style>*{margin:0}body{width:${size}px;height:${size}px;overflow:hidden;display:grid;place-items:center;background:${square ? "#f4f1e8" : "transparent"}}svg{display:block;width:${inner}px;height:${inner}px}</style></head><body>${svg}</body></html>`;
+  return `<!doctype html><html><head><style>*{margin:0}body{width:${size}px;height:${size}px;overflow:hidden;display:grid;place-items:center;background:${square ? "#ffffff" : "transparent"}}svg{display:block;width:${inner}px;height:${inner}px}</style></head><body>${svg}</body></html>`;
 }
 
 /** Renders every OG image and icon PNG into outDir. A failed job warns and leaves that file as it was. */
