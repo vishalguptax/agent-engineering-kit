@@ -71,8 +71,8 @@ Run it again at any time to **update**, **add or remove parts**, or **uninstall*
 
 | Part | What it does |
 |---|---|
-| **Engineering rules** | The rulebook: plan, simplicity, surgical changes, verification, security, an anti-slop checklist, and a definition of done |
-| **Agent instructions** | A short block in `AGENTS.md` that switches the rules on for every tool, between markers so it can be updated or removed cleanly (Claude Code gets a one-line `@AGENTS.md` import in `CLAUDE.md`) |
+| **Engineering rules** | The rulebook (`.agent-kit/RULES.md`): stack, workflow, principles, code quality, testing, security, UI, a review checklist, debugging and git. Reference only: skills and agents open the section they need |
+| **Agent instructions** | A short block in `AGENTS.md` (about 600 tokens) with the always-on rules as pass/fail lines and what "done" means, for every tool, between markers so it can be updated or removed cleanly (Claude Code gets a one-line `@AGENTS.md` import in `CLAUDE.md`) |
 | **Agents** | Task-shaped helpers, each with one job and its own context:<br>`code-explorer` (maps existing code) and `code-architect` (designs the change)<br>`verifier` (runs real checks, reports evidence) and `code-simplifier` (cleans up without changing behavior)<br>`test-analyzer`, `silent-failure-hunter`, `security-reviewer`, and optional `frontend-reviewer` (focused reviews) |
 | **Skills** | `feature` (plan file + full pipeline), `quick-fix` (small changes), `verify-change` (proof it works), `ship` (commits + PR), `learn` (turns a correction into a rule), and `project-conventions` (detects your stack and commands) |
 | **Auto-format hook** | Formats every file the agent edits with *your* project's formatter (`.agent-kit/format.mjs`, run by Node) |
@@ -142,6 +142,7 @@ agent-engineering-kit/
 | [docs/how-it-works.md](docs/how-it-works.md) | How the installer merges, backs up, updates, uninstalls, and stays safe |
 | [docs/install-with-an-agent.md](docs/install-with-an-agent.md) | What your AI agent follows when you paste the install prompt |
 | [docs/manual-install.md](docs/manual-install.md) | Installing without the installer |
+| [docs/working-habits.md](docs/working-habits.md) | Habits and plugins for the people using the agent (from Boris Cherny and others) |
 | [DESIGN.md](DESIGN.md) | Design system for the installer's UI ([DESIGN.md format](https://github.com/google-labs-code/design.md)) |
 | [CONTRIBUTING.md](CONTRIBUTING.md) | Developing the installer, adding a component or a tool, running tests |
 | [CHANGELOG.md](CHANGELOG.md) | What changed in each version |
@@ -150,7 +151,7 @@ agent-engineering-kit/
 
 - **`npx` downloads only the installer and the kit** (about 100 kB, no dependencies).
 - **The installer needs nothing extra.** It doesn't install Matt Pocock's skills or run any plugin command; the final screen gives you the commands to paste. Once running, it makes no network calls.
-- **Renamed Matt Pocock skills:** Matt's repo changes often. If a skill used by `/feature` gets renamed, update [`kit/skills/feature/SKILL.md`](kit/skills/feature/SKILL.md). `/feature` falls back to the rules file if a skill is missing.
+- **Renamed Matt Pocock skills:** Matt's repo changes often. If a skill used by `/feature` gets renamed, update [`kit/skills/feature/SKILL.md`](kit/skills/feature/SKILL.md). `/feature` falls back to §2 of the rulebook if a skill is missing.
 - **Windows:** the installer and the format hook run on Node, so they work as is. The optional pre-commit check is a POSIX `sh` script, which Git for Windows provides.
 - **Pre-commit checks have limits:** `.git/hooks` isn't shared by clones (each developer installs it), `git commit --no-verify` skips it, and `checks.conf` runs on every commit, so review changes to it like code.
 

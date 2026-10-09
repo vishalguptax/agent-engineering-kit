@@ -1,6 +1,6 @@
 {
   "name": "agent-engineering-kit",
-  "version": "1.1.0",
+  "version": "1.2.0",
   "description": "Make AI coding agents (Claude Code, Codex, Cursor, Copilot, Gemini CLI and more) ship clean, maintainable code. A safe GUI/terminal installer for rules, agents, skills and hooks, for any project.",
   "license": "MIT",
   "repository": {

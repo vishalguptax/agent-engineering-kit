@@ -28,4 +28,4 @@ Read 2–3 existing files of the same kind as what you'll write (component, rout
 Note what exists and what doesn't: a test suite (and for which parts), CI, a git repository, `.agent-kit/checks.conf`. Where there are no tests, find how the project is checked in practice (scripts, a dev server, manual steps in the README) so verification can use that.
 
 ## 5. Output
-Summarize briefly (stack, commands, key conventions, reusable building blocks) and keep following them. If the project instructions file lacks the commands section, suggest adding it (see Appendix A in `docs/agent-engineering/RULES.md`).
+Summarize briefly (stack, commands, key conventions, reusable building blocks) and keep following them. If the project instructions file lacks the commands section, suggest adding it (see Appendix A in `.agent-kit/RULES.md`).

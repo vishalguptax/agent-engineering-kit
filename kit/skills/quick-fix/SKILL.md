@@ -6,7 +6,7 @@ disable-model-invocation: true
 
 # Quick fix
 
-The change is what the user asked for when starting this skill. Follow `docs/agent-engineering/RULES.md`. The project's instructions (`AGENTS.md`, `CLAUDE.md`), including its **Workflow Preferences** section if there is one, take priority over the steps below.
+The change is what the user asked for when starting this skill. Follow the kit's rules, and for a bug also §9 of `.agent-kit/RULES.md`. The project's instructions (`AGENTS.md`, `CLAUDE.md`), including its **Workflow Preferences** section if there is one, take priority over the steps below.
 
 1. **Size it first.** Find the files the fix needs. If it needs more than about 6 files, more than 2 modules, a new dependency, or a design decision I haven't made, stop and say so: this belongs in the **feature** skill.
 2. **Pin down the problem** and decide what will prove the fix:

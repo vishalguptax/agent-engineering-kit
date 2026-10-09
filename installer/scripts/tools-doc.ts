@@ -1,6 +1,7 @@
 import { writeFileSync } from "node:fs";
 import path from "node:path";
 import { pathToFileURL } from "node:url";
+import { AGENT_REFERENCE_DIR } from "../src/core/layout.js";
 import { INSTALLER_ROOT } from "../src/core/manifest.js";
 import { CAPABILITY_LABELS, capabilitiesOf, type CapabilityState, type ToolCapabilities } from "../src/tools/capabilities.js";
 import { TOOL_PROFILES, type ToolProfile } from "../src/tools/profiles.js";
@@ -20,7 +21,7 @@ export function renderToolsDoc(profiles: ToolProfile[] = TOOL_PROFILES): string 
     "Pick your tools in the installer (or pass `--tools a,b,c`; `--list-tools` prints this list). The kit is written once and installed in each tool's own format. Shared files such as `AGENTS.md` and `.agents/skills/` are written once for every tool that reads them.",
     "",
     "- **✓** the installer writes it.",
-    "- **as reference** the tool has no file-based sub-agents, so the skills tell it to read `docs/agent-engineering/agents/<name>.md` and do that review itself.",
+    `- **as reference** the tool has no file-based sub-agents, so the skills tell it to read \`${AGENT_REFERENCE_DIR}/<name>.md\` and do that review itself.`,
     "- **note** it can't be set safely from the project, so the preview tells you exactly what to do.",
     "- **—** the tool doesn't support it. The optional pre-commit checks still apply, whichever tool made the change.",
     "",

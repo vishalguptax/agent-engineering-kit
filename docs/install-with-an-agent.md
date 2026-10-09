@@ -56,6 +56,7 @@ How to handle the hard cases:
 - **Monorepo or several apps:** describe each package briefly under Key folders, with its own commands if they differ.
 - **Conflicting evidence** (e.g. README says `npm test`, CI runs `pnpm test:ci`): prefer what CI runs, and mention the difference to the user.
 - **No tests, no linter, no CI:** say so plainly ("No test suite yet"). That is useful information, not a gap to fill.
+- **Existing plans:** if the project already keeps plans somewhere (an earlier kit version used `docs/plans/`), add `- Plans: <that folder>` to Workflow Preferences, so new plans continue the same numbering there.
 - **Existing project section:** if `AGENTS.md` or `CLAUDE.md` already has a `## Project Overview` section, the installer leaves it alone. Don't write a new one; after the install, offer specific edits to the existing section instead.
 
 Then **show the user your draft** with the source of each item, and ask only what the code can't tell you: the purpose if the README doesn't say, domain terms, people or links worth knowing, rules the team follows but hasn't written down, workflow preferences. Correct the draft with their answers. Once they approve it, write it to a temporary file **outside the project** (for example in the system temp folder), in this shape (leave out empty sections):

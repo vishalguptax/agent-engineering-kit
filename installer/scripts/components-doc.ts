@@ -1,6 +1,7 @@
 import { writeFileSync } from "node:fs";
 import path from "node:path";
 import { pathToFileURL } from "node:url";
+import { AGENT_REFERENCE_DIR, PLAN_TEMPLATE_PATH, RULEBOOK_PATH } from "../src/core/layout.js";
 import { CATEGORIES, INSTALLER_ROOT, loadManifest, type Artifact, type Manifest } from "../src/core/manifest.js";
 
 export const COMPONENTS_DOC_PATH = path.join(INSTALLER_ROOT, "..", "docs", "components.md");
@@ -41,15 +42,15 @@ export function renderComponentsDoc(manifest: Manifest): string {
 function describeArtifact(artifact: Artifact): string {
   switch (artifact.kind) {
     case "rulebook":
-      return "`docs/agent-engineering/RULES.md`";
+      return `\`${RULEBOOK_PATH}\``;
     case "template":
-      return "`docs/agent-engineering/plan-template.md`";
+      return `\`${PLAN_TEMPLATE_PATH}\``;
     case "instructions":
       return "a marked block in `AGENTS.md` (plus a `@AGENTS.md` import in `CLAUDE.md` for Claude Code and a setting for Gemini CLI)";
     case "skill":
       return `the \`${artifact.name}\` skill in each selected tool's skills folder`;
     case "agent":
-      return `the \`${artifact.name}\` agent in each selected tool's agent format, plus \`docs/agent-engineering/agents/${artifact.name}.md\``;
+      return `the \`${artifact.name}\` agent in each selected tool's agent format, plus \`${AGENT_REFERENCE_DIR}/${artifact.name}.md\``;
     case "format-hook":
       return "`.agent-kit/format.mjs` and an after-edit hook for each tool that documents one";
     case "secret-guard":

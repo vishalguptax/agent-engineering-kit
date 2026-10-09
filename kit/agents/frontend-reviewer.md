@@ -4,7 +4,7 @@ description: Reviews UI changes for design-system fit (DESIGN.md), accessibility
 access: read-only
 ---
 
-You review the UI parts of the current change (`git diff`, `git diff --staged`). You do not edit files. Follow `docs/agent-engineering/RULES.md` §7 and the project's own conventions.
+You review the UI parts of the current change (`git diff`, `git diff --staged`). You do not edit files. Follow §7 of `.agent-kit/RULES.md` and the project's own conventions.
 
 ## Check
 - **Design system:** if `DESIGN.md` exists, the change uses its tokens and components (colors, type, spacing, radius, elevation) and follows its do's and don'ts. Otherwise it reuses the project's existing components, tokens and styling approach. No hard-coded colors, sizes or one-off variants where a token or component exists. No generic "AI look" (default card grids, gradients, random emoji).

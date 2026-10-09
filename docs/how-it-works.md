@@ -76,25 +76,26 @@ The terminal wizard asks the same questions in the same order: numbered choices 
 
 ## Where things go
 
-`AGENTS.md` is the hub: almost every tool reads it. The rulebook, plan template and agent instructions live in `docs/agent-engineering/`, and the kit's own state lives in `.agent-kit/`. Each tool then gets its own files only where it can't read a shared one:
+`AGENTS.md` is the hub: almost every tool reads it. Everything else the kit owns lives in `.agent-kit/`, so your `docs/` folder stays yours. The kit block in `AGENTS.md` holds the always-on rules (about 600 tokens, loaded in every session; a test keeps it under 1k); the rulebook is reference that skills and agents open one section at a time. Each tool then gets its own files only where it can't read a shared one:
 
 ```
 AGENTS.md                              kit block (marked) + your project section
 CLAUDE.md                              Claude Code only: a marked block containing @AGENTS.md
-docs/agent-engineering/RULES.md        the rulebook
-docs/agent-engineering/plan-template.md
-docs/agent-engineering/agents/*.md     each agent's instructions, for tools without sub-agents
 .agents/skills/<name>/SKILL.md         skills, shared by most tools
 .claude/skills, .kiro/skills, ...      only for tools that don't read .agents/skills
 .claude/agents, .codex/agents/*.toml,  agents, in each tool's format
   .gemini/agents, .github/agents, ...
-.agent-kit/                            install.json, backup/, format.mjs, and (optional) check.sh,
-                                       checks.conf, protected
+.agent-kit/RULES.md                    the rulebook (reference, read a section at a time)
+.agent-kit/plan-template.md
+.agent-kit/agents/*.md                 each agent's instructions, for tools without sub-agents
+.agent-kit/plans/                      your plans, written by the feature skill (yours to keep)
+.agent-kit/                            also install.json, backup/, format.mjs, and (optional)
+                                       check.sh, checks.conf, protected
 ```
 
 **Choosing shared folders.** Each tool profile lists the skill and agent folders the tool reads, preferred first. Tools are processed in a fixed order: a tool that already reads a chosen folder is covered; otherwise its preferred folder is added. The same choices always give the same layout. Some tools read several folders (Cursor reads `.claude/skills` and `.agents/skills`), so with certain combinations they list a kit skill twice; the copies are byte-identical, and the preview says which tool is affected.
 
-**Agent formats.** The kit's agents have one canonical frontmatter (`name`, `description`, `access: read-only|edit`). Each format keeps only the fields its tool documents: Claude Code gets a tool list, Cursor `readonly`, opencode and Kilo `permission.edit: deny`, and Codex a TOML file with `sandbox_mode = "read-only"`. Tools without sub-agents read `docs/agent-engineering/agents/<name>.md` when a skill says "use the X agent".
+**Agent formats.** The kit's agents have one canonical frontmatter (`name`, `description`, `access: read-only|edit`). Each format keeps only the fields its tool documents: Claude Code gets a tool list, Cursor `readonly`, opencode and Kilo `permission.edit: deny`, and Codex a TOML file with `sandbox_mode = "read-only"`. Tools without sub-agents read `.agent-kit/agents/<name>.md` when a skill says "use the X agent".
 
 The full per-tool table is in [supported-tools.md](supported-tools.md).
 
@@ -130,7 +131,8 @@ The full per-tool table is in [supported-tools.md](supported-tools.md).
   - A file it modified that you haven't changed is restored from its original backup.
   - A file you've edited since loses only the kit's parts (its marked block, its JSON entries), or is kept as yours.
   - Empty folders the kit created are removed.
-- **Installs from the pre-release (Claude-only) installer** are converted on the next run: the old record (`.claude/.kit-install.json`) is read, the kit's block moves from CLAUDE.md to AGENTS.md (CLAUDE.md keeps a marked `@AGENTS.md` import), and the rulebook moves to `docs/agent-engineering/RULES.md`. Files you edited are kept or shown as conflicts, and everything appears in the preview first.
+- **Installs from the pre-release (Claude-only) installer** are converted on the next run: the old record (`.claude/.kit-install.json`) is read, the kit's block moves from CLAUDE.md to AGENTS.md (CLAUDE.md keeps a marked `@AGENTS.md` import), and the rulebook moves to `.agent-kit/RULES.md`. Files you edited are kept or shown as conflicts, and everything appears in the preview first.
+- **Installs from 1.0 and 1.1** had the rulebook, plan template and agent instructions in `docs/agent-engineering/`. Update moves them to `.agent-kit/` and removes the old copies you haven't edited (an edited one is kept as yours), plus any `docs/` folders the kit created that are now empty. Plans you wrote in `docs/plans/` are not moved; keep them there by adding `- Plans: docs/plans/` to Workflow Preferences, or move them yourself.
 
 ## Safety
 

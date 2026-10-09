@@ -37,13 +37,15 @@ function runCheck(dir: string, ...args: string[]) {
 test("check.sh runs every command and fails if any fails", { skip: !isPosix }, () => {
   const dir = repo();
   mkdirSync(path.join(dir, ".agent-kit"));
-  writeFileSync(path.join(dir, ".agent-kit/checks.conf"), "# comment\n\nlint: true\ntest: exit 3\n");
+  writeFileSync(path.join(dir, ".agent-kit/checks.conf"), "# comment\n\nlint: echo lint-noise\ntest: echo test-detail; exit 3\n");
   const result = runCheck(dir);
   assert.equal(result.status, 1);
-  assert.match(result.stdout, /check lint: true\n  ok/);
-  assert.match(result.stdout, /check test: exit 3\n  FAILED/);
-  writeFileSync(path.join(dir, ".agent-kit/checks.conf"), "lint: true\n");
-  assert.equal(runCheck(dir).status, 0);
+  assert.match(result.stdout, /check test FAILED: echo test-detail; exit 3\ntest-detail\n/, "a failure shows its command and output");
+  assert.doesNotMatch(result.stdout, /lint/, "a passing check prints nothing");
+  writeFileSync(path.join(dir, ".agent-kit/checks.conf"), "lint: echo lint-noise\ntest: true\n");
+  const passing = runCheck(dir);
+  assert.equal(passing.status, 0);
+  assert.equal(passing.stdout, "checks passed: lint, test\n", "success is one line, so it costs an agent almost no context");
 });
 
 test("check.sh refuses changes to protected files (staged and unstaged)", { skip: !isPosix }, () => {

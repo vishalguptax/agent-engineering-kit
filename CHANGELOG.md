@@ -2,6 +2,17 @@
 
 This project follows [Semantic Versioning](https://semver.org). The kit version lives in `installer/kit.manifest.json` (`kitVersion`) and is written into every install record.
 
+## 1.2.0 — 2026-10-09
+
+### Leaner for every session
+- **The always-on rules are now about 600 tokens instead of about 7,000.** The kit block in `AGENTS.md` carries the core rules inline as pass/fail lines (before coding, while coding, and what "done" means), and no longer `@`-imports the whole rulebook into every Claude Code session. Tools without `@`-imports used to get only a pointer; now every tool gets the same rules.
+- **The rulebook is reference.** Skills and agents open the one section they need (§2 workflow, §8 review checklist, §9 debugging, …). Rules repeated in the skills, the block or the plan template were removed from it, so each rule lives in one place; it is half its old size. The setup notes for humans moved to [docs/working-habits.md](docs/working-habits.md), and they are no longer installed into projects.
+- **`check.sh` prints only failures,** each with its command and output. A passing run is one line: `checks passed: lint, test`.
+
+### Out of your docs/ folder
+- **The kit's files now live in `.agent-kit/`:** `RULES.md`, `plan-template.md` and `agents/` move there from `docs/agent-engineering/`, and the feature skill writes plans to `.agent-kit/plans/` by default. Nothing the kit installs goes in `docs/` any more, so a project's own docs folder (or docs site) stays its own.
+- **Updating from 1.0 or 1.1 moves them for you.** The old copies are removed if you haven't edited them, along with `docs/` folders the kit created that are now empty. Existing plans in `docs/plans/` stay where they are; add `- Plans: docs/plans/` to Workflow Preferences to keep using that folder.
+
 ## 1.1.0 — 2026-10-09
 
 ### Install with your AI agent

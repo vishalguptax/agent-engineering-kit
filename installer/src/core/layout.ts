@@ -10,12 +10,14 @@ import type { ArrayAddition, JsonObject } from "./json-merge.js";
 import { readKitFile } from "./kit.js";
 import type { Component, Manifest } from "./manifest.js";
 import type { CommentStyle } from "./text-block.js";
-import type { Target } from "./target.js";
+import { KIT_STATE_DIR, type Target } from "./target.js";
 
-/** Where the kit's shared reference docs live in a project. */
-export const KIT_DOCS_DIR = "docs/agent-engineering";
-export const RULEBOOK_PATH = `${KIT_DOCS_DIR}/RULES.md`;
-export const PLAN_TEMPLATE_PATH = `${KIT_DOCS_DIR}/plan-template.md`;
+/** The kit's reference files live in its own folder, so a project's docs/ stays the project's. */
+export const RULEBOOK_PATH = `${KIT_STATE_DIR}/RULES.md`;
+export const PLAN_TEMPLATE_PATH = `${KIT_STATE_DIR}/plan-template.md`;
+export const AGENT_REFERENCE_DIR = `${KIT_STATE_DIR}/agents`;
+/** Where kit 1.0 and 1.1 put those reference files. */
+const RETIRED_REFERENCE_DIR = "docs/agent-engineering";
 const GEMINI_SETTINGS = ".gemini/settings.json";
 
 interface DesiredBase {
@@ -124,7 +126,7 @@ export function desiredLayout({ manifest, target, components, tools, checks = ""
           break;
         case "agent": {
           const source = kitText(`agents/${artifact.name}.md`);
-          copy(`${KIT_DOCS_DIR}/agents/${artifact.name}.md`, source, component.id);
+          copy(`${AGENT_REFERENCE_DIR}/${artifact.name}.md`, source, component.id);
           for (const location of agentLocations.chosen) {
             const format = location.format!;
             copy(`${location.dir}/${agentFileName(artifact.name, format)}`, renderAgent(source, format), component.id, readers(location.dir, "agents"));
@@ -206,7 +208,6 @@ function mergeDesired(existing: DesiredFile | undefined, next: DesiredFile): Des
   throw new Error(`The kit wants two different versions of ${next.path}. This is a bug in the kit; please report it.`);
 }
 
-/** Every path the installer could ever write in this target, for any tool and component (validates untrusted records). */
 /** Hook commands the pre-release installer added to Claude's settings, so their entries are still recognised as the kit's. */
 const VERSION_1_HOOK_COMMANDS = { project: '"$CLAUDE_PROJECT_DIR"/.claude/hooks/format.sh', global: '"$HOME"/.claude/hooks/format.sh' };
 
@@ -221,16 +222,26 @@ export function knownJsonAdditions(target: Target): ArrayAddition[] {
   ];
 }
 
+function agentNames(manifest: Manifest): string[] {
+  return manifest.components.flatMap((c) => c.artifacts.flatMap((a) => (a.kind === "agent" ? [a.name] : [])));
+}
+
+/** The reference files at their kit 1.0/1.1 paths: still valid in install records, so Update can remove them. */
+export function retiredReferencePaths(manifest: Manifest): string[] {
+  return [`${RETIRED_REFERENCE_DIR}/RULES.md`, `${RETIRED_REFERENCE_DIR}/plan-template.md`, ...agentNames(manifest).map((name) => `${RETIRED_REFERENCE_DIR}/agents/${name}.md`)];
+}
+
+/** Every path the installer could ever write in this target, for any tool and component (validates untrusted records). */
 export function installablePaths(manifest: Manifest, target: Target): Set<string> {
   const tools = target.mode === "global" ? [toolById("claude-code")] : TOOL_PROFILES;
   const skillNames = [...manifest.components.flatMap((c) => c.artifacts.flatMap((a) => (a.kind === "skill" ? [a.name] : []))), ...manifest.retiredSkills];
-  const agentNames = manifest.components.flatMap((c) => c.artifacts.flatMap((a) => (a.kind === "agent" ? [a.name] : [])));
+  const agents = agentNames(manifest);
   const paths = new Set<string>([RULEBOOK_PATH, PLAN_TEMPLATE_PATH, "AGENTS.md", "CLAUDE.md", GEMINI_SETTINGS, FORMAT_SCRIPT, CHECK_SCRIPT, CHECKS_CONF, PROTECTED_LIST]);
-  for (const name of agentNames) paths.add(`${KIT_DOCS_DIR}/agents/${name}.md`);
+  for (const name of agents) paths.add(`${AGENT_REFERENCE_DIR}/${name}.md`);
   for (const tool of tools) {
     for (const dir of tool.skills?.reads ?? []) for (const name of skillNames) paths.add(inTarget(target, `${dir}/${name}/SKILL.md`));
     if (tool.agents && "reads" in tool.agents) {
-      for (const location of tool.agents.reads) for (const name of agentNames) paths.add(inTarget(target, `${location.dir}/${agentFileName(name, location.format)}`));
+      for (const location of tool.agents.reads) for (const name of agents) paths.add(inTarget(target, `${location.dir}/${agentFileName(name, location.format)}`));
     }
     for (const spec of [tool.formatHook, tool.secretGuard]) if (spec && "file" in spec) paths.add(inTarget(target, spec.file));
   }

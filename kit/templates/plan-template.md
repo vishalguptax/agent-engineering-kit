@@ -1,6 +1,6 @@
 # Plan NNN: <short title>
 
-> Written by the feature skill to `docs/plans/NNN-<slug>.md`. One file per piece of work, so any session or tool can resume it.
+> Written by the feature skill to `.agent-kit/plans/NNN-<slug>.md`. One file per piece of work, so any session or tool can resume it.
 > Status: Draft | Approved | Building | Done
 
 ## Problem

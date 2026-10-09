@@ -8,9 +8,9 @@
 
 | From `kit/` | To your project |
 |---|---|
-| `rules/RULES.md` | `docs/agent-engineering/RULES.md` |
-| `templates/plan-template.md` | `docs/agent-engineering/plan-template.md` |
-| `agents/*.md` | `docs/agent-engineering/agents/` (the agents' instructions; tools without sub-agents follow these) |
+| `rules/RULES.md` | `.agent-kit/RULES.md` |
+| `templates/plan-template.md` | `.agent-kit/plan-template.md` |
+| `agents/*.md` | `.agent-kit/agents/` (the agents' instructions; tools without sub-agents follow these) |
 | `skills/*/` | `.agents/skills/` (read by most tools; see the table below) |
 
 Then add the contents of `kit/instructions/agents-block.md` to the end of `AGENTS.md` (create it if needed), wrapped in markers:
@@ -44,12 +44,10 @@ If a file already exists with different content, compare the two before deciding
 1. Install Matt Pocock's skills: `/plugin install mattpocock-skills@claude-plugins-official` in Claude Code, or `npx skills@latest add mattpocock/skills` for other tools (not both). Then run `/setup-matt-pocock-skills` once in the repo.
 2. Fill in the project section of `AGENTS.md` (above the kit's block) using Appendix A of the rulebook, or ask the agent: *"Use the project-conventions skill to fill in the project section of AGENTS.md."*
 3. Restart your tools and check the skills appear.
-4. Commit `AGENTS.md`, `docs/`, the tool folders and `GLOSSARY.md` so your team shares them.
+4. Commit `AGENTS.md`, `.agent-kit/`, the tool folders and `GLOSSARY.md` so your team shares them.
 
 ## All projects (global, Claude Code only)
 
-Put the files in `~/.claude/` instead: `agents/`, `skills/`, `docs/agent-engineering/`, and the block from step 1 in `~/.claude/CLAUDE.md` (no `AGENTS.md` globally). Then change the project-relative paths so they point into `~/.claude`:
-- In the block: `@docs/agent-engineering/` → `@~/.claude/docs/agent-engineering/`.
-- In the skills and agents: `` `docs/agent-engineering/ `` → `` `~/.claude/docs/agent-engineering/ ``.
+Put the files in `~/.claude/` instead: `agents/`, `skills/`, `.agent-kit/` (`RULES.md`, `plan-template.md`, `agents/`), and the block from step 1 in `~/.claude/CLAUDE.md` (no `AGENTS.md` globally). Then, in the block, the skills and the agents, change the paths of those three so they point into `~/.claude`: `` `.agent-kit/RULES.md `` → `` `~/.claude/.agent-kit/RULES.md ``, and the same for `plan-template.md` and `agents/`. Leave `.agent-kit/plans/` and `.agent-kit/check.sh` as they are: those belong to each project.
 
 Project files win over global ones when names clash.

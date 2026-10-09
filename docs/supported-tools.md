@@ -5,7 +5,7 @@
 Pick your tools in the installer (or pass `--tools a,b,c`; `--list-tools` prints this list). The kit is written once and installed in each tool's own format. Shared files such as `AGENTS.md` and `.agents/skills/` are written once for every tool that reads them.
 
 - **✓** the installer writes it.
-- **as reference** the tool has no file-based sub-agents, so the skills tell it to read `docs/agent-engineering/agents/<name>.md` and do that review itself.
+- **as reference** the tool has no file-based sub-agents, so the skills tell it to read `.agent-kit/agents/<name>.md` and do that review itself.
 - **note** it can't be set safely from the project, so the preview tells you exactly what to do.
 - **—** the tool doesn't support it. The optional pre-commit checks still apply, whichever tool made the change.
 
@@ -98,7 +98,7 @@ Only behaviour the tools' own docs describe is used. Global installs (`--global`
 
 - **Rules:** Reads the kit's block in AGENTS.md.
 - **Skills:** Skills in .grok/skills (or a shared folder it also reads).
-- **Agents:** Grok Build's custom agent file format isn't documented yet. The skills point to docs/agent-engineering/agents/ instead.
+- **Agents:** Grok Build's custom agent file format isn't documented yet. The skills point to .agent-kit/agents/ instead.
 - **Format on edit:** Grok Build has no documented after-edit hook; use the pre-commit checks.
 - **Secret guard:** Add a deny rule for reading .env to [permission] rules in .grok/config.toml.
 - **Detected by:** `.grok`
@@ -108,7 +108,7 @@ Only behaviour the tools' own docs describe is used. Global installs (`--global`
 
 - **Rules:** Reads the kit's block in AGENTS.md.
 - **Skills:** Skills in .agents/skills (or a shared folder it also reads).
-- **Agents:** Cascade has no file-based sub-agents. The skills point to docs/agent-engineering/agents/ instead.
+- **Agents:** Cascade has no file-based sub-agents. The skills point to .agent-kit/agents/ instead.
 - **Format on edit:** After-edit hook in .devin/hooks.json.
 - **Secret guard:** Entries in .codeiumignore.
 - **Detected by:** `.windsurf`, `.devin`, `.windsurfrules`, `.codeiumignore`
@@ -170,7 +170,7 @@ Only behaviour the tools' own docs describe is used. Global installs (`--global`
 
 - **Rules:** Reads the kit's block in AGENTS.md.
 - **Skills:** Skills in .cline/skills (or a shared folder it also reads).
-- **Agents:** Cline's custom agent file format isn't documented yet. The skills point to docs/agent-engineering/agents/ instead.
+- **Agents:** Cline's custom agent file format isn't documented yet. The skills point to .agent-kit/agents/ instead.
 - **Format on edit:** Cline has no documented after-edit hook; use the pre-commit checks.
 - **Secret guard:** Cline is replacing .clineignore with a guard hook; until then, use its "Block Ignored File Access" plugin to keep it out of .env.
 - **Detected by:** `.clinerules`, `.cline`, `.clineignore`
@@ -180,7 +180,7 @@ Only behaviour the tools' own docs describe is used. Global installs (`--global`
 
 - **Rules:** Reads the kit's block in AGENTS.md.
 - **Skills:** Skills in .agents/skills (or a shared folder it also reads).
-- **Agents:** Zed has no file-based sub-agents. The skills point to docs/agent-engineering/agents/ instead.
+- **Agents:** Zed has no file-based sub-agents. The skills point to .agent-kit/agents/ instead.
 - **Format on edit:** Zed has no documented after-edit hook; use the pre-commit checks.
 - **Secret guard:** Deny agent access to .env with agent.tool_permissions in your Zed settings.
 - **Detected by:** `.rules`, `.zed`
@@ -191,7 +191,7 @@ Only behaviour the tools' own docs describe is used. Global installs (`--global`
 
 - **Rules:** Reads the kit's block in AGENTS.md.
 - **Skills:** Skills in .agents/skills (or a shared folder it also reads).
-- **Agents:** Amp creates sub-agents through its plugin API, not files. The skills point to docs/agent-engineering/agents/ instead.
+- **Agents:** Amp creates sub-agents through its plugin API, not files. The skills point to .agent-kit/agents/ instead.
 - **Format on edit:** Amp has no documented after-edit hook; use the pre-commit checks.
 - **Secret guard:** Amp has no ignore file; disable file reads of .env through a tool.call plugin or amp.tools.disable.
 - **Detected by:** `.amp`
@@ -201,7 +201,7 @@ Only behaviour the tools' own docs describe is used. Global installs (`--global`
 
 - **Rules:** Reads the kit's block in AGENTS.md.
 - **Skills:** Skills in .agents/skills (or a shared folder it also reads).
-- **Agents:** Warp's agent profiles are set in the app, not files. The skills point to docs/agent-engineering/agents/ instead.
+- **Agents:** Warp's agent profiles are set in the app, not files. The skills point to .agent-kit/agents/ instead.
 - **Format on edit:** Warp has no documented after-edit hook; use the pre-commit checks.
 - **Secret guard:** Restrict file reads in your Warp agent profile's permissions.
 - **Detected by:** `WARP.md`, `.warp`
@@ -221,7 +221,7 @@ Only behaviour the tools' own docs describe is used. Global installs (`--global`
 
 - **Rules:** Reads the kit's block in AGENTS.md.
 - **Skills:** Skills in .agents/skills (or a shared folder it also reads).
-- **Agents:** Generic agents get the agent instructions as reference files. The skills point to docs/agent-engineering/agents/ instead.
+- **Agents:** Generic agents get the agent instructions as reference files. The skills point to .agent-kit/agents/ instead.
 - **Format on edit:** Any other agent (AGENTS.md) has no documented after-edit hook; use the pre-commit checks.
 - **Secret guard:** Any other agent (AGENTS.md) has no way to block file reads.
 - **Docs** (checked 2026-10-09): <https://agents.md/>, <https://agentskills.io/specification>

@@ -33,9 +33,9 @@ test("(a) empty folder, Claude Code: everything is a CREATE, AGENTS.md is the hu
   for (const p of [
     "AGENTS.md",
     "CLAUDE.md",
-    "docs/agent-engineering/RULES.md",
-    "docs/agent-engineering/plan-template.md",
-    "docs/agent-engineering/agents/verifier.md",
+    ".agent-kit/RULES.md",
+    ".agent-kit/plan-template.md",
+    ".agent-kit/agents/verifier.md",
     ".claude/agents/verifier.md",
     ".claude/skills/feature/SKILL.md",
     ".claude/skills/quick-fix/SKILL.md",
@@ -120,8 +120,11 @@ test("global mode installs under ~/.claude for Claude Code only, with project pa
   assert.ok(actions["skills/feature/SKILL.md"], "no .claude/ prefix inside ~/.claude");
   assert.ok(actions["agents/verifier.md"]);
   assert.ok(!actions["AGENTS.md"], "no AGENTS.md hub globally");
-  assert.match(actions["skills/feature/SKILL.md"].after!, /`~\/\.claude\/docs\/agent-engineering\/RULES\.md`/);
-  assert.match(actions["CLAUDE.md"].after!, /@~\/\.claude\/docs\/agent-engineering\/RULES\.md/);
+  assert.match(actions["skills/feature/SKILL.md"].after!, /`~\/\.claude\/\.agent-kit\/RULES\.md`/);
+  assert.match(actions["CLAUDE.md"].after!, /`~\/\.claude\/\.agent-kit\/RULES\.md`/);
+  assert.match(actions["CLAUDE.md"].after!, /`~\/\.claude\/\.agent-kit\/agents\/X\.md`/);
+  assert.match(actions["skills/feature/SKILL.md"].after!, /`\.agent-kit\/plans\//, "plans stay in each project");
+  assert.match(actions["skills/verify-change/SKILL.md"].after!, /`sh \.agent-kit\/check\.sh`/, "checks stay in each project");
   assert.ok(!actions["CLAUDE.md"].after!.includes("## Project Overview"), "no project template globally");
   const settings = JSON.parse(actions["settings.json"].after!);
   assert.equal(settings.hooks.PostToolUse[0].hooks[0].command, 'node "$HOME/.claude/.agent-kit/format.mjs" --from claude');
@@ -133,8 +136,24 @@ test("every kit doc path that installed skills, agents and instructions mention 
   for (const [tools, preset] of [[["claude-code"], "everything"], [["codex", "cursor"], "everything"], [["windsurf", "zed"], "recommended"], [["claude-code"], "minimal"]] as [ToolId[], string][]) {
     const actions = plan(makeFixture("empty"), tools, presetSelection(manifest, preset)).actions;
     const installed = new Set(actions.map((a) => a.path));
-    const mentioned = actions.flatMap((a) => a.after?.match(/docs\/agent-engineering\/[\w./-]+\.md/g) ?? []).filter((p) => !p.endsWith("/X.md"));
+    const mentioned = actions.flatMap((a) => a.after?.match(/\.agent-kit\/[\w./-]+\.md/g) ?? []).filter((p) => !p.endsWith("/X.md"));
     const missing = [...new Set(mentioned)].filter((p) => !installed.has(p));
     assert.deepEqual(missing, [], `${tools.join("+")} (${preset}): mentioned but not installed`);
   }
+});
+
+test("the kit installs nothing under docs/, which belongs to the project", () => {
+  for (const tools of [["claude-code"], ["codex", "cursor", "copilot", "gemini", "windsurf", "zed"]] as ToolId[][]) {
+    const actions = plan(makeFixture("empty"), tools, presetSelection(manifest, "everything")).actions;
+    assert.deepEqual(actions.filter((a) => a.path.startsWith("docs/")).map((a) => a.path), [], tools.join("+"));
+  }
+});
+
+test("the always-loaded instructions block stays small and inlines its rules instead of importing the rulebook", () => {
+  const agentsMd = byPath(plan(makeFixture("empty"), ["claude-code"]).actions)["AGENTS.md"].after!;
+  const block = agentsMd.slice(agentsMd.indexOf(MARKER_START));
+  // Every tool loads this block into every session; ~4 characters per token keeps it near 1k tokens.
+  assert.ok(block.length <= 4000, `the block is ${block.length} characters`);
+  assert.doesNotMatch(block, /@\S*RULES\.md/, "no @-import of the rulebook");
+  assert.match(block, /`\.agent-kit\/RULES\.md`/, "points to the rulebook for on-demand reading");
 });

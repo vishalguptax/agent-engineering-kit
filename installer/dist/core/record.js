@@ -2,15 +2,15 @@ import { createHash } from "node:crypto";
 import path from "node:path";
 import { isToolId } from "../tools/profiles.js";
 import { isKnownAdded } from "./json-merge.js";
-import { installablePaths, knownJsonAdditions } from "./layout.js";
+import { installablePaths, knownJsonAdditions, retiredReferencePaths } from "./layout.js";
 import { BACKUP_PREFIX, KIT_STATE_DIR, claudeDirRel, legacyBackupPrefix, legacyRecordRel, readTargetFile, recordRel } from "./target.js";
 export function hashText(text) {
     return createHash("sha256").update(text, "utf8").digest("hex");
 }
-/** Paths the pre-release installer wrote that are no longer used; allowed in a migrated record so they can be removed. */
-function legacyPaths(target) {
+/** Paths earlier kit versions wrote that are no longer used; allowed in a record so Update can remove them. */
+function legacyPaths(manifest, target) {
     const claude = target.mode === "global" ? "" : ".claude/";
-    return ["docs/AGENT_ENGINEERING_RULES.md", `${claude}hooks/format.sh`].flatMap((p) => [p, `${p}.kit-new`]);
+    return ["docs/AGENT_ENGINEERING_RULES.md", `${claude}hooks/format.sh`, ...retiredReferencePaths(manifest)].flatMap((p) => [p, `${p}.kit-new`]);
 }
 /**
  * Reads and validates the install record (or a pre-release record, converted). The record lives in the user's
@@ -96,7 +96,7 @@ function recordProblems(record, manifest, target) {
         return ["it doesn't have the expected structure"];
     }
     const problems = [];
-    const allowedFiles = new Set([...installablePaths(manifest, target), ...legacyPaths(target)]);
+    const allowedFiles = new Set([...installablePaths(manifest, target), ...legacyPaths(manifest, target)]);
     const allowedDirs = creatableDirs(allowedFiles, target);
     const knownAdditions = knownJsonAdditions(target);
     const backupPrefixes = [BACKUP_PREFIX, legacyBackupPrefix(target)];

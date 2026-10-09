@@ -1,3 +1,4 @@
+import { AGENT_REFERENCE_DIR } from "../core/layout.js";
 export const CAPABILITY_LABELS = {
     rules: "Rules",
     skills: "Skills",
@@ -30,7 +31,7 @@ function agents(tool) {
     if (!tool.agents)
         return { state: "none", detail: `${tool.name} has no sub-agents.` };
     if ("reference" in tool.agents)
-        return { state: "reference", detail: `${tool.agents.reference} The skills point to docs/agent-engineering/agents/ instead.` };
+        return { state: "reference", detail: `${tool.agents.reference} The skills point to ${AGENT_REFERENCE_DIR}/ instead.` };
     return { state: "yes", detail: `Agents in ${tool.agents.reads[0].dir} (or a shared folder it also reads).` };
 }
 function format(tool) {

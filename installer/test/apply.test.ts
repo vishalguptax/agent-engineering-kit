@@ -105,6 +105,57 @@ test("updating a 1.0.0 install renames fix and verify to quick-fix and verify-ch
   assert.deepEqual(readRecord(target, manifest)!.components.sort(), ["quick-fix", "rules", "verifier", "verify-change"].sort());
 });
 
+test("updating a 1.1.0 install moves the reference files from docs/agent-engineering/ to .agent-kit/, leaving docs/ untouched", () => {
+  const dir = makeFixture("empty");
+  const target = projectTarget(dir);
+  install(target);
+  // Rewrite the install as 1.1.0 left it: the rulebook, plan template and agent references under docs/agent-engineering/.
+  const recordFile = path.join(dir, ".agent-kit/install.json");
+  const record = JSON.parse(readFileSync(recordFile, "utf8"));
+  const moved: string[] = [];
+  for (const entry of record.filesCreated) {
+    if (!/^\.agent-kit\/(RULES\.md|plan-template\.md|agents\/)/.test(entry.path)) continue;
+    const old = entry.path.replace(".agent-kit/", "docs/agent-engineering/");
+    mkdirSync(path.dirname(path.join(dir, old)), { recursive: true });
+    writeFileSync(path.join(dir, old), read(dir, entry.path));
+    rmSync(path.join(dir, entry.path));
+    moved.push(old);
+    entry.path = old;
+  }
+  record.kitVersion = "1.1.0";
+  record.createdDirs.push("docs", "docs/agent-engineering", "docs/agent-engineering/agents");
+  writeFileSync(recordFile, JSON.stringify(record));
+  assert.ok(moved.includes("docs/agent-engineering/RULES.md") && moved.includes("docs/agent-engineering/agents/verifier.md"));
+
+  const update = plan(target);
+  assert.deepEqual(update.blockers, [], "the 1.1.0 record is trusted");
+  const kinds = Object.fromEntries(update.actions.map((a) => [a.path, a.kind]));
+  for (const old of moved) assert.equal(kinds[old], "REMOVE", old);
+  assert.equal(kinds[".agent-kit/RULES.md"], "CREATE");
+  applyPlan({ manifest, plan: update });
+  assert.ok(!existsSync(path.join(dir, "docs")), "the kit's empty docs/ folders are removed");
+  assert.ok(existsSync(path.join(dir, ".agent-kit/RULES.md")) && existsSync(path.join(dir, ".agent-kit/agents/verifier.md")));
+  assert.deepEqual([...new Set(plan(target).actions.map((a) => a.kind))], ["SKIP"], "a second run changes nothing");
+});
+
+test("updating a 1.1.0 install keeps the project's own docs/ folder and files", () => {
+  const dir = makeFixture("empty");
+  const target = projectTarget(dir);
+  install(target);
+  const recordFile = path.join(dir, ".agent-kit/install.json");
+  const record = JSON.parse(readFileSync(recordFile, "utf8"));
+  const rules = record.filesCreated.find((e: { path: string }) => e.path === ".agent-kit/RULES.md");
+  mkdirSync(path.join(dir, "docs/agent-engineering"), { recursive: true });
+  writeFileSync(path.join(dir, "docs/agent-engineering/RULES.md"), read(dir, ".agent-kit/RULES.md"));
+  writeFileSync(path.join(dir, "docs/guide.md"), "# Our guide\n");
+  rules.path = "docs/agent-engineering/RULES.md";
+  record.createdDirs.push("docs/agent-engineering");
+  writeFileSync(recordFile, JSON.stringify(record));
+  applyPlan({ manifest, plan: plan(target) });
+  assert.equal(read(dir, "docs/guide.md"), "# Our guide\n");
+  assert.ok(!existsSync(path.join(dir, "docs/agent-engineering")));
+});
+
 test("backs up every file it changes and writes a v2 install record in .agent-kit/", () => {
   const dir = makeFixture("existing-settings");
   const originals = { settings: read(dir, ".claude/settings.json"), claudeMd: read(dir, "CLAUDE.md"), verifier: read(dir, ".claude/agents/verifier.md") };
@@ -234,7 +285,7 @@ test("a symlink planted after planning is still refused at write time", () => {
   const dir = makeFixture("empty");
   const planned = plan(projectTarget(dir), ["rules"]);
   const outside = tempDir("kit-outside-");
-  symlinkSync(outside, path.join(dir, "docs"), "dir");
+  symlinkSync(outside, path.join(dir, ".agent-kit"), "dir");
   assert.throws(() => applyPlan({ manifest, plan: planned }), /outside/);
   assert.deepEqual(snapshotTree(outside), {});
 });
@@ -319,7 +370,7 @@ test("migration (block in CLAUDE.md): CLAUDE.md becomes an import, the hub moves
   const kinds = Object.fromEntries(migration.actions.map((a) => [a.path, a.kind]));
   assert.equal(kinds["docs/AGENT_ENGINEERING_RULES.md"], "REMOVE", "the old, unchanged rulebook goes");
   assert.equal(kinds[".claude/hooks/format.sh"], "REMOVE");
-  assert.equal(kinds["docs/agent-engineering/RULES.md"], "CREATE");
+  assert.equal(kinds[".agent-kit/RULES.md"], "CREATE");
   assert.equal(kinds["CLAUDE.md"], "APPEND");
   assert.equal(kinds["AGENTS.md"], "CREATE");
   assert.equal(kinds[".claude/agents/verifier.md"], "UPDATE", "unchanged v1 agent is updated");
@@ -354,5 +405,5 @@ test("migration keeps a rulebook the user edited, and installs the new one next 
   assert.match(migration.actions.find((a) => a.path === "docs/AGENT_ENGINEERING_RULES.md")!.summary, /Kept/);
   applyPlan({ manifest, plan: migration });
   assert.equal(read(dir, "docs/AGENT_ENGINEERING_RULES.md"), "# My edited rules\n");
-  assert.ok(existsSync(path.join(dir, "docs/agent-engineering/RULES.md")));
+  assert.ok(existsSync(path.join(dir, ".agent-kit/RULES.md")));
 });

@@ -30,7 +30,7 @@ Edit files under `kit/`. The installer reads them live, so run it against a scra
 - **Write for every tool.** Say "the feature skill" or "the verifier agent", not Claude-only syntax like `$ARGUMENTS` or a specific tool name. Skills and agents have one canonical frontmatter (`name`, `description`, plus `disable-model-invocation` for skills and `access: read-only|edit` for agents); the renderers in `installer/src/render/` turn it into each tool's format.
 
 - **Adding or removing a file** means updating [`installer/kit.manifest.json`](installer/kit.manifest.json). The manifest test fails if a kit file isn't listed or a listed file is missing.
-- **Writing a project-relative path** like `docs/agent-engineering/RULES.md` into a file? Global installs need it to point into `~/.claude`. Add a `globalRewrites` entry for it.
+- **Writing a project-relative path** like `.agent-kit/RULES.md` into a file? Global installs need it to point into `~/.claude`. Add a `globalRewrites` entry for it.
 - **Bump `kitVersion`** in the manifest and add a [CHANGELOG](CHANGELOG.md) entry for anything users will notice.
 
 ## Add a component

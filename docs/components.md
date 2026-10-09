@@ -19,9 +19,9 @@ Dependencies are added automatically; required components are always installed.
 `rules` · always installed · The rulebook: plan first, keep it simple, verify before saying done.
 
 - **What it is:** One Markdown file with the kit's principles: think before coding, plan, make surgical changes, verify with real checks, simplify, and review your own diff. It works for any tech stack and any AI tool.
-- **When it's used:** Always. The instructions block in AGENTS.md points every tool to it (Claude Code imports it directly). The skills and agents refer to it too.
+- **When it's used:** As a reference. The instructions block in AGENTS.md carries the short, always-on rules; skills and agents open the one section of the rulebook they need, so it doesn't cost tokens in every session.
 - **Example:** `You don't trigger it. Once installed, the agent follows it automatically.`
-- **Installs:** `docs/agent-engineering/RULES.md`; `docs/agent-engineering/plan-template.md`
+- **Installs:** `.agent-kit/RULES.md`; `.agent-kit/plan-template.md`
 
 ## Project instructions
 
@@ -29,7 +29,7 @@ Dependencies are added automatically; required components are always installed.
 
 `instructions` · A short block in AGENTS.md that switches the rules on for every tool.
 
-- **What it is:** Adds a marked block to AGENTS.md, which almost every AI coding tool reads: it points to the rulebook and says when to use the feature, fix, verify and learn skills. Claude Code gets a one-line @AGENTS.md import in CLAUDE.md, and Gemini CLI a one-line setting, so they read it too. The block sits between marker comments, so it can be updated or removed cleanly.
+- **What it is:** Adds a marked block to AGENTS.md, which almost every AI coding tool reads: the core rules as short, checkable lines (about 600 tokens), what "done" means, and when to use the feature, quick-fix, verify-change, ship and learn skills. Claude Code gets a one-line @AGENTS.md import in CLAUDE.md, and Gemini CLI a one-line setting, so they read it too. The block sits between marker comments, so it can be updated or removed cleanly.
 - **When it's used:** Your tools load it at the start of every session.
 - **Example:** `Open AGENTS.md after install: the block is between <!-- agent-engineering-kit:start --> and <!-- agent-engineering-kit:end -->.`
 - **Also installs:** Engineering rules
@@ -44,7 +44,7 @@ Dependencies are added automatically; required components are always installed.
 - **What it is:** An agent that finds your project's format, lint, type-check, test and build commands, runs them, exercises the changed behavior, and reports PASS/FAIL with the actual output. It reads and runs things but does not edit code.
 - **When it's used:** Before the agent says a task is done. /verify-change and /feature use it automatically.
 - **Example:** `"Use the verifier subagent to check this change."`
-- **Installs:** the `verifier` agent in each selected tool's agent format, plus `docs/agent-engineering/agents/verifier.md`
+- **Installs:** the `verifier` agent in each selected tool's agent format, plus `.agent-kit/agents/verifier.md`
 
 ### code-simplifier agent
 
@@ -53,7 +53,7 @@ Dependencies are added automatically; required components are always installed.
 - **What it is:** An agent that goes over only the code changed in the current task. It removes dead code, duplication, needless abstraction and narration comments, then re-runs the checks.
 - **When it's used:** After an implementation works and before review. /feature uses it (Claude Code's built-in /simplify is an alternative).
 - **Example:** `"Run the code-simplifier on what we just built."`
-- **Installs:** the `code-simplifier` agent in each selected tool's agent format, plus `docs/agent-engineering/agents/code-simplifier.md`
+- **Installs:** the `code-simplifier` agent in each selected tool's agent format, plus `.agent-kit/agents/code-simplifier.md`
 
 ### security-reviewer agent
 
@@ -62,7 +62,7 @@ Dependencies are added automatically; required components are always installed.
 - **What it is:** An agent that checks the diff for leaked secrets, injection, XSS, missing auth checks, path traversal, unsafe dependencies and similar issues, and reports only concrete findings.
 - **When it's used:** For changes that touch auth, user input, APIs, files, secrets, payments or dependencies. /feature and /ship call it when relevant.
 - **Example:** `"Have the security-reviewer look at this diff."`
-- **Installs:** the `security-reviewer` agent in each selected tool's agent format, plus `docs/agent-engineering/agents/security-reviewer.md`
+- **Installs:** the `security-reviewer` agent in each selected tool's agent format, plus `.agent-kit/agents/security-reviewer.md`
 
 ### code-explorer agent
 
@@ -71,7 +71,7 @@ Dependencies are added automatically; required components are always installed.
 - **What it is:** A read-only agent that traces an area of the codebase end to end (entry points, data flow, key files, patterns to reuse) and reports back with file:line references, so the main conversation's context stays clean.
 - **When it's used:** At the start of a feature or change in unfamiliar code. /feature runs it first.
 - **Example:** `"Use the code-explorer subagent to map how checkout works."`
-- **Installs:** the `code-explorer` agent in each selected tool's agent format, plus `docs/agent-engineering/agents/code-explorer.md`
+- **Installs:** the `code-explorer` agent in each selected tool's agent format, plus `.agent-kit/agents/code-explorer.md`
 
 ### code-architect agent
 
@@ -80,7 +80,7 @@ Dependencies are added automatically; required components are always installed.
 - **What it is:** A read-only agent that turns the task and the explorer's findings into one implementation blueprint: files to touch, interfaces, data flow, test plan, and build order in small verifiable slices. It recommends the simplest design that reuses existing patterns.
 - **When it's used:** After exploring and before building anything beyond a trivial change. /feature uses it to draft the plan you approve.
 - **Example:** `"Have the code-architect design the CSV export."`
-- **Installs:** the `code-architect` agent in each selected tool's agent format, plus `docs/agent-engineering/agents/code-architect.md`
+- **Installs:** the `code-architect` agent in each selected tool's agent format, plus `.agent-kit/agents/code-architect.md`
 
 ### silent-failure-hunter agent
 
@@ -89,7 +89,7 @@ Dependencies are added automatically; required components are always installed.
 - **What it is:** A read-only reviewer that looks for empty catches, ignored error codes, unawaited promises, and fallbacks that make a failure look like success, and reports each with a concrete fix.
 - **When it's used:** When reviewing changes with error handling, I/O, network, parsing, or async code. /feature and /ship call it when relevant.
 - **Example:** `"Run the silent-failure-hunter on this diff."`
-- **Installs:** the `silent-failure-hunter` agent in each selected tool's agent format, plus `docs/agent-engineering/agents/silent-failure-hunter.md`
+- **Installs:** the `silent-failure-hunter` agent in each selected tool's agent format, plus `.agent-kit/agents/silent-failure-hunter.md`
 
 ### test-analyzer agent
 
@@ -98,7 +98,7 @@ Dependencies are added automatically; required components are always installed.
 - **What it is:** A read-only reviewer that maps every changed behavior to the tests that cover it, flags missing edge cases and error paths, and catches skipped, weakened or flaky tests.
 - **When it's used:** Before declaring a change done or opening a PR. /feature and /ship call it on every change.
 - **Example:** `"Have the test-analyzer check coverage for this change."`
-- **Installs:** the `test-analyzer` agent in each selected tool's agent format, plus `docs/agent-engineering/agents/test-analyzer.md`
+- **Installs:** the `test-analyzer` agent in each selected tool's agent format, plus `.agent-kit/agents/test-analyzer.md`
 
 ### frontend-reviewer agent
 
@@ -107,7 +107,7 @@ Dependencies are added automatically; required components are always installed.
 - **What it is:** A read-only reviewer for UI changes. It checks the change follows the project's DESIGN.md or existing components, handles loading/empty/error states, is accessible and responsive, and doesn't hurt performance. With browser tools it also looks at the real screens.
 - **When it's used:** When a change touches components, pages, styles, or client-side code. Pre-selected when the installer detects a frontend stack.
 - **Example:** `"Have the frontend-reviewer check the new settings page."`
-- **Installs:** the `frontend-reviewer` agent in each selected tool's agent format, plus `docs/agent-engineering/agents/frontend-reviewer.md`
+- **Installs:** the `frontend-reviewer` agent in each selected tool's agent format, plus `.agent-kit/agents/frontend-reviewer.md`
 
 ## Workflows/Skills
 

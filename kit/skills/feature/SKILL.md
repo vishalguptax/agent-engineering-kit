@@ -6,9 +6,9 @@ disable-model-invocation: true
 
 # Feature workflow
 
-The task is what the user asked for when starting this skill. Follow `docs/agent-engineering/RULES.md` throughout. The project's instructions (`AGENTS.md`, `CLAUDE.md`), including its **Workflow Preferences** section if there is one, take priority over the steps below (e.g. where plans go, the test policy, the commit style).
+The task is what the user asked for when starting this skill. Follow the kit's rules throughout, opening a section of `.agent-kit/RULES.md` when a step needs more detail. The project's instructions (`AGENTS.md`, `CLAUDE.md`), including its **Workflow Preferences** section if there is one, take priority over the steps below (e.g. where plans go, the test policy, the commit style).
 
-> Matt Pocock's skills (grilling, domain-modeling, codebase-design, tdd, diagnosing-bugs, code-review) are optional. If one isn't available, do that phase by following `docs/agent-engineering/RULES.md` §2, and say once which skill is missing.
+> Matt Pocock's skills (grilling, domain-modeling, codebase-design, tdd, diagnosing-bugs, code-review) are optional. If one isn't available, do that step as §2 of `.agent-kit/RULES.md` describes, and say once which skill is missing.
 
 ## Phase 0 — Context (no edits)
 1. Use the **project-conventions** skill: stack, real commands, conventions, reusable building blocks.
@@ -21,7 +21,7 @@ The task is what the user asked for when starting this skill. Follow `docs/agent
 
 ## Phase 2 — Plan (no edits except the plan file)
 6. Use the **code-architect** agent (with the explorer's report and the agreed decisions) to design the change, applying the **codebase-design** skill's guidance if available: deep modules, a lot of behaviour behind a small interface.
-7. Write the plan to `docs/plans/NNN-<slug>.md` (or where the Workflow Preferences say) using `docs/agent-engineering/plan-template.md` (NNN = next number in that folder). Make sure that:
+7. Write the plan to `.agent-kit/plans/NNN-<slug>.md` (or where the Workflow Preferences say) using `.agent-kit/plan-template.md` (NNN = next number in that folder). Make sure that:
    - every requirement is **Must** or **Flexible**, and No-Gos and Rabbit Holes are explicit;
    - every **Done When** item is binary and observable (rewrite "handles", "supports", "works with", "properly");
    - the **Detail check** table accounts for every detail from step 4 — each one is a requirement, a No-Go, or an open question.
@@ -46,7 +46,7 @@ The task is what the user asked for when starting this skill. Follow `docs/agent
     - **silent-failure-hunter** — when the change has error handling, I/O, network, parsing, or async code.
     - **security-reviewer** — when it touches auth, user input, APIs, data, files, payments, secrets/config, or dependencies.
     - **frontend-reviewer** (if installed) — when it touches UI.
-16. Fix all must-fix and in-scope should-fix findings, verify again, and confirm the Anti-Slop Checklist (§8 of the rules).
+16. Fix all must-fix and in-scope should-fix findings, verify again, and confirm the review checklist (§8 of `.agent-kit/RULES.md`).
 
 ## Phase 7 — Report
 17. Check every Done When item and record the evidence in the plan; set its status to Done.
