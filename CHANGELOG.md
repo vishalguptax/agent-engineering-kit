@@ -2,6 +2,14 @@
 
 This project follows [Semantic Versioning](https://semver.org). The kit version lives in `installer/kit.manifest.json` (`kitVersion`) and is written into every install record.
 
+## 1.2.1 — 2026-10-09
+
+### Fixes
+- **The installer's scan no longer shows a "docs/" row.** Since 1.2.0 the kit installs nothing under `docs/`, so whether a project has that folder doesn't matter.
+
+### Docs
+- **The README credits its sources in a Credits section,** each with a link and what the kit took from it: Boris Cherny, Matt Pocock's skills, the Karpathy guidelines, Superpowers, Addy Osmani's agent-skills and Anthropic's frontend-design.
+
 ## 1.2.0 — 2026-10-09
 
 ### Leaner for every session
