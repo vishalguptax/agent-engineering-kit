@@ -5,6 +5,7 @@ import path from "node:path";
 import { applyPlan } from "../src/core/apply.js";
 import { loadManifest } from "../src/core/manifest.js";
 import { planInstall } from "../src/core/plan.js";
+import { presetSelection } from "../src/core/resolve.js";
 import { hashText } from "../src/core/record.js";
 import { projectTarget } from "../src/core/target.js";
 import { planUninstall } from "../src/core/uninstall.js";
@@ -128,4 +129,14 @@ test("a forged jsonAdded can't make the installer remove the user's own settings
     assert.match(plan.blockers.join(), /install record/);
   }
   assert.equal(readFileSync(path.join(dir, ".claude/settings.json"), "utf8"), text);
+});
+
+test("a docs/plans symlink pointing outside the project isn't followed for the plans hint", () => {
+  const dir = makeFixture("empty");
+  const outside = tempDir("kit-outside-");
+  writeFileSync(path.join(outside, "001-secret.md"), "x\n");
+  mkdirSync(path.join(dir, "docs"));
+  symlinkSync(outside, path.join(dir, "docs/plans"), "dir");
+  const result = planInstall({ manifest, target: projectTarget(dir), selected: presetSelection(manifest, "recommended"), tools: ["claude-code"], homeDir: tempDir("kit-home-") });
+  assert.ok(!result.notes.some((n) => n.includes("docs/plans/")));
 });

@@ -179,3 +179,17 @@ test("every rulebook section that the block, skills and agents cite exists", () 
   assert.ok(cited.length > 0);
   assert.deepEqual(cited.filter((c) => !sections.has(c.split("§")[1])), []);
 });
+
+test("plans in docs/plans/ from an earlier version: the preview says how to keep that folder, unless the project already says where plans go", () => {
+  const dir = makeFixture("empty");
+  mkdirSync(path.join(dir, "docs/plans"), { recursive: true });
+  writeFileSync(path.join(dir, "docs/plans/001-login.md"), "# Login\n");
+  const hint = (selected = recommended, projectInfo?: { workflow?: string }) =>
+    planInstall({ manifest, target: projectTarget(dir), selected, tools: ["claude-code"], homeDir, projectInfo }).notes.find((n) => n.includes("docs/plans/"));
+  assert.match(hint() ?? "", /add "- Plans: docs\/plans\/" under Workflow Preferences/);
+  assert.equal(hint(["rules"]), undefined, "without the feature skill nothing writes plans");
+  assert.equal(hint(recommended, { workflow: "- Plans: docs/plans/" }), undefined, "the answers being installed already say where");
+  writeFileSync(path.join(dir, "AGENTS.md"), "## Workflow Preferences\n- Plans: docs/plans/\n");
+  assert.equal(hint(), undefined, "AGENTS.md already says where");
+  assert.equal(plan(makeFixture("empty"), ["claude-code"]).notes.find((n) => n.includes("docs/plans/")), undefined, "no old plans, no note");
+});

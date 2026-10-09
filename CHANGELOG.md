@@ -2,6 +2,12 @@
 
 This project follows [Semantic Versioning](https://semver.org). The kit version lives in `installer/kit.manifest.json` (`kitVersion`) and is written into every install record.
 
+## 1.2.3 — 2026-10-09
+
+### Fixes
+- **Upgrading with plans in `docs/plans/`:** the preview now says that new plans go to `.agent-kit/plans/` and gives the one line to add to Workflow Preferences to keep using `docs/plans/`. It stays quiet once the project (or the answers being installed) says where plans go.
+- **GUI scan:** long labels such as `.claude/settings.json` no longer run into their value.
+
 ## 1.2.2 — 2026-10-09
 
 ### Fixes

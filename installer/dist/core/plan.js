@@ -1,4 +1,4 @@
-import { existsSync } from "node:fs";
+import { existsSync, readdirSync } from "node:fs";
 import os from "node:os";
 import { findCollisions } from "../tools/collisions.js";
 import { toolById } from "../tools/profiles.js";
@@ -63,6 +63,7 @@ export function planInstall({ manifest, target, selected, tools: toolIds, projec
     if (target.mode === "project") {
         plan.notes.push(...toolWarnings(target, tools));
         attempt(() => plan.notes.push(...collisionNotes(target, tools, components, homeDir)));
+        plan.notes.push(...plansFolderNotes(target, components, projectInfo));
     }
     plan.blockers.push(...pathBlockers(target, plan.actions));
     plan.updatesRecord = recordChanges(target, record, plan);
@@ -197,6 +198,30 @@ function planHub(file, { manifest, target, projectInfo, notes }) {
 function projectTemplate(manifest, target) {
     const rulebook = manifest.components.flatMap((c) => c.artifacts).find((a) => a.kind === "rulebook");
     return rulebook?.kind === "rulebook" ? extractProjectTemplate(readKitFile(manifest, rulebook.source, target)) : null;
+}
+/** Where kit 1.0 and 1.1 had the feature skill write plans. */
+const RETIRED_PLANS_DIR = "docs/plans";
+const PLANS_PREFERENCE = /^\s*-\s*Plans:/im;
+/** Plans from an earlier kit version in docs/plans/: say how to keep using that folder, unless the project already says where plans go. */
+function plansFolderNotes(target, components, projectInfo) {
+    if (target.mode !== "project" || !components.some((c) => c.id === "feature"))
+        return [];
+    // The project may be an untrusted clone: a symlinked or unreadable file just means "no".
+    const quietly = (read, fallback) => {
+        try {
+            return read();
+        }
+        catch {
+            return fallback;
+        }
+    };
+    const hasPlans = quietly(() => readdirSync(resolveInside(target.root, RETIRED_PLANS_DIR)).some((name) => name.endsWith(".md")), false);
+    if (!hasPlans)
+        return [];
+    const instructions = ["AGENTS.md", "CLAUDE.md"].map((file) => quietly(() => readTargetFile(target, file), null));
+    if ([projectInfo?.workflow, projectInfo?.markdown, ...instructions].some((text) => PLANS_PREFERENCE.test(text ?? "")))
+        return [];
+    return [`Plans: you have plans in ${RETIRED_PLANS_DIR}/, but the feature skill now writes new ones to .agent-kit/plans/. To keep using ${RETIRED_PLANS_DIR}/, add "- Plans: ${RETIRED_PLANS_DIR}/" under Workflow Preferences in AGENTS.md.`];
 }
 /** Profile warnings whose trigger file exists in the project (e.g. Zed would read another rules file first). */
 function toolWarnings(target, tools) {

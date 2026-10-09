@@ -133,7 +133,7 @@ The full per-tool table is in [supported-tools.md](supported-tools.md).
   - A file you've edited since loses only the kit's parts (its marked block, its JSON entries), or is kept as yours.
   - Empty folders the kit created are removed.
 - **Installs from the pre-release (Claude-only) installer** are converted on the next run: the old record (`.claude/.kit-install.json`) is read, the kit's block moves from CLAUDE.md to AGENTS.md (CLAUDE.md keeps a marked `@AGENTS.md` import), and the rulebook moves to `.agent-kit/RULES.md`. Files you edited are kept or shown as conflicts, and everything appears in the preview first.
-- **Installs from 1.0 and 1.1** had the rulebook, plan template and agent instructions in `docs/agent-engineering/`. Update moves them to `.agent-kit/` and removes the old copies you haven't edited (an edited one is kept as yours), plus any `docs/` folders the kit created that are now empty. Plans you wrote in `docs/plans/` are not moved; keep them there by adding `- Plans: docs/plans/` to Workflow Preferences, or move them yourself.
+- **Installs from 1.0 and 1.1** had the rulebook, plan template and agent instructions in `docs/agent-engineering/`. Update moves them to `.agent-kit/` and removes the old copies you haven't edited (an edited one is kept as yours), plus any `docs/` folders the kit created that are now empty. Plans you wrote in `docs/plans/` are not moved; the preview reminds you to keep them there by adding `- Plans: docs/plans/` to Workflow Preferences, or move them yourself.
 
 ## Safety
 

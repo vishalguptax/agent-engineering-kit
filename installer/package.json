@@ -1,6 +1,6 @@
 {
   "name": "agent-engineering-kit-installer",
-  "version": "1.2.2",
+  "version": "1.2.3",
   "private": true,
   "description": "GUI + CLI installer for the Agent Engineering Kit",
   "type": "module",
