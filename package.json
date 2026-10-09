@@ -1,0 +1,44 @@
+{
+  "name": "agent-engineering-kit",
+  "version": "2.0.0",
+  "description": "Make AI coding agents (Claude Code, Codex, Cursor, Copilot, Gemini CLI and more) ship clean, maintainable code. A safe GUI/terminal installer for rules, agents, skills and hooks, for any project.",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/vishalguptax/agent-engineering-kit.git"
+  },
+  "homepage": "https://github.com/vishalguptax/agent-engineering-kit#readme",
+  "bugs": {
+    "url": "https://github.com/vishalguptax/agent-engineering-kit/issues"
+  },
+  "type": "module",
+  "bin": {
+    "agent-engineering-kit": "installer/dist/index.js"
+  },
+  "files": [
+    "installer/dist",
+    "installer/ui",
+    "installer/kit.manifest.json",
+    "kit"
+  ],
+  "engines": {
+    "node": ">=18"
+  },
+  "keywords": [
+    "agents-md",
+    "ai-agents",
+    "coding-agent",
+    "claude-code",
+    "codex",
+    "cursor",
+    "github-copilot",
+    "gemini-cli",
+    "skills",
+    "subagents",
+    "developer-tools"
+  ],
+  "scripts": {
+    "test": "npm --prefix installer test",
+    "prepublishOnly": "npm --prefix installer run build && npm --prefix installer run docs && npm --prefix installer test"
+  }
+}

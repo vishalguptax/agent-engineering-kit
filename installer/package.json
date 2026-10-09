@@ -1,0 +1,27 @@
+{
+  "name": "agent-engineering-kit-installer",
+  "version": "2.0.0",
+  "private": true,
+  "description": "GUI + CLI installer for the Agent Engineering Kit",
+  "type": "module",
+  "engines": {
+    "node": ">=18"
+  },
+  "bin": {
+    "kit-installer": "dist/index.js"
+  },
+  "scripts": {
+    "start": "node dist/index.js",
+    "dev": "tsx src/index.ts",
+    "build": "node -e \"require('fs').rmSync('dist',{recursive:true,force:true})\" && tsc -p tsconfig.json",
+    "typecheck": "tsc -p tsconfig.json --noEmit && tsc -p tsconfig.test.json --noEmit",
+    "test": "tsx --test test/*.test.ts",
+    "docs": "tsx scripts/components-doc.ts && tsx scripts/tools-doc.ts",
+    "audit-profiles": "tsx scripts/audit-profiles.ts"
+  },
+  "devDependencies": {
+    "@types/node": "18.19.130",
+    "tsx": "4.23.15",
+    "typescript": "5.9.3"
+  }
+}
