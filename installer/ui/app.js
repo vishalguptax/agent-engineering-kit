@@ -327,7 +327,7 @@ function scanView() {
     ["CLAUDE.md", has(s.found.claudeMd)],
   ];
   if (s.target.mode === "project") {
-    rows.push(["AGENTS.md", has(s.found.agentsMd)], ["Glossary", [s.found.glossary ? "yes" : "no", s.found.glossary ?? "not found (GLOSSARY.md)"]], ["docs/", has(s.found.docsDir)]);
+    rows.push(["AGENTS.md", has(s.found.agentsMd)], ["Glossary", [s.found.glossary ? "yes" : "no", s.found.glossary ?? "not found (GLOSSARY.md)"]]);
     const git = !s.git ? ["no", "git not available"] : !s.git.isRepo ? ["no", "not a git repository"] : s.git.uncommittedChanges ? ["bad", `${s.git.uncommittedChanges} uncommitted change(s)`] : ["yes", "clean working tree"];
     rows.push(["Git", git], ["Stack", list(s.stack)]);
     rows.push(["AI tools", list(s.tools.inProject.map(toolName))]);

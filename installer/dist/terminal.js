@@ -47,7 +47,7 @@ export function describeScan(scan) {
         ["CLAUDE.md", yesNo(found.claudeMd)],
     ];
     if (scan.target.mode === "project") {
-        rows.push(["AGENTS.md", yesNo(found.agentsMd)], ["Glossary", found.glossary ?? "not found"], ["docs/", yesNo(found.docsDir)]);
+        rows.push(["AGENTS.md", yesNo(found.agentsMd)], ["Glossary", found.glossary ?? "not found"]);
         const git = !scan.git ? "git not available" : !scan.git.isRepo ? "not a git repository" : scan.git.uncommittedChanges ? `${scan.git.uncommittedChanges} uncommitted change(s)` : "clean";
         rows.push(["Git", git], ["Stack", list(scan.stack)]);
     }

@@ -79,7 +79,6 @@ export function scan(manifest, target, homeDir = os.homedir()) {
             claudeMd: has("CLAUDE.md"),
             agentsMd: target.mode === "project" && has("AGENTS.md"),
             glossary: target.mode === "project" ? (["GLOSSARY.md", "CONTEXT.md"].find(has) ?? null) : null,
-            docsDir: has("docs"),
         },
         settingsProblem,
         git: target.mode === "project" && !folderProblem ? gitStatus(target.root) : null,
