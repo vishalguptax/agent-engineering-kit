@@ -1,0 +1,28 @@
+# Everything here is public and may be cited. The wildcard already allows every crawler;
+# the named AI crawlers are listed to make that explicit.
+
+User-agent: GPTBot
+Allow: /
+
+User-agent: OAI-SearchBot
+Allow: /
+
+User-agent: ChatGPT-User
+Allow: /
+
+User-agent: ClaudeBot
+Allow: /
+
+User-agent: Claude-SearchBot
+Allow: /
+
+User-agent: PerplexityBot
+Allow: /
+
+User-agent: Google-Extended
+Allow: /
+
+User-agent: *
+Allow: /
+
+Sitemap: https://agentengineeringkit.vishalg.in/sitemap.xml

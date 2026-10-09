@@ -1,0 +1,378 @@
+<!doctype html>
+<html lang="en">
+<head><!-- bake:head -->
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Supported tools: Cursor, Copilot, Gemini CLI, Codex and more</title>
+  <meta name="description" content="What each AI coding tool gets from the kit in its own format: AGENTS.md rules, skills, sub-agents, format on edit and secret guard, with links to its docs.">
+  <link rel="canonical" href="https://agentengineeringkit.vishalg.in/tools/">
+  <meta property="og:type" content="website">
+  <meta property="og:site_name" content="Agent Engineering Kit">
+  <meta property="og:url" content="https://agentengineeringkit.vishalg.in/tools/">
+  <meta property="og:title" content="Supported tools: Cursor, Copilot, Gemini CLI, Codex and more">
+  <meta property="og:description" content="What each AI coding tool gets from the kit in its own format: AGENTS.md rules, skills, sub-agents, format on edit and secret guard, with links to its docs.">
+  <meta property="og:image" content="https://agentengineeringkit.vishalg.in/og/tools.png">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
+  <meta property="og:image:alt" content="One kit, each tool in its own format.">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Supported tools: Cursor, Copilot, Gemini CLI, Codex and more">
+  <meta name="twitter:description" content="What each AI coding tool gets from the kit in its own format: AGENTS.md rules, skills, sub-agents, format on edit and secret guard, with links to its docs.">
+  <meta name="twitter:image" content="https://agentengineeringkit.vishalg.in/og/tools.png">
+  <meta name="theme-color" content="#f4f1e8" media="(prefers-color-scheme: light)">
+  <meta name="theme-color" content="#111a26" media="(prefers-color-scheme: dark)">
+  <link rel="icon" href="/favicon.svg" type="image/svg+xml">
+  <link rel="icon" href="/favicon-32.png" sizes="32x32" type="image/png">
+  <link rel="apple-touch-icon" href="/apple-touch-icon.png">
+  <link rel="manifest" href="/site.webmanifest">
+  <link rel="preload" href="/fonts/newsreader-display-600.woff2" as="font" type="font/woff2" crossorigin>
+  <style>@font-face{font-family: "Newsreader";src: url("/fonts/newsreader-display-600.woff2") format("woff2");font-weight: 600;font-style: normal;font-display: swap;}@font-face{font-family: "Newsreader";src: url("/fonts/newsreader-italic-500.woff2") format("woff2");font-weight: 500;font-style: italic;font-display: swap;}@font-face{font-family: "JetBrains Mono";src: url("/fonts/jetbrains-mono.woff2") format("woff2");font-weight: 400 700;font-style: normal;font-display: swap;}:root{--paper: #f4f1e8;--grid: rgba(28,45,70,0.07);--card: #fffdf7;--ink: #1b2330;--ink-soft: #4a5260;--muted: #5d616b;--rule: #d9d3c4;--pen: #d1401f;--pen-text: #b5341a;--ok: #2f6b4f;--code: #ece7da;--add-bg: #e2efe5;--del: #b2321a;--del-bg: #f9e3dc;--shadow: 4px 4px 0 var(--ink);--serif: "Newsreader",Charter,"Iowan Old Style",Georgia,serif;--sans: system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;--mono: "JetBrains Mono",ui-monospace,"SF Mono",Menlo,Consolas,monospace;--sheet: 1240px;--gutter: 16px;--gap: 32px;--section: clamp(56px,8vw,112px);--ease-pen: cubic-bezier(0.3,0.7,0.4,1);color-scheme: light;}@media (prefers-color-scheme: dark){:root{--paper: #111a26;--grid: rgba(120,190,230,0.07);--card: #172232;--ink: #e6ecf3;--ink-soft: #b8c2cf;--muted: #8b97a6;--rule: #2a3a4f;--pen: #f2a33a;--pen-text: #f2a33a;--pen-ink: #111a26;--ok: #79c9a0;--code: #0f1823;--add-bg: #15302a;--del: #ff9f88;--del-bg: #3a1f1d;--shadow: 4px 4px 0 #050a10;color-scheme: dark;}}@media (min-width: 860px){:root{--gutter: 32px;}}*,*::before,*::after{box-sizing: border-box;}html{-webkit-text-size-adjust: 100%;}body{margin: 0;color: var(--ink);font: 17px/1.6 var(--sans);background-color: var(--paper);background-image: linear-gradient(var(--grid) 1px,transparent 1px),linear-gradient(90deg,var(--grid) 1px,transparent 1px);background-size: 24px 24px;-webkit-font-smoothing: antialiased;overflow-wrap: break-word;}h1,h2,h3{margin: 0;font-family: var(--serif);font-weight: 600;text-wrap: balance;}p{margin: 0;text-wrap: pretty;}a{color: inherit;text-decoration-thickness: 1px;text-underline-offset: 3px;}a:hover{color: var(--pen-text);text-decoration-thickness: 2px;}code,kbd,pre{font-family: var(--mono);font-size: 0.86em;}code{overflow-wrap: anywhere;}:where(.front-grid,.workflow,.ways,.faq,.parts,.cards,.tools,.section-head,.sheets) > *{min-width: 0;}code,kbd,pre,.label,.edition,.contents,.diff,.change ol,.index,.caps td,.tool .docs,.colophon{font-variant-ligatures: none;}:focus-visible{outline: 2px solid var(--pen);outline-offset: 3px;}.skip{position: absolute;left: var(--gutter);top: -100px;padding: 8px 12px;background: var(--ink);color: var(--paper);font: 600 13px/1 var(--mono);z-index: 10;}.skip:focus{top: 8px;}.sr-only{position: absolute;width: 1px;height: 1px;overflow: hidden;clip-path: inset(50%);white-space: nowrap;}.sheet{max-width: calc(var(--sheet) + 2 * var(--gutter));margin: 0 auto;padding: 0 var(--gutter);}.label{font: 600 12px/1.4 var(--mono);letter-spacing: 0.08em;text-transform: uppercase;}.edition{border-bottom: 1px solid var(--ink);}.edition ul{display: flex;flex-wrap: wrap;margin: 0;padding: 0;list-style: none;}.edition li{padding: 7px 14px;border-right: 1px solid var(--ink);font: 500 12px/1.4 var(--mono);letter-spacing: 0.06em;text-transform: uppercase;white-space: nowrap;}@media (max-width: 639px){.edition ul{display: grid;grid-template-columns: 1fr 1fr;}.edition li{padding: 6px 10px;border-bottom: 1px solid var(--ink);white-space: normal;}.edition li:nth-child(even){border-right: 0;}.edition li:nth-child(odd){padding-left: 0;}}@media (min-width: 640px){.edition li:first-child{padding-left: 0;}}.edition li:last-child{border-right: 0;}.edition li[hidden]{display: none;}.masthead{display: flex;flex-wrap: wrap;align-items: end;justify-content: space-between;gap: 12px 32px;padding: 18px 0 14px;border-bottom: 3px solid var(--ink);}.wordmark{font: 600 clamp(22px,1.6rem + 0.6vw,30px)/1 var(--serif);letter-spacing: -0.015em;text-decoration: none;}.contents ol{display: flex;flex-wrap: wrap;gap: 4px 18px;margin: 0;padding: 0;list-style: none;}.contents a{display: inline-block;padding: 6px 0;font: 500 13px/1.2 var(--mono);text-decoration: none;}.contents a[aria-current="page"]{color: var(--pen-text);box-shadow: inset 0 -2px 0 var(--pen);}.front{padding: clamp(28px,4vw,52px) 0 var(--section);}.banner{max-width: 15ch;font-size: clamp(2.75rem,1.2rem + 4.6vw,5.75rem);line-height: 0.96;letter-spacing: -0.025em;}.front-grid{display: grid;gap: 40px var(--gap);margin-top: clamp(28px,4vw,48px);padding-top: 24px;border-top: 1px solid var(--ink);}@media (min-width: 980px){.front-grid{grid-template-columns: 5fr 7fr;}.front-grid > :first-child{padding-right: var(--gap);border-right: 1px solid var(--ink);}}.lead{max-width: 34em;font-size: clamp(1.125rem,1.05rem + 0.35vw,1.3125rem);line-height: 1.55;}.terminal{display: flex;align-items: stretch;margin-top: 28px;border: 1.5px solid var(--ink);background: var(--code);}.terminal pre{flex: 1;min-width: 0;margin: 0;padding: 14px 16px;font-size: 15px;line-height: 1.4;white-space: pre-wrap;}.terminal .prompt{color: var(--muted);user-select: none;}.typed{display: inline-block;}.cursor{display: inline-block;width: 0.6em;height: 1.1em;margin-left: 2px;vertical-align: -0.18em;background: var(--ink);}.copy{display: none;min-width: 10ch;padding: 0 16px;border: 0;border-left: 1.5px solid var(--ink);background: var(--ink);color: var(--paper);font: 600 12px/1 var(--mono);letter-spacing: 0.08em;text-transform: uppercase;cursor: pointer;}.js .copy{display: block;}.copy:hover{background: var(--card);color: var(--ink);}@media (max-width: 359px){.terminal pre{font-size: 13px;}}.install-note{margin-top: 12px;color: var(--ink-soft);font-size: 15px;}.install-note a{font-weight: 600;}.figures{display: grid;grid-template-columns: repeat(3,minmax(0,1fr));margin: 32px 0 0;border-top: 1px solid var(--ink);border-bottom: 1px solid var(--ink);}.figures div{display: flex;flex-direction: column;padding: 14px 12px 12px 0;}.figures div + div{padding-left: 12px;border-left: 1px solid var(--ink);}.figures dt{order: 2;hyphens: auto;margin-top: 4px;color: var(--muted);font: 500 12px/1.35 var(--mono);letter-spacing: 0.04em;}.figures dd{margin: 0;font: 600 clamp(28px,1.4rem + 1.4vw,40px)/1 var(--serif);font-variant-numeric: tabular-nums lining-nums;}.review{margin: 0;}.review-bar{display: flex;align-items: center;justify-content: space-between;gap: 12px;margin-bottom: 10px;}.review-bar figcaption{color: var(--muted);}.replay{display: none;white-space: nowrap;padding: 7px 12px;border: 1.5px solid var(--ink);background: var(--card);color: var(--ink);font: 600 12px/1 var(--mono);letter-spacing: 0.08em;text-transform: uppercase;cursor: pointer;}.motion .replay{display: inline-block;}.replay:hover{background: var(--ink);color: var(--paper);}.sheets{display: grid;gap: 28px;}.sheet-card{position: relative;border: 1.5px solid var(--ink);background: var(--card);box-shadow: var(--shadow);}.sheet-head{display: flex;justify-content: space-between;gap: 12px;padding: 9px 14px;border-bottom: 1px solid var(--ink);}.sheet-head .who{color: var(--muted);}.after .sheet-head .who{color: var(--ok);}.diff{margin: 0;padding: 10px 0 14px;font: 400 12px/1.6 var(--mono);}@media (min-width: 640px){.diff{font-size: 13px;}}.ln{display: grid;grid-template-columns: 22px minmax(0,1fr);padding-right: 14px;}.ln > code{font-size: inherit;white-space: pre-wrap;padding-left: 2ch;text-indent: -2ch;}.ln::before{content: attr(data-mark) / "";color: var(--muted);text-align: center;}.ln.add{background: var(--add-bg);box-shadow: inset 3px 0 0 var(--ok);}.ln.add::before{color: var(--ok);}.ln.del{background: var(--del-bg);box-shadow: inset 3px 0 0 var(--del);}.ln.del::before{color: var(--del);}.ln.del > code{text-decoration: line-through;text-decoration-color: var(--del);}.ln.file{margin-top: 8px;color: var(--muted);font-size: 12px;}.ln.file:first-child{margin-top: 0;}.note{grid-column: 2;margin: 2px 0 8px;padding-left: 2ch;color: var(--pen-text);font: italic 500 15px/1.3 var(--serif);}@media (min-width: 640px){.before .ln{grid-template-columns: 22px minmax(0,1fr) 12.5rem;}.note{grid-column: 3;grid-row: 1;margin: 0;padding: 0 0 0 14px;border-left: 1px solid var(--rule);font-size: 15px;}}.mk{position: relative;display: inline;}.mk svg{position: absolute;overflow: visible;pointer-events: none;}.mk path{fill: none;stroke: var(--pen);stroke-width: 2.25px;stroke-linecap: round;stroke-linejoin: round;vector-effect: non-scaling-stroke;}.mk-circle svg{inset: -7px -9px;width: calc(100% + 18px);height: calc(100% + 14px);}.mk-under svg{left: -2px;bottom: -5px;width: calc(100% + 4px);height: 8px;}.mk-strike svg{left: -3px;top: calc(50% - 4px);width: calc(100% + 6px);height: 8px;}.mk-box svg{inset: -1px -5px;width: calc(100% + 10px);height: calc(100% + 2px);}.ln:has(.mk-box){padding-block: 3px;}.sheet-foot{display: flex;align-items: center;justify-content: space-between;gap: 12px;padding: 10px 14px 12px;border-top: 1px solid var(--ink);font: 500 13px/1.4 var(--mono);}.sheet-foot .pass{color: var(--ok);}.stamp{display: inline-block;padding: 5px 10px 4px;border: 2px solid var(--pen);background: var(--card);color: var(--pen-text);font: 700 13px/1.2 var(--mono);letter-spacing: 0.18em;text-transform: uppercase;transform: rotate(-6deg);}.after{display: flex;flex-direction: column;}.resolved{margin: 0;padding: 10px 14px 14px;border-top: 1px dashed var(--rule);list-style: none;color: var(--ink-soft);font-size: 15px;line-height: 1.45;}.resolved li{padding-left: 1.6em;text-indent: -1.6em;}.resolved li::before{content: "✓";display: inline-block;width: 1.6em;text-indent: 0;color: var(--ok);font-weight: 700;}.after .sheet-foot{margin-top: auto;}.after .stamp{margin: -6px 0 -4px;font-size: 16px;border-width: 3px;box-shadow: inset 0 0 0 1px var(--card),inset 0 0 0 2.5px var(--pen);}.motion .review.waiting *{animation-play-state: paused;}.motion .sheets{grid-template-areas: "s";}.motion .sheet-card{grid-area: s;}.motion .mk path{stroke-dasharray: 1;stroke-dashoffset: 1;animation: draw var(--dur,400ms) var(--ease-pen) var(--at) forwards;}.motion .before .note{opacity: 0;animation: note-in 200ms ease-out var(--at) forwards;}.motion .after{clip-path: inset(0 0 100% 0);animation: wipe 520ms cubic-bezier(0.6,0,0.2,1) 2700ms forwards;}.motion .after .stamp{opacity: 0;animation: thud 260ms cubic-bezier(0.2,0,0.3,1) 3300ms forwards;}.motion .after .sheet-foot .pass{opacity: 0;animation: note-in 200ms ease-out 3200ms forwards;}@keyframes draw{to{stroke-dashoffset: 0;}}@keyframes note-in{from{opacity: 0;transform: translateX(6px);}to{opacity: 1;transform: none;}}@keyframes wipe{to{clip-path: inset(0 0 0 0);}}@keyframes thud{0%{opacity: 0;transform: rotate(-6deg) scale(1.6);}60%{opacity: 1;transform: rotate(-6deg) scale(0.94);}100%{opacity: 1;transform: rotate(-6deg) scale(1);}}.section{padding: var(--section) 0;border-top: 3px solid var(--ink);}.section-head{display: grid;gap: 14px var(--gap);margin-bottom: clamp(32px,5vw,64px);}@media (min-width: 860px){.section-head{grid-template-columns: 4fr 8fr;align-items: start;}}.section-head .label{color: var(--pen-text);padding-top: 0.6em;}.section-head h2{font-size: clamp(2rem,1.45rem + 2.4vw,3.5rem);line-height: 1.02;letter-spacing: -0.02em;}.section-head p{margin-top: 16px;max-width: 40em;color: var(--ink-soft);}.workflow{display: grid;gap: 40px var(--gap);timeline-scope: --s1,--s2,--s3,--s4,--s5,--s6;}.steps{margin: 0;padding: 0;list-style: none;counter-reset: step;}.step{display: grid;grid-template-columns: 3.2rem minmax(0,1fr);gap: 0 16px;padding: 22px 0 26px;border-top: 1px solid var(--rule);counter-increment: step;}.step:first-child{border-top: 1px solid var(--ink);}.step::before{content: counter(step);grid-row: span 2;font: 600 2.6rem/0.9 var(--serif);font-variant-numeric: lining-nums;}.step h3{font-size: clamp(1.375rem,1.2rem + 0.7vw,1.75rem);line-height: 1.15;}.step p{margin-top: 8px;max-width: 36em;color: var(--ink-soft);}.step:nth-child(1){view-timeline-name: --s1;}.step:nth-child(2){view-timeline-name: --s2;}.step:nth-child(3){view-timeline-name: --s3;}.step:nth-child(4){view-timeline-name: --s4;}.step:nth-child(5){view-timeline-name: --s5;}.step:nth-child(6){view-timeline-name: --s6;}.change{border: 1.5px solid var(--ink);background: var(--card);box-shadow: var(--shadow);}.change-head{padding: 12px 16px;border-bottom: 1px solid var(--ink);}.change-head .label{color: var(--muted);}.change-title{margin-top: 4px;font: 600 1.25rem/1.25 var(--serif);}.change ol{margin: 0;padding: 6px 0 10px;list-style: none;font: 400 13px/1.5 var(--mono);}.change li{display: grid;grid-template-columns: 6.5rem minmax(0,1fr);gap: 10px;align-items: center;min-height: 44px;padding: 6px 16px;border-bottom: 1px dashed var(--rule);}.change li:last-child{border-bottom: 0;}.change .step-name{color: var(--muted);font-size: 12px;font-weight: 600;letter-spacing: 0.08em;text-transform: uppercase;}.change .mark{display: grid;min-width: 0;}.change .mark > *{grid-area: 1 / 1;}.change .ok{color: var(--ok);}.change .fail{visibility: hidden;color: var(--del);}.change .gone{color: var(--muted);text-decoration: line-through;text-decoration-color: var(--pen);}.change .stamp{justify-self: start;font-size: 12px;padding: 3px 8px 2px;}.change-foot{padding: 10px 16px 12px;border-top: 1px solid var(--ink);color: var(--muted);font-size: 13px;}@media (min-width: 980px){.workflow{grid-template-columns: 7fr 5fr;}.steps{padding-right: var(--gap);border-right: 1px solid var(--ink);}.change-rail{position: relative;}.change{position: sticky;top: 32px;}}@supports (animation-timeline: view()){@media (min-width: 980px){.motion .step{min-height: 46vh;align-content: start;}.motion .step:last-child{min-height: 0;}.motion .change .mark > *{animation: mark-in linear both;animation-range: entry 70% cover 45%;}.motion .change li:nth-child(1) .mark > *{animation-timeline: --s1;}.motion .change li:nth-child(2) .mark > *{animation-timeline: --s2;}.motion .change li:nth-child(3) .mark > *{animation-timeline: --s3;}.motion .change li:nth-child(4) .mark > *{animation-timeline: --s4;}.motion .change li:nth-child(5) .mark > *{animation-timeline: --s5;}.motion .change li:nth-child(6) .mark > *{animation-timeline: --s6;}.motion .change .fail{visibility: visible;animation-name: fail-then-pass;animation-range: entry 40% cover 40%;}.motion .change .fail + .ok{animation-name: pass-after-fail;animation-range: entry 40% cover 40%;}.motion .change .stamp{animation-name: stamp-in;}}}@keyframes mark-in{from{opacity: 0;transform: translateY(6px);}to{opacity: 1;transform: none;}}@keyframes fail-then-pass{0%{opacity: 0;}20%,55%{opacity: 1;}70%,100%{opacity: 0;}}@keyframes pass-after-fail{0%,60%{opacity: 0;}80%,100%{opacity: 1;}}@keyframes stamp-in{0%,30%{opacity: 0;transform: rotate(-6deg) scale(1.5);}100%{opacity: 1;transform: rotate(-6deg) scale(1);}}.motion .typed{clip-path: inset(0 100% 0 0);animation: type 1125ms steps(25,end) 300ms forwards;}.motion .cursor{animation: blink 1s steps(1,end) 1500ms 3;}@keyframes type{to{clip-path: inset(0 0 0 0);}}@keyframes blink{50%{opacity: 0;}}.page-head{position: relative;padding: clamp(32px,5vw,64px) 0 clamp(40px,6vw,72px);}.page-head .label{color: var(--pen-text);}.page-head h1{max-width: 18ch;margin-top: 14px;font-size: clamp(2.5rem,1.3rem + 4vw,4.75rem);line-height: 0.98;letter-spacing: -0.025em;}.page-head .lead{margin-top: 24px;max-width: 40em;}.more{margin-top: 24px;color: var(--ink-soft);}.sub{margin: 40px 0 14px;font-size: clamp(1.375rem,1.2rem + 0.7vw,1.75rem);}.rules-list,.steps-list{max-width: 62em;margin: 0;padding: 0;list-style: none;counter-reset: row;border-top: 1px solid var(--ink);}.rules-list li,.steps-list li{position: relative;padding: 14px 0 14px 3.5rem;border-bottom: 1px solid var(--rule);counter-increment: row;}.rules-list li::before,.steps-list li::before{content: counter(row,decimal-leading-zero);position: absolute;left: 0;color: var(--muted);font: 600 13px/1.9 var(--mono);}.steps-list{margin-top: 28px;}.parts{display: grid;border-top: 1px solid var(--ink);}.parts article{padding: 22px 0 26px;border-bottom: 1px solid var(--rule);}.parts h3{font-size: clamp(1.375rem,1.2rem + 0.7vw,1.75rem);line-height: 1.15;}.parts h3 a{text-decoration: none;}.parts h3 a:hover{box-shadow: inset 0 -2px 0 var(--pen);}.parts p{margin-top: 10px;color: var(--ink-soft);}@media (min-width: 760px){.parts{grid-template-columns: repeat(2,minmax(0,1fr));}.parts article{padding-right: var(--gap);}.parts article:nth-child(even){padding-left: var(--gap);border-left: 1px solid var(--ink);}}@media (min-width: 1100px){.parts{grid-template-columns: repeat(3,minmax(0,1fr));}.parts article,.parts article:nth-child(even){padding: 22px var(--gap) 26px;border-left: 1px solid var(--ink);}.parts article:nth-child(3n + 1){padding-left: 0;border-left: 0;}}.index{margin: 0;padding: 0;list-style: none;border-top: 1px solid var(--ink);font: 400 13px/1.4 var(--mono);}.index li{display: flex;align-items: baseline;gap: 8px;padding: 9px 0;border-bottom: 1px solid var(--rule);}.index .name{font: 600 1.1875rem/1.2 var(--serif);}.index .leader{flex: 1;min-width: 16px;border-bottom: 1.5px dotted var(--muted);}.index .what{color: var(--ink-soft);text-align: right;}@media (max-width: 559px){.index li{flex-wrap: wrap;}.index .leader{display: none;}.index .what{flex-basis: 100%;text-align: left;font-size: 13px;}}@media (min-width: 1100px){.index{columns: 2;column-gap: calc(2 * var(--gap));column-rule: 1px solid var(--ink);border-top: 0;}.index li{break-inside: avoid;}}.promise{position: relative;padding: 28px clamp(18px,3vw,36px) 12px;border: 1.5px solid var(--ink);background: var(--card);box-shadow: var(--shadow);}.promise > .stamp{position: absolute;top: -15px;right: 22px;}.promise .rules-list{border-top: 0;}.promise .rules-list li:last-child{border-bottom: 0;}.ways{display: grid;gap: 40px var(--gap);}.ways h3{font-size: clamp(1.375rem,1.2rem + 0.7vw,1.75rem);}.ways h3 + p{margin-top: 10px;color: var(--ink-soft);}@media (min-width: 980px){.ways{grid-template-columns: 7fr 5fr;}.ways > :first-child{padding-right: var(--gap);border-right: 1px solid var(--ink);}}.prompt-block pre{font-size: 13px;line-height: 1.55;}.faq{display: grid;border-top: 1px solid var(--ink);}.qa{padding: 20px 0 24px;border-bottom: 1px solid var(--rule);}.qa h3{font-size: 1.3125rem;line-height: 1.25;}.qa p{margin-top: 8px;max-width: 40em;color: var(--ink-soft);}@media (min-width: 860px){.faq{grid-template-columns: repeat(2,minmax(0,1fr));column-gap: calc(2 * var(--gap));}}.document{max-width: 54em;border: 1.5px solid var(--ink);background: var(--card);box-shadow: var(--shadow);}.document-head{display: flex;flex-wrap: wrap;justify-content: space-between;gap: 4px 16px;margin: 0;padding: 10px clamp(16px,3vw,32px);border-bottom: 1px solid var(--ink);color: var(--muted);}.document-head span:first-child{color: var(--ink);text-transform: none;}.document .prose{padding: 8px clamp(16px,3vw,32px) 24px;}.prose p,.prose ul,.prose ol{margin: 14px 0 0;max-width: 44em;}.prose ul,.prose ol{padding-left: 1.3em;}.prose li + li{margin-top: 6px;}.prose li::marker{color: var(--muted);}.prose h2{margin-top: 48px;padding-top: 18px;border-top: 3px solid var(--ink);font-size: clamp(1.75rem,1.4rem + 1.4vw,2.5rem);line-height: 1.05;}.prose h3{margin-top: 26px;font-size: 1.375rem;}.prose h2:first-child{margin-top: 0;}.prose .date{margin-left: 10px;color: var(--muted);font: 500 13px/1 var(--mono);letter-spacing: 0.04em;vertical-align: 0.4em;}.changelog > p:first-child{max-width: 44em;color: var(--ink-soft);}.rulebook{margin: 0;padding: 0;list-style: none;border-top: 1px solid var(--ink);}.rulebook li{padding: 12px 0;border-bottom: 1px solid var(--rule);font: 600 1.1875rem/1.3 var(--serif);}.rulebook .num{display: inline-block;min-width: 3.4rem;color: var(--pen-text);font: 600 13px/1 var(--mono);}@media (min-width: 860px){.rulebook{columns: 2;column-gap: calc(2 * var(--gap));column-rule: 1px solid var(--ink);}.rulebook li{break-inside: avoid;}}.cards{display: grid;gap: 28px;}@media (min-width: 900px){.cards{grid-template-columns: repeat(2,minmax(0,1fr));}}.card{padding: 20px clamp(16px,2.4vw,26px) 16px;border: 1.5px solid var(--ink);background: var(--card);scroll-margin-top: 24px;}.card h3{font: 600 17px/1.3 var(--mono);}.card h3 code{font-size: inherit;}.card .summary{margin-top: 8px;font: 600 1.25rem/1.3 var(--serif);}.card dl{margin: 14px 0 0;border-top: 1px solid var(--ink);}.card dl div{padding: 9px 0;border-bottom: 1px dashed var(--rule);}.card dl div:last-child{border-bottom: 0;}.card dt{color: var(--muted);font: 600 12px/1.4 var(--mono);letter-spacing: 0.08em;text-transform: uppercase;}.card dd{margin: 3px 0 0;color: var(--ink-soft);font-size: 15px;}.table-wrap{position: relative;max-width: 100%;overflow-x: auto;border-top: 1px solid var(--ink);border-bottom: 1px solid var(--ink);}.table-wrap table{width: 100%;border-collapse: collapse;font-size: 15px;}.table-wrap th,.table-wrap td{padding: 10px 14px 10px 0;border-bottom: 1px solid var(--rule);text-align: left;vertical-align: top;}.table-wrap tbody tr:last-child > *{border-bottom: 0;}.table-wrap thead th{border-bottom: 1px solid var(--ink);color: var(--muted);font: 600 12px/1.4 var(--mono);letter-spacing: 0.08em;text-transform: uppercase;white-space: nowrap;}.caps tbody th{font: 600 1.0625rem/1.3 var(--serif);}@media (max-width: 759px){.caps tbody th{position: sticky;left: 0;min-width: 8em;background: var(--paper);}}@media (min-width: 760px){.caps tbody th{white-space: nowrap;}}.caps td{font: 600 13px/1.6 var(--mono);white-space: nowrap;}.caps .cap-yes{color: var(--ok);}.caps .cap-reference,.caps .cap-note,.caps .cap-none{color: var(--muted);font-weight: 500;}.usage td:first-child{width: 40%;min-width: 12em;}.code-block{margin: 0;padding: 16px 18px;overflow-x: auto;border: 1.5px solid var(--ink);background: var(--code);font-size: 13px;line-height: 1.6;}.code-block code{font-size: inherit;}.tools{display: grid;border-top: 1px solid var(--ink);}.tool{padding: 22px 0 24px;border-bottom: 1px solid var(--rule);scroll-margin-top: 24px;}.tool h3{font-size: 1.5rem;}.tool h3 code{margin-left: 6px;color: var(--muted);font-size: 13px;font-weight: 500;vertical-align: 0.25em;}.tool dl{display: grid;gap: 6px 18px;margin: 12px 0 0;}.tool dt{color: var(--muted);font: 600 12px/1.9 var(--mono);letter-spacing: 0.08em;text-transform: uppercase;}.tool dd{margin: 0;color: var(--ink-soft);font-size: 15px;}.tool .docs{margin-top: 12px;color: var(--muted);font: 500 12px/1.7 var(--mono);}.tool .docs a{margin-right: 10px;word-break: break-all;}@media (min-width: 760px){.tool dl div{display: grid;grid-template-columns: 9.5rem minmax(0,1fr);gap: 18px;}}@media (min-width: 1100px){.tools{grid-template-columns: repeat(2,minmax(0,1fr));column-gap: calc(2 * var(--gap));}}.not-found{min-height: 46vh;}.not-found > .stamp{margin-top: 36px;font-size: 15px;}.colophon{padding-top: 28px;padding-bottom: 40px;border-top: 3px solid var(--ink);color: var(--ink-soft);font: 500 13px/1.6 var(--mono);}.colophon p{max-width: 62em;}.colophon p + p{margin-top: 8px;}@view-transition{navigation: auto;}::view-transition-old(root),::view-transition-new(root){animation-duration: 160ms;}@media (prefers-reduced-motion: reduce){@view-transition{navigation: none;}}</style>
+  <script>document.documentElement.classList.add("js"); if (!matchMedia("(prefers-reduced-motion: reduce)").matches) document.documentElement.classList.add("motion");</script>
+  <script type="module" src="/app.js"></script>
+  <script type="application/ld+json">{"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Home","item":"https://agentengineeringkit.vishalg.in/"},{"@type":"ListItem","position":2,"name":"Tools","item":"https://agentengineeringkit.vishalg.in/tools/"}]}</script>
+  <!-- /bake:head --></head>
+<body>
+  <a class="skip" href="#main">Skip to content</a>
+  <!-- bake:header -->
+  <header class="sheet">
+    <div class="edition">
+      <ul aria-label="This edition">
+        <li>Edition <span data-bake="version">1.2.3</span></li>
+        <li>MIT licence</li>
+        <li><span data-bake="tool-count">18</span> AI coding tools</li>
+        <li>About 600 tokens always on</li>
+        <li data-bake-cell="stars" hidden><span data-bake="stars">0</span> GitHub stars</li>
+        <li data-bake-cell="downloads" hidden><span data-bake="downloads">0</span> npm downloads last week</li>
+      </ul>
+    </div>
+    <div class="masthead">
+      <a class="wordmark" href="/">The Agent Engineering Kit</a>
+      <nav class="contents" aria-label="Site">
+        <ol>
+          <li><a href="/rules/">Rules</a></li>
+          <li><a href="/agents/">Agents</a></li>
+          <li><a href="/skills/">Skills</a></li>
+          <li><a href="/safety/">Safety</a></li>
+          <li><a href="/tools/" aria-current="page">Tools</a></li>
+          <li><a href="/install/">Install</a></li>
+          <li><a href="/how-it-works/">How it works</a></li>
+          <li><a href="/changelog/">Changelog</a></li>
+        </ol>
+      </nav>
+    </div>
+  </header>
+  <!-- /bake:header -->
+
+  <main id="main" class="sheet">
+    <div class="page-head">
+      <p class="label">Tools</p>
+      <h1>One kit, each tool in its own format.</h1>
+      <p class="lead">The kit supports <span data-bake="tool-count">18</span> named AI coding tools, plus any other agent that reads <code>AGENTS.md</code>. It’s written once and installed the way each tool’s own docs describe: Cursor rules, Copilot instructions and agents, Gemini CLI’s <code>context.fileName</code>, Codex TOML agents, and so on. Shared files such as <code>AGENTS.md</code> and <code>.agents/skills/</code> are written once for every tool that reads them.</p>
+    </div>
+
+    <section class="section" aria-labelledby="matrix-title">
+      <div class="section-head">
+        <p class="label">§01 · At a glance</p>
+        <div>
+          <h2 id="matrix-title">What each tool gets.</h2>
+          <p>✓ the installer writes it. “ref” (as reference): the tool has no file-based sub-agents, so the skills tell it to read <code>.agent-kit/agents/&lt;name&gt;.md</code> and do that review itself. “note”: it can’t be set safely from the project, so the preview tells you what to do. “—”: the tool doesn’t support it.</p>
+        </div>
+      </div>
+      <!-- bake:tools-table -->
+      <div class="table-wrap" role="region" aria-label="What each tool gets" tabindex="0">
+      <table class="caps">
+        <caption class="sr-only">What each tool gets</caption>
+        <thead><tr><th scope="col">Tool</th><th scope="col">Rules</th><th scope="col">Skills</th><th scope="col">Agents</th><th scope="col">Format on edit</th><th scope="col">Secret guard</th></tr></thead>
+        <tbody>
+        <tr><th scope="row">Claude Code</th><td class="cap-yes"><span aria-hidden="true">✓</span><span class="sr-only">yes</span></td><td class="cap-yes"><span aria-hidden="true">✓</span><span class="sr-only">yes</span></td><td class="cap-yes"><span aria-hidden="true">✓</span><span class="sr-only">yes</span></td><td class="cap-yes"><span aria-hidden="true">✓</span><span class="sr-only">yes</span></td><td class="cap-yes"><span aria-hidden="true">✓</span><span class="sr-only">yes</span></td></tr>
+        <tr><th scope="row">OpenAI Codex</th><td class="cap-yes"><span aria-hidden="true">✓</span><span class="sr-only">yes</span></td><td class="cap-yes"><span aria-hidden="true">✓</span><span class="sr-only">yes</span></td><td class="cap-yes"><span aria-hidden="true">✓</span><span class="sr-only">yes</span></td><td class="cap-note">note</td><td class="cap-note">note</td></tr>
+        <tr><th scope="row">Cursor</th><td class="cap-yes"><span aria-hidden="true">✓</span><span class="sr-only">yes</span></td><td class="cap-yes"><span aria-hidden="true">✓</span><span class="sr-only">yes</span></td><td class="cap-yes"><span aria-hidden="true">✓</span><span class="sr-only">yes</span></td><td class="cap-yes"><span aria-hidden="true">✓</span><span class="sr-only">yes</span></td><td class="cap-yes"><span aria-hidden="true">✓</span><span class="sr-only">yes</span></td></tr>
+        <tr><th scope="row">GitHub Copilot</th><td class="cap-yes"><span aria-hidden="true">✓</span><span class="sr-only">yes</span></td><td class="cap-yes"><span aria-hidden="true">✓</span><span class="sr-only">yes</span></td><td class="cap-yes"><span aria-hidden="true">✓</span><span class="sr-only">yes</span></td><td class="cap-note">note</td><td class="cap-note">note</td></tr>
+        <tr><th scope="row">Gemini CLI</th><td class="cap-yes"><span aria-hidden="true">✓</span><span class="sr-only">yes</span></td><td class="cap-yes"><span aria-hidden="true">✓</span><span class="sr-only">yes</span></td><td class="cap-yes"><span aria-hidden="true">✓</span><span class="sr-only">yes</span></td><td class="cap-note">note</td><td class="cap-yes"><span aria-hidden="true">✓</span><span class="sr-only">yes</span></td></tr>
+        <tr><th scope="row">Google Antigravity</th><td class="cap-yes"><span aria-hidden="true">✓</span><span class="sr-only">yes</span></td><td class="cap-yes"><span aria-hidden="true">✓</span><span class="sr-only">yes</span></td><td class="cap-yes"><span aria-hidden="true">✓</span><span class="sr-only">yes</span></td><td class="cap-note">note</td><td class="cap-note">note</td></tr>
+        <tr><th scope="row">Grok Build</th><td class="cap-yes"><span aria-hidden="true">✓</span><span class="sr-only">yes</span></td><td class="cap-yes"><span aria-hidden="true">✓</span><span class="sr-only">yes</span></td><td class="cap-reference"><span aria-hidden="true">ref</span><span class="sr-only">as reference</span></td><td class="cap-none"><span aria-hidden="true">—</span><span class="sr-only">not supported</span></td><td class="cap-note">note</td></tr>
+        <tr><th scope="row">Windsurf / Devin Desktop</th><td class="cap-yes"><span aria-hidden="true">✓</span><span class="sr-only">yes</span></td><td class="cap-yes"><span aria-hidden="true">✓</span><span class="sr-only">yes</span></td><td class="cap-reference"><span aria-hidden="true">ref</span><span class="sr-only">as reference</span></td><td class="cap-yes"><span aria-hidden="true">✓</span><span class="sr-only">yes</span></td><td class="cap-yes"><span aria-hidden="true">✓</span><span class="sr-only">yes</span></td></tr>
+        <tr><th scope="row">Kiro</th><td class="cap-yes"><span aria-hidden="true">✓</span><span class="sr-only">yes</span></td><td class="cap-yes"><span aria-hidden="true">✓</span><span class="sr-only">yes</span></td><td class="cap-yes"><span aria-hidden="true">✓</span><span class="sr-only">yes</span></td><td class="cap-note">note</td><td class="cap-yes"><span aria-hidden="true">✓</span><span class="sr-only">yes</span></td></tr>
+        <tr><th scope="row">opencode</th><td class="cap-yes"><span aria-hidden="true">✓</span><span class="sr-only">yes</span></td><td class="cap-yes"><span aria-hidden="true">✓</span><span class="sr-only">yes</span></td><td class="cap-yes"><span aria-hidden="true">✓</span><span class="sr-only">yes</span></td><td class="cap-note">note</td><td class="cap-note">note</td></tr>
+        <tr><th scope="row">Kilo Code</th><td class="cap-yes"><span aria-hidden="true">✓</span><span class="sr-only">yes</span></td><td class="cap-yes"><span aria-hidden="true">✓</span><span class="sr-only">yes</span></td><td class="cap-yes"><span aria-hidden="true">✓</span><span class="sr-only">yes</span></td><td class="cap-none"><span aria-hidden="true">—</span><span class="sr-only">not supported</span></td><td class="cap-note">note</td></tr>
+        <tr><th scope="row">JetBrains Junie</th><td class="cap-yes"><span aria-hidden="true">✓</span><span class="sr-only">yes</span></td><td class="cap-yes"><span aria-hidden="true">✓</span><span class="sr-only">yes</span></td><td class="cap-yes"><span aria-hidden="true">✓</span><span class="sr-only">yes</span></td><td class="cap-none"><span aria-hidden="true">—</span><span class="sr-only">not supported</span></td><td class="cap-yes"><span aria-hidden="true">✓</span><span class="sr-only">yes</span></td></tr>
+        <tr><th scope="row">Augment Code</th><td class="cap-yes"><span aria-hidden="true">✓</span><span class="sr-only">yes</span></td><td class="cap-yes"><span aria-hidden="true">✓</span><span class="sr-only">yes</span></td><td class="cap-yes"><span aria-hidden="true">✓</span><span class="sr-only">yes</span></td><td class="cap-note">note</td><td class="cap-yes"><span aria-hidden="true">✓</span><span class="sr-only">yes</span></td></tr>
+        <tr><th scope="row">Cline</th><td class="cap-yes"><span aria-hidden="true">✓</span><span class="sr-only">yes</span></td><td class="cap-yes"><span aria-hidden="true">✓</span><span class="sr-only">yes</span></td><td class="cap-reference"><span aria-hidden="true">ref</span><span class="sr-only">as reference</span></td><td class="cap-none"><span aria-hidden="true">—</span><span class="sr-only">not supported</span></td><td class="cap-note">note</td></tr>
+        <tr><th scope="row">Zed</th><td class="cap-yes"><span aria-hidden="true">✓</span><span class="sr-only">yes</span></td><td class="cap-yes"><span aria-hidden="true">✓</span><span class="sr-only">yes</span></td><td class="cap-reference"><span aria-hidden="true">ref</span><span class="sr-only">as reference</span></td><td class="cap-none"><span aria-hidden="true">—</span><span class="sr-only">not supported</span></td><td class="cap-note">note</td></tr>
+        <tr><th scope="row">Amp</th><td class="cap-yes"><span aria-hidden="true">✓</span><span class="sr-only">yes</span></td><td class="cap-yes"><span aria-hidden="true">✓</span><span class="sr-only">yes</span></td><td class="cap-reference"><span aria-hidden="true">ref</span><span class="sr-only">as reference</span></td><td class="cap-none"><span aria-hidden="true">—</span><span class="sr-only">not supported</span></td><td class="cap-note">note</td></tr>
+        <tr><th scope="row">Warp</th><td class="cap-yes"><span aria-hidden="true">✓</span><span class="sr-only">yes</span></td><td class="cap-yes"><span aria-hidden="true">✓</span><span class="sr-only">yes</span></td><td class="cap-reference"><span aria-hidden="true">ref</span><span class="sr-only">as reference</span></td><td class="cap-none"><span aria-hidden="true">—</span><span class="sr-only">not supported</span></td><td class="cap-note">note</td></tr>
+        <tr><th scope="row">Aider</th><td class="cap-note">note</td><td class="cap-none"><span aria-hidden="true">—</span><span class="sr-only">not supported</span></td><td class="cap-none"><span aria-hidden="true">—</span><span class="sr-only">not supported</span></td><td class="cap-none"><span aria-hidden="true">—</span><span class="sr-only">not supported</span></td><td class="cap-yes"><span aria-hidden="true">✓</span><span class="sr-only">yes</span></td></tr>
+        <tr><th scope="row">Any other agent (AGENTS.md)</th><td class="cap-yes"><span aria-hidden="true">✓</span><span class="sr-only">yes</span></td><td class="cap-yes"><span aria-hidden="true">✓</span><span class="sr-only">yes</span></td><td class="cap-reference"><span aria-hidden="true">ref</span><span class="sr-only">as reference</span></td><td class="cap-none"><span aria-hidden="true">—</span><span class="sr-only">not supported</span></td><td class="cap-none"><span aria-hidden="true">—</span><span class="sr-only">not supported</span></td></tr>
+        </tbody>
+      </table>
+      </div>
+      <!-- /bake:tools-table -->
+      <p class="more">This table is generated from the installer’s own tool profiles (the same data <code>npx agent-engineering-kit --list-tools</code> prints), so it can’t drift from what the installer writes.</p>
+    </section>
+
+    <section class="section" aria-labelledby="tool-notes">
+      <div class="section-head">
+        <p class="label">§02 · Tool by tool</p>
+        <div>
+          <h2 id="tool-notes">Where the files go, and why.</h2>
+          <p>Only behaviour each tool’s own docs describe is used, and every profile records when its docs were last checked.</p>
+        </div>
+      </div>
+      <div class="tools"><!-- bake:tools-detail -->
+      <article class="tool" id="claude-code">
+        <h3>Claude Code <code>claude-code</code></h3>
+        <dl>
+          <div><dt>Rules</dt><dd>Reads AGENTS.md through a one-line @AGENTS.md import in CLAUDE.md.</dd></div>
+          <div><dt>Skills</dt><dd>Skills in .claude/skills (or a shared folder it also reads).</dd></div>
+          <div><dt>Agents</dt><dd>Agents in .claude/agents (or a shared folder it also reads).</dd></div>
+          <div><dt>Format on edit</dt><dd>After-edit hook in .claude/settings.json.</dd></div>
+          <div><dt>Secret guard</dt><dd>Deny rules in .claude/settings.json.</dd></div>
+          <div><dt>Detected by</dt><dd><code>CLAUDE.md</code>, <code>.claude</code></dd></div>
+        </dl>
+        <p class="docs">Docs, checked 2026-10-09: <a href="https://code.claude.com/docs/en/memory">code.claude.com/docs/en/memory</a> <a href="https://code.claude.com/docs/en/skills">code.claude.com/docs/en/skills</a> <a href="https://code.claude.com/docs/en/sub-agents">code.claude.com/docs/en/sub-agents</a> <a href="https://code.claude.com/docs/en/hooks">code.claude.com/docs/en/hooks</a></p>
+      </article>
+      <article class="tool" id="codex">
+        <h3>OpenAI Codex <code>codex</code></h3>
+        <dl>
+          <div><dt>Rules</dt><dd>Reads the kit's block in AGENTS.md.</dd></div>
+          <div><dt>Skills</dt><dd>Skills in .agents/skills (or a shared folder it also reads).</dd></div>
+          <div><dt>Agents</dt><dd>Agents in .codex/agents (or a shared folder it also reads).</dd></div>
+          <div><dt>Format on edit</dt><dd>Codex hooks don't report which file was edited (only the patch text), so the kit doesn't install a format hook for Codex. The optional pre-commit check covers formatting.</dd></div>
+          <div><dt>Secret guard</dt><dd>Codex blocks file access through permission profiles in .codex/config.toml, which also change its whole sandbox policy. If you want it, add a profile that denies &quot;**/.env*&quot; yourself.</dd></div>
+          <div><dt>Detected by</dt><dd><code>.codex</code></dd></div>
+        </dl>
+        <p class="docs">Docs, checked 2026-10-09: <a href="https://learn.chatgpt.com/docs/agent-configuration/agents-md">learn.chatgpt.com/docs/agent-configuration/agents-md</a> <a href="https://learn.chatgpt.com/docs/build-skills">learn.chatgpt.com/docs/build-skills</a> <a href="https://learn.chatgpt.com/docs/agent-configuration/subagents">learn.chatgpt.com/docs/agent-configuration/subagents</a> <a href="https://learn.chatgpt.com/docs/hooks">learn.chatgpt.com/docs/hooks</a></p>
+      </article>
+      <article class="tool" id="cursor">
+        <h3>Cursor <code>cursor</code></h3>
+        <dl>
+          <div><dt>Rules</dt><dd>Reads the kit's block in AGENTS.md.</dd></div>
+          <div><dt>Skills</dt><dd>Skills in .agents/skills (or a shared folder it also reads).</dd></div>
+          <div><dt>Agents</dt><dd>Agents in .cursor/agents (or a shared folder it also reads).</dd></div>
+          <div><dt>Format on edit</dt><dd>After-edit hook in .cursor/hooks.json.</dd></div>
+          <div><dt>Secret guard</dt><dd>Entries in .cursorignore.</dd></div>
+          <div><dt>Detected by</dt><dd><code>.cursor</code>, <code>.cursorrules</code>, <code>.cursorignore</code></dd></div>
+        </dl>
+        <p class="docs">Docs, checked 2026-10-09: <a href="https://cursor.com/docs/context/rules">cursor.com/docs/context/rules</a> <a href="https://cursor.com/docs/context/skills">cursor.com/docs/context/skills</a> <a href="https://cursor.com/docs/context/subagents">cursor.com/docs/context/subagents</a> <a href="https://cursor.com/docs/agent/hooks">cursor.com/docs/agent/hooks</a> <a href="https://cursor.com/docs/context/ignore-files">cursor.com/docs/context/ignore-files</a></p>
+      </article>
+      <article class="tool" id="copilot">
+        <h3>GitHub Copilot <code>copilot</code></h3>
+        <dl>
+          <div><dt>Rules</dt><dd>Reads the kit's block in AGENTS.md.</dd></div>
+          <div><dt>Skills</dt><dd>Skills in .github/skills (or a shared folder it also reads).</dd></div>
+          <div><dt>Agents</dt><dd>Agents in .github/agents (or a shared folder it also reads).</dd></div>
+          <div><dt>Format on edit</dt><dd>Copilot's hook input doesn't document which file was edited, so the kit doesn't install a format hook for it. The optional pre-commit check covers formatting.</dd></div>
+          <div><dt>Secret guard</dt><dd>Copilot can't be told to skip .env from inside the repo. Use content exclusion in your GitHub repository or organization settings (not supported in VS Code agent mode).</dd></div>
+          <div><dt>Detected by</dt><dd><code>.github/copilot-instructions.md</code>, <code>.github/instructions</code>, <code>.github/agents</code>, <code>.github/prompts</code>, <code>.github/skills</code></dd></div>
+        </dl>
+        <p class="docs">Docs, checked 2026-10-09: <a href="https://code.visualstudio.com/docs/copilot/customization/custom-instructions">code.visualstudio.com/docs/copilot/customization/custom-instructions</a> <a href="https://code.visualstudio.com/docs/copilot/customization/agent-skills">code.visualstudio.com/docs/copilot/customization/agent-skills</a> <a href="https://code.visualstudio.com/docs/copilot/customization/custom-agents">code.visualstudio.com/docs/copilot/customization/custom-agents</a> <a href="https://docs.github.com/en/copilot/reference/customization-cheat-sheet">docs.github.com/en/copilot/reference/customization-cheat-sheet</a></p>
+      </article>
+      <article class="tool" id="gemini">
+        <h3>Gemini CLI <code>gemini</code></h3>
+        <dl>
+          <div><dt>Rules</dt><dd>Reads AGENTS.md once it's added to context.fileName in .gemini/settings.json.</dd></div>
+          <div><dt>Skills</dt><dd>Skills in .agents/skills (or a shared folder it also reads).</dd></div>
+          <div><dt>Agents</dt><dd>Agents in .gemini/agents (or a shared folder it also reads).</dd></div>
+          <div><dt>Format on edit</dt><dd>Gemini CLI's hook input doesn't document the edited file's path, so the kit doesn't install a format hook for it. The optional pre-commit check covers formatting.</dd></div>
+          <div><dt>Secret guard</dt><dd>Entries in .geminiignore.</dd></div>
+          <div><dt>Detected by</dt><dd><code>GEMINI.md</code>, <code>.gemini</code></dd></div>
+        </dl>
+        <p class="docs">Docs, checked 2026-10-09: <a href="https://geminicli.com/docs/cli/gemini-md">geminicli.com/docs/cli/gemini-md</a> <a href="https://geminicli.com/docs/cli/skills">geminicli.com/docs/cli/skills</a> <a href="https://geminicli.com/docs/core/subagents">geminicli.com/docs/core/subagents</a> <a href="https://geminicli.com/docs/cli/gemini-ignore">geminicli.com/docs/cli/gemini-ignore</a></p>
+      </article>
+      <article class="tool" id="antigravity">
+        <h3>Google Antigravity <code>antigravity</code></h3>
+        <dl>
+          <div><dt>Rules</dt><dd>Reads the kit's block in AGENTS.md.</dd></div>
+          <div><dt>Skills</dt><dd>Skills in .agents/skills (or a shared folder it also reads).</dd></div>
+          <div><dt>Agents</dt><dd>Agents in .agents/agents (or a shared folder it also reads).</dd></div>
+          <div><dt>Format on edit</dt><dd>Antigravity's hook input doesn't document the edited file's path, so the kit doesn't install a format hook for it. The optional pre-commit check covers formatting.</dd></div>
+          <div><dt>Secret guard</dt><dd>Set a deny rule for read_file(.env) in Antigravity's permission settings (Settings UI, or ~/.gemini/antigravity-cli/settings.json for the CLI).</dd></div>
+          <div><dt>Detected by</dt><dd><code>.agents/rules</code>, <code>.agents/workflows</code>, <code>.agents/hooks.json</code>, <code>.agents/mcp_config.json</code>, <code>.agent</code></dd></div>
+        </dl>
+        <p class="docs">Docs, checked 2026-10-09: <a href="https://antigravity.google/docs/rules">antigravity.google/docs/rules</a> <a href="https://antigravity.google/docs/skills">antigravity.google/docs/skills</a> <a href="https://antigravity.google/docs/subagents">antigravity.google/docs/subagents</a> <a href="https://antigravity.google/docs/permissions">antigravity.google/docs/permissions</a></p>
+      </article>
+      <article class="tool" id="grok">
+        <h3>Grok Build <code>grok</code></h3>
+        <dl>
+          <div><dt>Rules</dt><dd>Reads the kit's block in AGENTS.md.</dd></div>
+          <div><dt>Skills</dt><dd>Skills in .grok/skills (or a shared folder it also reads).</dd></div>
+          <div><dt>Agents</dt><dd>Grok Build's custom agent file format isn't documented yet. The skills point to .agent-kit/agents/ instead.</dd></div>
+          <div><dt>Format on edit</dt><dd>Grok Build has no documented after-edit hook; use the pre-commit checks.</dd></div>
+          <div><dt>Secret guard</dt><dd>Add a deny rule for reading .env to [permission] rules in .grok/config.toml.</dd></div>
+          <div><dt>Detected by</dt><dd><code>.grok</code></dd></div>
+        </dl>
+        <p class="docs">Docs, checked 2026-10-09: <a href="https://docs.x.ai/build/features/project-rules">docs.x.ai/build/features/project-rules</a> <a href="https://docs.x.ai/build/features/skills-plugins-marketplaces">docs.x.ai/build/features/skills-plugins-marketplaces</a> <a href="https://docs.x.ai/build/features/permissions">docs.x.ai/build/features/permissions</a></p>
+      </article>
+      <article class="tool" id="windsurf">
+        <h3>Windsurf / Devin Desktop <code>windsurf</code></h3>
+        <dl>
+          <div><dt>Rules</dt><dd>Reads the kit's block in AGENTS.md.</dd></div>
+          <div><dt>Skills</dt><dd>Skills in .agents/skills (or a shared folder it also reads).</dd></div>
+          <div><dt>Agents</dt><dd>Cascade has no file-based sub-agents. The skills point to .agent-kit/agents/ instead.</dd></div>
+          <div><dt>Format on edit</dt><dd>After-edit hook in .devin/hooks.json.</dd></div>
+          <div><dt>Secret guard</dt><dd>Entries in .codeiumignore.</dd></div>
+          <div><dt>Detected by</dt><dd><code>.windsurf</code>, <code>.devin</code>, <code>.windsurfrules</code>, <code>.codeiumignore</code></dd></div>
+        </dl>
+        <p class="docs">Docs, checked 2026-10-09: <a href="https://docs.devin.ai/desktop/cascade/memories">docs.devin.ai/desktop/cascade/memories</a> <a href="https://docs.devin.ai/desktop/cascade/skills">docs.devin.ai/desktop/cascade/skills</a> <a href="https://docs.devin.ai/desktop/cascade/hooks">docs.devin.ai/desktop/cascade/hooks</a> <a href="https://docs.devin.ai/desktop/context-awareness/windsurf-ignore">docs.devin.ai/desktop/context-awareness/windsurf-ignore</a></p>
+      </article>
+      <article class="tool" id="kiro">
+        <h3>Kiro <code>kiro</code></h3>
+        <dl>
+          <div><dt>Rules</dt><dd>Reads the kit's block in AGENTS.md.</dd></div>
+          <div><dt>Skills</dt><dd>Skills in .kiro/skills (or a shared folder it also reads).</dd></div>
+          <div><dt>Agents</dt><dd>Agents in .kiro/agents (or a shared folder it also reads).</dd></div>
+          <div><dt>Format on edit</dt><dd>Kiro's hook input doesn't document the edited file's path, so the kit doesn't install a format hook for it. The optional pre-commit check covers formatting.</dd></div>
+          <div><dt>Secret guard</dt><dd>Entries in .kiroignore. Kiro only uses .kiroignore after you add it to the kiroAgent.agentIgnoreFiles setting (IDE only).</dd></div>
+          <div><dt>Detected by</dt><dd><code>.kiro</code>, <code>.kiroignore</code></dd></div>
+        </dl>
+        <p class="docs">Docs, checked 2026-10-09: <a href="https://kiro.dev/docs/steering/">kiro.dev/docs/steering/</a> <a href="https://kiro.dev/docs/skills/">kiro.dev/docs/skills/</a> <a href="https://kiro.dev/docs/custom-agents/creating/">kiro.dev/docs/custom-agents/creating/</a> <a href="https://kiro.dev/docs/kiroignore/">kiro.dev/docs/kiroignore/</a></p>
+      </article>
+      <article class="tool" id="opencode">
+        <h3>opencode <code>opencode</code></h3>
+        <dl>
+          <div><dt>Rules</dt><dd>Reads the kit's block in AGENTS.md.</dd></div>
+          <div><dt>Skills</dt><dd>Skills in .opencode/skills (or a shared folder it also reads).</dd></div>
+          <div><dt>Agents</dt><dd>Agents in .opencode/agents (or a shared folder it also reads).</dd></div>
+          <div><dt>Format on edit</dt><dd>opencode formats edited files with its own built-in formatters; configure them under &quot;formatter&quot; in opencode.json if needed.</dd></div>
+          <div><dt>Secret guard</dt><dd>opencode already denies reading .env and .env.* by default. If you keep secrets elsewhere, add them under &quot;permission&quot; &gt; &quot;read&quot; in opencode.json.</dd></div>
+          <div><dt>Detected by</dt><dd><code>opencode.json</code>, <code>opencode.jsonc</code>, <code>.opencode</code></dd></div>
+        </dl>
+        <p class="docs">Docs, checked 2026-10-09: <a href="https://opencode.ai/docs/rules/">opencode.ai/docs/rules/</a> <a href="https://opencode.ai/docs/skills/">opencode.ai/docs/skills/</a> <a href="https://opencode.ai/docs/agents/">opencode.ai/docs/agents/</a> <a href="https://opencode.ai/docs/permissions/">opencode.ai/docs/permissions/</a></p>
+      </article>
+      <article class="tool" id="kilo">
+        <h3>Kilo Code <code>kilo</code></h3>
+        <dl>
+          <div><dt>Rules</dt><dd>Reads the kit's block in AGENTS.md.</dd></div>
+          <div><dt>Skills</dt><dd>Skills in .agents/skills (or a shared folder it also reads).</dd></div>
+          <div><dt>Agents</dt><dd>Agents in .kilo/agents (or a shared folder it also reads).</dd></div>
+          <div><dt>Format on edit</dt><dd>Kilo Code has no documented after-edit hook; use the pre-commit checks.</dd></div>
+          <div><dt>Secret guard</dt><dd>Add &quot;permission&quot;: { &quot;read&quot;: { &quot;*.env&quot;: &quot;deny&quot; } } to kilo.jsonc (the installer doesn't edit files with comments).</dd></div>
+          <div><dt>Detected by</dt><dd><code>kilo.jsonc</code>, <code>kilo.json</code>, <code>.kilo</code>, <code>.kilocode</code></dd></div>
+        </dl>
+        <p class="docs">Docs, checked 2026-10-09: <a href="https://kilo.ai/docs/customize/agents-md">kilo.ai/docs/customize/agents-md</a> <a href="https://kilo.ai/docs/customize/skills">kilo.ai/docs/customize/skills</a> <a href="https://kilo.ai/docs/customize/custom-subagents">kilo.ai/docs/customize/custom-subagents</a> <a href="https://kilo.ai/docs/customize/context/kilocodeignore">kilo.ai/docs/customize/context/kilocodeignore</a></p>
+      </article>
+      <article class="tool" id="junie">
+        <h3>JetBrains Junie <code>junie</code></h3>
+        <dl>
+          <div><dt>Rules</dt><dd>Reads the kit's block in AGENTS.md.</dd></div>
+          <div><dt>Skills</dt><dd>Skills in .agents/skills (or a shared folder it also reads).</dd></div>
+          <div><dt>Agents</dt><dd>Agents in .junie/agents (or a shared folder it also reads).</dd></div>
+          <div><dt>Format on edit</dt><dd>JetBrains Junie has no documented after-edit hook; use the pre-commit checks.</dd></div>
+          <div><dt>Secret guard</dt><dd>Entries in .aiignore. Junie ignores .aiignore in Brave Mode.</dd></div>
+          <div><dt>Detected by</dt><dd><code>.junie</code>, <code>.aiignore</code></dd></div>
+        </dl>
+        <p class="docs">Docs, checked 2026-10-09: <a href="https://junie.jetbrains.com/docs/guidelines-and-memory.html">junie.jetbrains.com/docs/guidelines-and-memory.html</a> <a href="https://junie.jetbrains.com/docs/agent-skills.html">junie.jetbrains.com/docs/agent-skills.html</a> <a href="https://junie.jetbrains.com/docs/junie-cli-subagents.html">junie.jetbrains.com/docs/junie-cli-subagents.html</a></p>
+      </article>
+      <article class="tool" id="augment">
+        <h3>Augment Code <code>augment</code></h3>
+        <dl>
+          <div><dt>Rules</dt><dd>Reads the kit's block in AGENTS.md.</dd></div>
+          <div><dt>Skills</dt><dd>Skills in .augment/skills (or a shared folder it also reads).</dd></div>
+          <div><dt>Agents</dt><dd>Agents in .augment/agents (or a shared folder it also reads).</dd></div>
+          <div><dt>Format on edit</dt><dd>Augment's hook &quot;command&quot; is a script path and its working directory isn't defined, so the kit doesn't install a format hook for it. The optional pre-commit check covers formatting.</dd></div>
+          <div><dt>Secret guard</dt><dd>Entries in .augmentignore.</dd></div>
+          <div><dt>Detected by</dt><dd><code>.augment</code>, <code>.augmentignore</code>, <code>.augment-guidelines</code></dd></div>
+        </dl>
+        <p class="docs">Docs, checked 2026-10-09: <a href="https://docs.augmentcode.com/cli/rules">docs.augmentcode.com/cli/rules</a> <a href="https://docs.augmentcode.com/cli/skills">docs.augmentcode.com/cli/skills</a> <a href="https://docs.augmentcode.com/cli/subagents">docs.augmentcode.com/cli/subagents</a> <a href="https://docs.augmentcode.com/cli/hooks">docs.augmentcode.com/cli/hooks</a></p>
+      </article>
+      <article class="tool" id="cline">
+        <h3>Cline <code>cline</code></h3>
+        <dl>
+          <div><dt>Rules</dt><dd>Reads the kit's block in AGENTS.md.</dd></div>
+          <div><dt>Skills</dt><dd>Skills in .cline/skills (or a shared folder it also reads).</dd></div>
+          <div><dt>Agents</dt><dd>Cline's custom agent file format isn't documented yet. The skills point to .agent-kit/agents/ instead.</dd></div>
+          <div><dt>Format on edit</dt><dd>Cline has no documented after-edit hook; use the pre-commit checks.</dd></div>
+          <div><dt>Secret guard</dt><dd>Cline is replacing .clineignore with a guard hook; until then, use its &quot;Block Ignored File Access&quot; plugin to keep it out of .env.</dd></div>
+          <div><dt>Detected by</dt><dd><code>.clinerules</code>, <code>.cline</code>, <code>.clineignore</code></dd></div>
+        </dl>
+        <p class="docs">Docs, checked 2026-10-09: <a href="https://docs.cline.bot/customization/cline-rules">docs.cline.bot/customization/cline-rules</a> <a href="https://docs.cline.bot/customization/skills">docs.cline.bot/customization/skills</a> <a href="https://docs.cline.bot/features/subagents">docs.cline.bot/features/subagents</a></p>
+      </article>
+      <article class="tool" id="zed">
+        <h3>Zed <code>zed</code></h3>
+        <dl>
+          <div><dt>Rules</dt><dd>Reads the kit's block in AGENTS.md.</dd></div>
+          <div><dt>Skills</dt><dd>Skills in .agents/skills (or a shared folder it also reads).</dd></div>
+          <div><dt>Agents</dt><dd>Zed has no file-based sub-agents. The skills point to .agent-kit/agents/ instead.</dd></div>
+          <div><dt>Format on edit</dt><dd>Zed has no documented after-edit hook; use the pre-commit checks.</dd></div>
+          <div><dt>Secret guard</dt><dd>Deny agent access to .env with agent.tool_permissions in your Zed settings.</dd></div>
+          <div><dt>Detected by</dt><dd><code>.rules</code>, <code>.zed</code></dd></div>
+        </dl>
+        <p class="docs">Docs, checked 2026-10-09: <a href="https://zed.dev/docs/ai/instructions">zed.dev/docs/ai/instructions</a> <a href="https://zed.dev/docs/ai/skills">zed.dev/docs/ai/skills</a> <a href="https://zed.dev/docs/ai/tool-permissions">zed.dev/docs/ai/tool-permissions</a></p>
+      </article>
+      <article class="tool" id="amp">
+        <h3>Amp <code>amp</code></h3>
+        <dl>
+          <div><dt>Rules</dt><dd>Reads the kit's block in AGENTS.md.</dd></div>
+          <div><dt>Skills</dt><dd>Skills in .agents/skills (or a shared folder it also reads).</dd></div>
+          <div><dt>Agents</dt><dd>Amp creates sub-agents through its plugin API, not files. The skills point to .agent-kit/agents/ instead.</dd></div>
+          <div><dt>Format on edit</dt><dd>Amp has no documented after-edit hook; use the pre-commit checks.</dd></div>
+          <div><dt>Secret guard</dt><dd>Amp has no ignore file; disable file reads of .env through a tool.call plugin or amp.tools.disable.</dd></div>
+          <div><dt>Detected by</dt><dd><code>.amp</code></dd></div>
+        </dl>
+        <p class="docs">Docs, checked 2026-10-09: <a href="https://ampcode.com/docs/customize/agents-md">ampcode.com/docs/customize/agents-md</a> <a href="https://ampcode.com/docs/customize/skills">ampcode.com/docs/customize/skills</a></p>
+      </article>
+      <article class="tool" id="warp">
+        <h3>Warp <code>warp</code></h3>
+        <dl>
+          <div><dt>Rules</dt><dd>Reads the kit's block in AGENTS.md.</dd></div>
+          <div><dt>Skills</dt><dd>Skills in .agents/skills (or a shared folder it also reads).</dd></div>
+          <div><dt>Agents</dt><dd>Warp's agent profiles are set in the app, not files. The skills point to .agent-kit/agents/ instead.</dd></div>
+          <div><dt>Format on edit</dt><dd>Warp has no documented after-edit hook; use the pre-commit checks.</dd></div>
+          <div><dt>Secret guard</dt><dd>Restrict file reads in your Warp agent profile's permissions.</dd></div>
+          <div><dt>Detected by</dt><dd><code>WARP.md</code>, <code>.warp</code></dd></div>
+        </dl>
+        <p class="docs">Docs, checked 2026-10-09: <a href="https://docs.warp.dev/agents/cli/configuration/">docs.warp.dev/agents/cli/configuration/</a> <a href="https://docs.warp.dev/agent-platform/capabilities/skills/">docs.warp.dev/agent-platform/capabilities/skills/</a></p>
+      </article>
+      <article class="tool" id="aider">
+        <h3>Aider <code>aider</code></h3>
+        <dl>
+          <div><dt>Rules</dt><dd>Aider doesn't read AGENTS.md by itself. Add &quot;read: AGENTS.md&quot; to .aider.conf.yml (or run aider --read AGENTS.md).</dd></div>
+          <div><dt>Skills</dt><dd>Aider has no skills support.</dd></div>
+          <div><dt>Agents</dt><dd>Aider has no sub-agents.</dd></div>
+          <div><dt>Format on edit</dt><dd>Aider has no documented after-edit hook; use the pre-commit checks.</dd></div>
+          <div><dt>Secret guard</dt><dd>Entries in .aiderignore.</dd></div>
+          <div><dt>Detected by</dt><dd><code>.aider.conf.yml</code>, <code>.aiderignore</code></dd></div>
+        </dl>
+        <p class="docs">Docs, checked 2026-10-09: <a href="https://aider.chat/docs/usage/conventions.html">aider.chat/docs/usage/conventions.html</a> <a href="https://aider.chat/docs/config/options.html">aider.chat/docs/config/options.html</a></p>
+      </article>
+      <article class="tool" id="generic">
+        <h3>Any other agent (AGENTS.md) <code>generic</code></h3>
+        <dl>
+          <div><dt>Rules</dt><dd>Reads the kit's block in AGENTS.md.</dd></div>
+          <div><dt>Skills</dt><dd>Skills in .agents/skills (or a shared folder it also reads).</dd></div>
+          <div><dt>Agents</dt><dd>Generic agents get the agent instructions as reference files. The skills point to .agent-kit/agents/ instead.</dd></div>
+          <div><dt>Format on edit</dt><dd>Any other agent (AGENTS.md) has no documented after-edit hook; use the pre-commit checks.</dd></div>
+          <div><dt>Secret guard</dt><dd>Any other agent (AGENTS.md) has no way to block file reads.</dd></div>
+          
+        </dl>
+        <p class="docs">Docs, checked 2026-10-09: <a href="https://agents.md/">agents.md/</a> <a href="https://agentskills.io/specification">agentskills.io/specification</a></p>
+      </article>
+      <!-- /bake:tools-detail --></div>
+    </section>
+
+    <section class="section" aria-labelledby="shared-title">
+      <div class="section-head">
+        <p class="label">§03 · Shared folders</p>
+        <div>
+          <h2 id="shared-title">Written once where tools overlap.</h2>
+        </div>
+      </div>
+      <ol class="rules-list">
+        <li><strong>A fixed order.</strong> Tools are processed in a fixed order. A tool that already reads a chosen folder is covered; otherwise its preferred folder is added. The same choices always give the same layout.</li>
+        <li><strong>Overlaps are flagged.</strong> Some tools read several folders (Cursor reads <code>.claude/skills</code> and <code>.agents/skills</code>), so with certain combinations they list a kit skill twice. The copies are byte-identical, and the preview says which tool is affected.</li>
+        <li><strong>Removing one tool</strong> keeps the files your other tools still use.</li>
+        <li><strong>Tested by format, not by hand.</strong> Only Claude Code has been run end to end. The other tools’ files follow their official docs and are checked by format tests, but haven’t each been loaded in the tool.</li>
+      </ol>
+    </section>
+  </main>
+
+  <!-- bake:footer -->
+  <footer class="sheet">
+    <div class="colophon">
+    <p>The Agent Engineering Kit is open source under the MIT licence, by <a href="https://vishalg.in">Vishal Gupta</a>. It builds on the workflows of Boris Cherny and Matt Pocock, the Karpathy guidelines, Superpowers and Addy Osmani’s agent-skills (<a href="https://github.com/vishalguptax/agent-engineering-kit#credits">credits</a>).</p>
+    <p><a href="https://github.com/vishalguptax/agent-engineering-kit">Source on GitHub</a> <span aria-hidden="true">/</span> <a href="https://www.npmjs.com/package/agent-engineering-kit">Package on npm</a> <span aria-hidden="true">/</span> <a href="/llms.txt">llms.txt</a></p>
+    </div>
+  </footer>
+  <!-- /bake:footer -->
+</body>
+</html>

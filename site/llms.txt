@@ -1,0 +1,23 @@
+# Agent Engineering Kit
+
+> An open-source (MIT) kit of rules, sub-agents, skills and hooks that gives AI coding agents the habits of a careful senior engineer: plan first, make surgical changes, verify with evidence, simplify and review. A safe installer (`npx agent-engineering-kit`) puts it into any project in the format of each of 18 AI coding tools (Claude Code, OpenAI Codex, Cursor, GitHub Copilot, Gemini CLI and more), or any agent that reads AGENTS.md.
+
+The installer previews every change as a diff before writing, merges AGENTS.md, CLAUDE.md and settings files instead of overwriting them, backs up files it changes, records what it did, and can update or uninstall cleanly. The always-on rules in AGENTS.md cost about 600 tokens per session; the full rulebook is reference that skills and agents open one section at a time.
+
+## Pages
+
+- [Home](https://agentengineeringkit.vishalg.in/): What the kit is, the six-step workflow, the parts, supported tools, the installer's safety, and an FAQ.
+- [Rules](https://agentengineeringkit.vishalg.in/rules/): The always-on rules block in AGENTS.md, word for word, and the ten sections of the rulebook.
+- [Agents](https://agentengineeringkit.vishalg.in/agents/): Each sub-agent: what it does, when it's used, an example, and whether it can edit code.
+- [Skills](https://agentengineeringkit.vishalg.in/skills/): Each skill (feature, quick-fix, verify-change, ship, learn, project-conventions): what it does, when to use it, and what it needs.
+- [Safety](https://agentengineeringkit.vishalg.in/safety/): The format-on-edit hook, the secret guard and the pre-commit checks, with what each AI tool supports.
+- [Tools](https://agentengineeringkit.vishalg.in/tools/): A per-tool table of rules, skills, agents, format on edit and secret guard, with the reason and docs for each.
+- [Install](https://agentengineeringkit.vishalg.in/install/): The npx command, the install-with-your-agent prompt, terminal and CI usage, global installs, flags, update and uninstall.
+- [How it works](https://agentengineeringkit.vishalg.in/how-it-works/): Where files go, how existing files are merged, backups, the install record, update, uninstall and the safety checks.
+- [Changelog](https://agentengineeringkit.vishalg.in/changelog/): Every release, newest first.
+
+## Links
+
+- [GitHub repository](https://github.com/vishalguptax/agent-engineering-kit): source, issues, docs (MIT)
+- [npm package](https://www.npmjs.com/package/agent-engineering-kit): `npx agent-engineering-kit`
+- [Install with your AI agent](https://raw.githubusercontent.com/vishalguptax/agent-engineering-kit/main/docs/install-with-an-agent.md): the instructions an agent follows to install the kit

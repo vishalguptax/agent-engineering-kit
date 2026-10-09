@@ -11,6 +11,7 @@ Run these inside `installer/`:
 - Build: `npm run build` (commit `installer/dist/`)
 - Regenerate docs: `npm run docs` (commit `docs/components.md`, `docs/supported-tools.md`)
 - Run GUI from source: `npm run dev`; dry-run against a scratch dir: `npx tsx src/index.ts --target /tmp/x --dry-run`
+- Website (from the repo root): `node scripts/build-site.mjs` (`--offline` skips live numbers and images); its tests run with `npm test`
 
 ## Key Directories
 - `kit/`: what gets installed (agents, checks, hooks, instructions, rules, skills, templates)
@@ -20,6 +21,7 @@ Run these inside `installer/`:
 - `installer/kit.manifest.json`: every component and preset
 - `installer/test/`: node:test tests and fixtures
 - `docs/`: user docs (`components.md` and `supported-tools.md` are generated)
+- `site/`: the website (static HTML; `site/DESIGN.md` is its design system); `scripts/build-site.mjs` fills its `bake:` regions
 
 ## Conventions
 - Kit content is written for every tool: no Claude-only syntax; canonical frontmatter only.
@@ -29,7 +31,7 @@ Run these inside `installer/`:
 
 ## Do / Don't (learned from past mistakes)
 - Do update `installer/kit.manifest.json` when adding or removing a kit file; add `globalRewrites` for project-relative paths.
-- Do commit a rebuilt `installer/dist/` and regenerated docs (tests fail if they're stale).
+- Do commit a rebuilt `installer/dist/` and regenerated docs (tests fail if they're stale), and the rebuilt site after changing `CHANGELOG.md`, `kit/`, the manifest or the version (`node scripts/build-site.mjs --offline`).
 - Don't add runtime dependencies without opening an issue first.
 - Do write the test first for any logic change, and add a security test for any new file operation.
 

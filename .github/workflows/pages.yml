@@ -1,0 +1,60 @@
+name: Deploy site to GitHub Pages
+
+# Builds site/ (live numbers, generated pages, Open Graph images) and deploys it. The built files exist only in
+# the deployed artifact; nothing is committed back. The schedule refreshes the live numbers without a site edit.
+on:
+  push:
+    branches: [main]
+    paths:
+      - "site/**"
+      - "scripts/build-site.mjs"
+      - ".github/workflows/pages.yml"
+      # The build reads these, so a change to them changes the site too.
+      - "CHANGELOG.md"
+      - "kit/**"
+      - "installer/kit.manifest.json"
+      - "installer/dist/**"
+      - "package.json"
+      - "scripts/live-numbers.json"
+  workflow_dispatch:
+  schedule:
+    - cron: "0 */12 * * *"
+
+permissions:
+  contents: read
+
+# One deployment at a time; don't cancel one in progress.
+concurrency:
+  group: pages
+  cancel-in-progress: false
+
+jobs:
+  # The build runs repo code with network access, so it gets read-only rights; only deploy can write to Pages.
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+      - name: Build the site (live numbers, generated pages, images)
+        run: node scripts/build-site.mjs
+        env:
+          GITHUB_TOKEN: ${{ github.token }}
+      - uses: actions/upload-pages-artifact@v3
+        with:
+          path: site
+
+  deploy:
+    needs: build
+    permissions:
+      pages: write
+      id-token: write
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    runs-on: ubuntu-latest
+    steps:
+      - name: Deploy
+        id: deployment
+        uses: actions/deploy-pages@v4

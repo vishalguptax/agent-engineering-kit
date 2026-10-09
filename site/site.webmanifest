@@ -1,0 +1,14 @@
+{
+  "name": "Agent Engineering Kit",
+  "short_name": "Agent Kit",
+  "description": "Rules, sub-agents and skills that make AI coding agents ship clean, maintainable code.",
+  "start_url": "/",
+  "display": "browser",
+  "background_color": "#f4f1e8",
+  "theme_color": "#f4f1e8",
+  "icons": [
+    { "src": "/icon-192.png", "sizes": "192x192", "type": "image/png" },
+    { "src": "/icon-512.png", "sizes": "512x512", "type": "image/png" },
+    { "src": "/favicon.svg", "sizes": "any", "type": "image/svg+xml" }
+  ]
+}

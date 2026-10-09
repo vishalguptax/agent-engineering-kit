@@ -38,7 +38,7 @@
     "developer-tools"
   ],
   "scripts": {
-    "test": "npm --prefix installer test",
+    "test": "npm --prefix installer test && node --test scripts/build-site.test.mjs",
     "prepublishOnly": "npm --prefix installer run build && npm --prefix installer run docs && npm --prefix installer test"
   }
 }

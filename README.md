@@ -8,6 +8,8 @@ Left alone, coding agents guess APIs, sprawl across files and call untested work
 - **Clean up and review.** A simplify pass and focused reviewers for tests, silent failures, security and UI, plus a rule file that learns from your corrections.
 - **Enforce it (optional).** A git pre-commit check runs your project's own lint and tests, whichever agent made the change.
 
+Website: **[agentengineeringkit.vishalg.in](https://agentengineeringkit.vishalg.in)**
+
 Built on the workflows of Boris Cherny and Matt Pocock, and on principles from the Karpathy guidelines, Superpowers and Addy Osmani's agent-skills (see [Credits](#credits)).
 
 ## Quick start
@@ -129,6 +131,7 @@ agent-engineering-kit/
 ├── kit/          what gets installed: rules, AGENTS.md block, agents, skills, hook, checks
 ├── installer/    the installer (GUI, terminal wizard, CLI); built code in installer/dist
 ├── docs/         documentation about the kit and the installer
+├── site/         the website, built by scripts/build-site.mjs and deployed to GitHub Pages
 └── DESIGN.md     design system for the installer UI
 ```
 
