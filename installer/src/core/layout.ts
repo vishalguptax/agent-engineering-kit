@@ -16,6 +16,8 @@ import { KIT_STATE_DIR, type Target } from "./target.js";
 export const RULEBOOK_PATH = `${KIT_STATE_DIR}/RULES.md`;
 export const PLAN_TEMPLATE_PATH = `${KIT_STATE_DIR}/plan-template.md`;
 export const AGENT_REFERENCE_DIR = `${KIT_STATE_DIR}/agents`;
+/** Keeps the installer's backups (copies of the project's own files) out of git, though .agent-kit/ is committed. */
+export const KIT_GITIGNORE = `${KIT_STATE_DIR}/.gitignore`;
 /** Where kit 1.0 and 1.1 put those reference files. */
 const RETIRED_REFERENCE_DIR = "docs/agent-engineering";
 const GEMINI_SETTINGS = ".gemini/settings.json";
@@ -182,6 +184,10 @@ export function desiredLayout({ manifest, target, components, tools, checks = ""
     }
   }
 
+  if (!isGlobal && files.size > 0) {
+    add({ kind: "copy", path: KIT_GITIGNORE, content: "backup/\n", createOnly: true, componentIds: components.map((c) => c.id), toolIds: allToolIds });
+  }
+
   const installsKind = (kind: "skill" | "agent") => components.some((c) => c.artifacts.some((a) => a.kind === kind));
   if (!isGlobal) {
     for (const [kind, choice] of [["skill", skillLocations], ["agent", agentLocations]] as const) {
@@ -246,7 +252,8 @@ export function installablePaths(manifest: Manifest, target: Target): Set<string
     for (const spec of [tool.formatHook, tool.secretGuard]) if (spec && "file" in spec) paths.add(inTarget(target, spec.file));
   }
   for (const p of [...paths]) paths.add(`${p}.kit-new`);
-  // The git hook is only ever created (never modified), so it has no .kit-new twin; see record validation.
-  if (target.mode === "project") paths.add(PRE_COMMIT_HOOK);
+  // The git hook and the backup ignore file are only ever created (never modified), so they have no .kit-new twin;
+  // see record validation.
+  if (target.mode === "project") paths.add(PRE_COMMIT_HOOK).add(KIT_GITIGNORE);
   return paths;
 }

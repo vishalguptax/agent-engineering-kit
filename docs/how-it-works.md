@@ -89,8 +89,9 @@ CLAUDE.md                              Claude Code only: a marked block containi
 .agent-kit/plan-template.md
 .agent-kit/agents/*.md                 each agent's instructions, for tools without sub-agents
 .agent-kit/plans/                      your plans, written by the feature skill (yours to keep)
-.agent-kit/                            also install.json, backup/, format.mjs, and (optional)
-                                       check.sh, checks.conf, protected
+.agent-kit/                            also install.json, backup/, format.mjs, .gitignore (keeps
+                                       backup/ out of git), and (optional) check.sh, checks.conf,
+                                       protected
 ```
 
 **Choosing shared folders.** Each tool profile lists the skill and agent folders the tool reads, preferred first. Tools are processed in a fixed order: a tool that already reads a chosen folder is covered; otherwise its preferred folder is added. The same choices always give the same layout. Some tools read several folders (Cursor reads `.claude/skills` and `.agents/skills`), so with certain combinations they list a kit skill twice; the copies are byte-identical, and the preview says which tool is affected.
@@ -117,7 +118,7 @@ The full per-tool table is in [supported-tools.md](supported-tools.md).
 
 ## Backups, the install record, and uninstall
 
-- **Backups.** Before writing, every file that will change is copied to `<target>/.agent-kit/backup/<UTC timestamp>/`. The installer never deletes backups.
+- **Backups.** Before writing, every file that will change is copied to `<target>/.agent-kit/backup/<UTC timestamp>/`. The installer never deletes backups, and `.agent-kit/.gitignore` keeps them out of git (they hold copies of your own files).
 - **The install record.** `<target>/.agent-kit/install.json` records:
   - the kit version, the components and the tools;
   - every file created or modified, with a hash of how the installer left it, and which components and tools need it;

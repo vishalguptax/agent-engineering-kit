@@ -2,7 +2,7 @@
 
 > **Reference, not a preamble.** The always-on rules are in the kit's block in `AGENTS.md`. Open this file for the one section a task needs; you don't need to read it whole. Project-specific rules win wherever they conflict with these.
 >
-> **Sources:** Boris Cherny's (creator of Claude Code) workflow; the "Karpathy" principles (community CLAUDE.md by forrestchang); Superpowers (obra / Jesse Vincent); Addy Osmani's agent-skills lifecycle; Anthropic's frontend-design guidance; Matt Pocock's skills (alignment by grilling, shared domain language, TDD, deep-module design).
+> **Sources:** Boris Cherny's (creator of Claude Code) workflow; the "Karpathy" principles ([andrej-karpathy-skills](https://github.com/multica-ai/andrej-karpathy-skills)); Superpowers (obra / Jesse Vincent); Addy Osmani's agent-skills lifecycle; Anthropic's frontend-design guidance; Matt Pocock's skills (alignment by grilling, shared domain language, TDD, deep-module design).
 
 ---
 

@@ -2,6 +2,15 @@
 
 This project follows [Semantic Versioning](https://semver.org). The kit version lives in `installer/kit.manifest.json` (`kitVersion`) and is written into every install record.
 
+## 1.2.2 — 2026-10-09
+
+### Fixes
+- **Installer backups stay out of git.** Project installs now add `.agent-kit/.gitignore` with `backup/`, so committing `.agent-kit/` doesn't also commit the copies of your files the installer made. An existing `.agent-kit/.gitignore` is left as it is.
+
+### Internal
+- A test checks that every rulebook section the block, skills and agents cite (§2, §8, …) exists, so renumbering `RULES.md` can't silently break them.
+- CI fails if this repo's own kit install is out of date with `kit/`.
+
 ## 1.2.1 — 2026-10-09
 
 ### Fixes

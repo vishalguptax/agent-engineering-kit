@@ -1,5 +1,5 @@
 {
-  "kitVersion": "1.2.1",
+  "kitVersion": "1.2.2",
   "ignore": ["**/.DS_Store"],
   "globalRewrites": [
     {

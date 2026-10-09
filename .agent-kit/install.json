@@ -1,9 +1,9 @@
 {
   "schemaVersion": 2,
-  "kitVersion": "1.2.0",
+  "kitVersion": "1.2.2",
   "mode": "project",
   "installedAt": "2026-10-09T09:28:52.078Z",
-  "updatedAt": "2026-10-09T09:56:37.184Z",
+  "updatedAt": "2026-10-09T10:40:20.261Z",
   "components": [
     "rules",
     "instructions",
@@ -252,7 +252,7 @@
       "toolIds": [
         "claude-code"
       ],
-      "installedHash": "841f731ab09b209df29a317e7613157ba91aba921b1ff9b0a116d8468f0ad4bb"
+      "installedHash": "a72e202971187c1e50109cfb21ffc579262195b98fb90c26c56a63fa7ab5a386"
     },
     {
       "path": ".agent-kit/plan-template.md",
@@ -333,6 +333,32 @@
         "claude-code"
       ],
       "installedHash": "be7923dd9f3f07fe7d8721de6f6d4772d9936c37183f9b49946468b097bb9fb7"
+    },
+    {
+      "path": ".agent-kit/.gitignore",
+      "componentIds": [
+        "rules",
+        "instructions",
+        "verifier",
+        "code-simplifier",
+        "security-reviewer",
+        "code-explorer",
+        "code-architect",
+        "silent-failure-hunter",
+        "test-analyzer",
+        "feature",
+        "quick-fix",
+        "verify-change",
+        "ship",
+        "learn",
+        "project-conventions",
+        "format-hook",
+        "secret-guard"
+      ],
+      "toolIds": [
+        "claude-code"
+      ],
+      "installedHash": "508edfcbccd0a31917ce5c69027c9b3a475639f7c145525a4737125029522d3d"
     }
   ],
   "filesModified": [],
@@ -350,6 +376,7 @@
     ".agent-kit"
   ],
   "backups": [
-    ".agent-kit/backup/2026-10-09T09-56-37Z"
+    ".agent-kit/backup/2026-10-09T09-56-37Z",
+    ".agent-kit/backup/2026-10-09T10-40-20Z"
   ]
 }

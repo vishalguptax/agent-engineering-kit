@@ -28,6 +28,9 @@ jobs:
       - run: npm ci --prefix installer
       - run: npm run typecheck --prefix installer
       - run: npm test
+      - name: This repo's own kit install matches kit/ (refresh with `node installer/dist/index.js --target .`)
+        if: matrix.node == 22
+        run: node installer/dist/index.js --target . --dry-run | tee plan.txt && grep -q "^Nothing to change" plan.txt
 
   release:
     needs: test

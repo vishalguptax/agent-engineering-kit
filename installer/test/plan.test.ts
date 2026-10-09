@@ -1,8 +1,8 @@
 import { test } from "node:test";
 import assert from "node:assert/strict";
-import { mkdirSync, writeFileSync } from "node:fs";
+import { mkdirSync, readFileSync, writeFileSync } from "node:fs";
 import path from "node:path";
-import { loadManifest } from "../src/core/manifest.js";
+import { INSTALLER_ROOT, loadManifest } from "../src/core/manifest.js";
 import { planInstall, type Action } from "../src/core/plan.js";
 import { presetSelection } from "../src/core/resolve.js";
 import { globalTarget, projectTarget } from "../src/core/target.js";
@@ -156,4 +156,26 @@ test("the always-loaded instructions block stays small and inlines its rules ins
   assert.ok(block.length <= 4000, `the block is ${block.length} characters`);
   assert.doesNotMatch(block, /@\S*RULES\.md/, "no @-import of the rulebook");
   assert.match(block, /`\.agent-kit\/RULES\.md`/, "points to the rulebook for on-demand reading");
+});
+
+test("a project install keeps the installer's backups out of git, and leaves an existing .agent-kit/.gitignore alone", () => {
+  const actions = byPath(plan(makeFixture("empty"), ["claude-code"], ["rules"]).actions);
+  assert.equal(actions[".agent-kit/.gitignore"]?.after, "backup/\n");
+  const dir = makeFixture("empty");
+  mkdirSync(path.join(dir, ".agent-kit"));
+  writeFileSync(path.join(dir, ".agent-kit/.gitignore"), "backup/\nlocal/\n");
+  assert.equal(byPath(plan(dir, ["claude-code"], ["rules"]).actions)[".agent-kit/.gitignore"].kind, "SKIP");
+  const home = tempDir("kit-home-");
+  mkdirSync(path.join(home, ".claude"));
+  const global = planInstall({ manifest, target: globalTarget(home), selected: recommended, tools: ["claude-code"], homeDir: home });
+  assert.ok(!global.actions.some((a) => a.path.endsWith(".gitignore")), "~/.claude isn't a project repo");
+});
+
+test("every rulebook section that the block, skills and agents cite exists", () => {
+  const rules = readFileSync(path.join(INSTALLER_ROOT, "..", "kit", "rules", "RULES.md"), "utf8");
+  const sections = new Set([...rules.matchAll(/^## (\d+)\./gm)].map((m) => m[1]));
+  const actions = plan(makeFixture("empty"), ["claude-code", "codex"], presetSelection(manifest, "everything")).actions;
+  const cited = actions.filter((a) => a.path !== ".agent-kit/RULES.md").flatMap((a) => [...(a.after ?? "").matchAll(/§(\d+)/g)].map((m) => `${a.path} §${m[1]}`));
+  assert.ok(cited.length > 0);
+  assert.deepEqual(cited.filter((c) => !sections.has(c.split("§")[1])), []);
 });
