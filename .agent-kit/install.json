@@ -1,0 +1,355 @@
+{
+  "schemaVersion": 2,
+  "kitVersion": "1.2.0",
+  "mode": "project",
+  "installedAt": "2026-10-09T09:28:52.078Z",
+  "updatedAt": "2026-10-09T09:56:37.184Z",
+  "components": [
+    "rules",
+    "instructions",
+    "verifier",
+    "code-simplifier",
+    "security-reviewer",
+    "code-explorer",
+    "code-architect",
+    "silent-failure-hunter",
+    "test-analyzer",
+    "feature",
+    "quick-fix",
+    "verify-change",
+    "ship",
+    "learn",
+    "project-conventions",
+    "format-hook",
+    "secret-guard"
+  ],
+  "tools": [
+    "claude-code"
+  ],
+  "filesCreated": [
+    {
+      "path": "AGENTS.md",
+      "componentIds": [
+        "instructions"
+      ],
+      "toolIds": [
+        "claude-code"
+      ],
+      "installedHash": "0bf873da9e0e762f6c77364ed5b8d0e214f1893974bf8d095af4d2c6ffcbd03c",
+      "block": "html",
+      "userContent": true
+    },
+    {
+      "path": "CLAUDE.md",
+      "componentIds": [
+        "instructions"
+      ],
+      "toolIds": [
+        "claude-code"
+      ],
+      "installedHash": "8e38970c72ce971071e62bf3c258de5b6c06539545f5960ded79c2c0572068f3",
+      "block": "html"
+    },
+    {
+      "path": ".claude/agents/verifier.md",
+      "componentIds": [
+        "verifier"
+      ],
+      "toolIds": [
+        "claude-code"
+      ],
+      "installedHash": "03fa9b6442379a0c1f4ea7bc08adbd3cf1eb87c856034f4443984834a3bed3b4"
+    },
+    {
+      "path": ".claude/agents/code-simplifier.md",
+      "componentIds": [
+        "code-simplifier"
+      ],
+      "toolIds": [
+        "claude-code"
+      ],
+      "installedHash": "d2abc6c176635698bfc536d686c9ab6f30f453eeffb3267ac91f1c0e0ea4ba6c"
+    },
+    {
+      "path": ".claude/agents/security-reviewer.md",
+      "componentIds": [
+        "security-reviewer"
+      ],
+      "toolIds": [
+        "claude-code"
+      ],
+      "installedHash": "9dc1b2962822ccc6c442e503372db283225143757d61fb37c0049aaa89d9a9d1"
+    },
+    {
+      "path": ".claude/agents/code-explorer.md",
+      "componentIds": [
+        "code-explorer"
+      ],
+      "toolIds": [
+        "claude-code"
+      ],
+      "installedHash": "c1322480db714a1db879852b4ce0f3e2d73f972c2af30eda49402f1fa48c2985"
+    },
+    {
+      "path": ".claude/agents/code-architect.md",
+      "componentIds": [
+        "code-architect"
+      ],
+      "toolIds": [
+        "claude-code"
+      ],
+      "installedHash": "7a3dfbcdb73affe08f9d39814c96cdb7aea69962b2b62a319c333a7bf02cbe67"
+    },
+    {
+      "path": ".claude/agents/silent-failure-hunter.md",
+      "componentIds": [
+        "silent-failure-hunter"
+      ],
+      "toolIds": [
+        "claude-code"
+      ],
+      "installedHash": "9d3fb55ff4ffcedc969104399f485686a83b302ff4bb813b94ac3d6495cfe235"
+    },
+    {
+      "path": ".claude/agents/test-analyzer.md",
+      "componentIds": [
+        "test-analyzer"
+      ],
+      "toolIds": [
+        "claude-code"
+      ],
+      "installedHash": "79ddf60bc9193b2638941f0e6db3b92f9617d3b3daf736d69fab837a71100485"
+    },
+    {
+      "path": ".claude/skills/feature/SKILL.md",
+      "componentIds": [
+        "feature"
+      ],
+      "toolIds": [
+        "claude-code"
+      ],
+      "installedHash": "52cc6a4c5fa40bdbe14fc00900b3476a4b91b2f024c38b694de8f670596d7c83"
+    },
+    {
+      "path": ".claude/skills/quick-fix/SKILL.md",
+      "componentIds": [
+        "quick-fix"
+      ],
+      "toolIds": [
+        "claude-code"
+      ],
+      "installedHash": "eef2f9aeb523494587985995841bb6ac10e18814d83ae873e18020953ff14d5f"
+    },
+    {
+      "path": ".claude/skills/verify-change/SKILL.md",
+      "componentIds": [
+        "verify-change"
+      ],
+      "toolIds": [
+        "claude-code"
+      ],
+      "installedHash": "d2becbf8864019587f705aeaf231906a0191e571622c2082e4977c6c9cf86cb3"
+    },
+    {
+      "path": ".claude/skills/ship/SKILL.md",
+      "componentIds": [
+        "ship"
+      ],
+      "toolIds": [
+        "claude-code"
+      ],
+      "installedHash": "bbbe3d4653e8fd0e7882a30916d875922a82dfd1648ab60465209cd8a99ef71b"
+    },
+    {
+      "path": ".claude/skills/learn/SKILL.md",
+      "componentIds": [
+        "learn"
+      ],
+      "toolIds": [
+        "claude-code"
+      ],
+      "installedHash": "56a624688b38e5f99d11622cf30841cb44d51ce97b03d7c12b96c0c81977cb3a"
+    },
+    {
+      "path": ".claude/skills/project-conventions/SKILL.md",
+      "componentIds": [
+        "project-conventions"
+      ],
+      "toolIds": [
+        "claude-code"
+      ],
+      "installedHash": "1541f8c37becd7bb39f49b7b8e2aff29ec8e606595cb6b1b1f75d2076e7b7357"
+    },
+    {
+      "path": ".agent-kit/format.mjs",
+      "componentIds": [
+        "format-hook"
+      ],
+      "toolIds": [
+        "claude-code"
+      ],
+      "installedHash": "a230f3ef74199788d791b63aff25958d9b577551b5710be759bd62a5dfd776d7"
+    },
+    {
+      "path": ".claude/settings.json",
+      "componentIds": [
+        "format-hook",
+        "secret-guard"
+      ],
+      "toolIds": [
+        "claude-code"
+      ],
+      "installedHash": "9889af3bbd31413fc61bd71698217808058d62943d66c37798aa50a6776a9099",
+      "jsonAdded": {
+        "additions": [
+          {
+            "path": [
+              "hooks",
+              "PostToolUse"
+            ],
+            "items": [
+              {
+                "matcher": "Edit|MultiEdit|Write",
+                "hooks": [
+                  {
+                    "type": "command",
+                    "command": "node \"$CLAUDE_PROJECT_DIR/.agent-kit/format.mjs\" --from claude",
+                    "timeout": 30
+                  }
+                ]
+              }
+            ],
+            "identity": "hooks.*.command"
+          },
+          {
+            "path": [
+              "permissions",
+              "deny"
+            ],
+            "items": [
+              "Read(./.env)",
+              "Read(./.env.*)",
+              "Read(./**/.env)",
+              "Read(./**/.env.*)",
+              "Read(./secrets/**)"
+            ]
+          }
+        ],
+        "createdKeys": [
+          "hooks",
+          "hooks.PostToolUse",
+          "permissions",
+          "permissions.deny"
+        ],
+        "coerced": []
+      }
+    },
+    {
+      "path": ".agent-kit/RULES.md",
+      "componentIds": [
+        "rules"
+      ],
+      "toolIds": [
+        "claude-code"
+      ],
+      "installedHash": "841f731ab09b209df29a317e7613157ba91aba921b1ff9b0a116d8468f0ad4bb"
+    },
+    {
+      "path": ".agent-kit/plan-template.md",
+      "componentIds": [
+        "rules"
+      ],
+      "toolIds": [
+        "claude-code"
+      ],
+      "installedHash": "480d0ff15bdca4ca2b3edad1a3acd8c38ff25829bd3d3422c1add06ce02a9e40"
+    },
+    {
+      "path": ".agent-kit/agents/verifier.md",
+      "componentIds": [
+        "verifier"
+      ],
+      "toolIds": [
+        "claude-code"
+      ],
+      "installedHash": "ff7a5b82a69c7ae986694dc7f0eb9a82c905a86a915ddb725e699537a6f312bc"
+    },
+    {
+      "path": ".agent-kit/agents/code-simplifier.md",
+      "componentIds": [
+        "code-simplifier"
+      ],
+      "toolIds": [
+        "claude-code"
+      ],
+      "installedHash": "cc3dad3f4c434ffcd70d255fa0f3d209347ba0731f020d080a9c5e823241a9fc"
+    },
+    {
+      "path": ".agent-kit/agents/security-reviewer.md",
+      "componentIds": [
+        "security-reviewer"
+      ],
+      "toolIds": [
+        "claude-code"
+      ],
+      "installedHash": "4fe7daeab44ea44f90a2071104cae605347401b9f999273965a48165b11858c1"
+    },
+    {
+      "path": ".agent-kit/agents/code-explorer.md",
+      "componentIds": [
+        "code-explorer"
+      ],
+      "toolIds": [
+        "claude-code"
+      ],
+      "installedHash": "656d18f06b9f8a146e8a6ad6c884097b2d1e624e206301b3e6df0057fd401811"
+    },
+    {
+      "path": ".agent-kit/agents/code-architect.md",
+      "componentIds": [
+        "code-architect"
+      ],
+      "toolIds": [
+        "claude-code"
+      ],
+      "installedHash": "7e8f95b52ad546f1a684a0f36f6589e2f541e79f1a17ff964f8df134d7c32bdc"
+    },
+    {
+      "path": ".agent-kit/agents/silent-failure-hunter.md",
+      "componentIds": [
+        "silent-failure-hunter"
+      ],
+      "toolIds": [
+        "claude-code"
+      ],
+      "installedHash": "94234cf4132ed32f2c3f0ca42f81fba84107850f983da413e69559c5b321d22f"
+    },
+    {
+      "path": ".agent-kit/agents/test-analyzer.md",
+      "componentIds": [
+        "test-analyzer"
+      ],
+      "toolIds": [
+        "claude-code"
+      ],
+      "installedHash": "be7923dd9f3f07fe7d8721de6f6d4772d9936c37183f9b49946468b097bb9fb7"
+    }
+  ],
+  "filesModified": [],
+  "createdDirs": [
+    ".claude/skills/feature",
+    ".claude/skills/quick-fix",
+    ".claude/skills/verify-change",
+    ".claude/skills/ship",
+    ".claude/skills/learn",
+    ".claude/skills/project-conventions",
+    ".claude/agents",
+    ".claude/skills",
+    ".agent-kit/agents",
+    ".claude",
+    ".agent-kit"
+  ],
+  "backups": [
+    ".agent-kit/backup/2026-10-09T09-56-37Z"
+  ]
+}

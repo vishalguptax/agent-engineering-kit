@@ -27,6 +27,8 @@ Before opening a PR:
 
 Edit files under `kit/`. The installer reads them live, so run it against a scratch project to see the result.
 
+This repo also has the kit installed for its own development (`AGENTS.md`, `CLAUDE.md`, `.claude/`, `.agent-kit/`). Those are installed copies, so after changing `kit/`, refresh them with `node installer/dist/index.js --target .` (after `npm run build`) and commit them together with your change.
+
 - **Write for every tool.** Say "the feature skill" or "the verifier agent", not Claude-only syntax like `$ARGUMENTS` or a specific tool name. Skills and agents have one canonical frontmatter (`name`, `description`, plus `disable-model-invocation` for skills and `access: read-only|edit` for agents); the renderers in `installer/src/render/` turn it into each tool's format.
 
 - **Adding or removing a file** means updating [`installer/kit.manifest.json`](installer/kit.manifest.json). The manifest test fails if a kit file isn't listed or a listed file is missing.
