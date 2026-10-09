@@ -110,7 +110,7 @@ test("a forged jsonAdded can't make the installer remove the user's own settings
   writeFileSync(
     path.join(dir, ".agent-kit/install.json"),
     JSON.stringify({
-      schemaVersion: 2, kitVersion: "2.0.0", mode: "project", installedAt: "", updatedAt: "", components: ["secret-guard"], tools: ["claude-code"],
+      schemaVersion: 2, kitVersion: "1.0.0", mode: "project", installedAt: "", updatedAt: "", components: ["secret-guard"], tools: ["claude-code"],
       filesCreated: [], createdDirs: [], backups: [],
       filesModified: [{
         path: ".claude/settings.json", componentIds: ["secret-guard"], toolIds: ["claude-code"], installedHash: hashText("other\n"),

@@ -207,7 +207,7 @@ function mergeDesired(existing: DesiredFile | undefined, next: DesiredFile): Des
 }
 
 /** Every path the installer could ever write in this target, for any tool and component (validates untrusted records). */
-/** Hook commands kit 1.x added to Claude's settings, so their entries are still recognised as the kit's. */
+/** Hook commands the pre-release installer added to Claude's settings, so their entries are still recognised as the kit's. */
 const VERSION_1_HOOK_COMMANDS = { project: '"$CLAUDE_PROJECT_DIR"/.claude/hooks/format.sh', global: '"$HOME"/.claude/hooks/format.sh' };
 
 /** Every JSON entry any kit version writes in this mode: what an install record may claim the kit added. */

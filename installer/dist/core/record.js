@@ -7,13 +7,13 @@ import { BACKUP_PREFIX, KIT_STATE_DIR, claudeDirRel, legacyBackupPrefix, legacyR
 export function hashText(text) {
     return createHash("sha256").update(text, "utf8").digest("hex");
 }
-/** Paths kit 1.x installed that 2.0 no longer uses; allowed in a migrated record so they can be removed. */
+/** Paths the pre-release installer wrote that are no longer used; allowed in a migrated record so they can be removed. */
 function legacyPaths(target) {
     const claude = target.mode === "global" ? "" : ".claude/";
     return ["docs/AGENT_ENGINEERING_RULES.md", `${claude}hooks/format.sh`, `${claude}skills/simplify/SKILL.md`].flatMap((p) => [p, `${p}.kit-new`]);
 }
 /**
- * Reads and validates the install record (or a kit 1.x record, converted). The record lives in the user's
+ * Reads and validates the install record (or a pre-release record, converted). The record lives in the user's
  * project, which may be an untrusted clone, so every path in it must be one the installer could have written.
  */
 export function readRecord(target, manifest) {
@@ -38,11 +38,11 @@ export function readRecord(target, manifest) {
     }
     return record;
 }
-/** True when the record on disk is still in kit 1.x's location (apply removes it after writing the new one). */
+/** True when the record on disk is still in the pre-release location (apply removes it after writing the new one). */
 export function hasLegacyRecord(target) {
     return readTargetFile(target, recordRel()) === null && readTargetFile(target, legacyRecordRel(target)) !== null;
 }
-/** Converts a kit 1.x (Claude Code only) record into the current shape. */
+/** Converts a pre-release (Claude Code only) record into the current shape. */
 function fromVersion1(value, manifest) {
     const v1 = value;
     if (!Array.isArray(v1?.filesCreated) || !Array.isArray(v1?.filesModified))

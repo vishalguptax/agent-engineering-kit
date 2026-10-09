@@ -197,7 +197,7 @@ function saveRecordAndTidy(target, record) {
     });
     if (!isEmpty)
         writeAtomically(target, recordRel(), `${JSON.stringify(record, null, 2)}\n`);
-    // A kit 1.x record has now been migrated (or the install removed): its old file goes too.
+    // A pre-release record has now been migrated (or the install removed): its old file goes too.
     const legacyFile = resolveInside(target.root, legacyRecordRel(target));
     if (existsSync(legacyFile))
         unlinkSync(legacyFile);

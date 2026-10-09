@@ -140,7 +140,7 @@ test("a forged record can't 'restore' attacker content into the git hook", () =>
   writeFileSync(
     path.join(dir, ".agent-kit/install.json"),
     JSON.stringify({
-      schemaVersion: 2, kitVersion: "2.0.0", mode: "project", installedAt: "", updatedAt: "", components: ["checks"], tools: ["generic"],
+      schemaVersion: 2, kitVersion: "1.0.0", mode: "project", installedAt: "", updatedAt: "", components: ["checks"], tools: ["generic"],
       filesCreated: [],
       filesModified: [{ path: ".git/hooks/pre-commit", componentIds: ["checks"], toolIds: ["generic"], installedHash: hashText("x\n"), originalBackup: ".agent-kit/backup/1/.git/hooks/pre-commit" }],
       createdDirs: [], backups: [".agent-kit/backup/1"],
@@ -175,7 +175,7 @@ test("a forged record can't make uninstall delete the user's own pre-commit hook
   writeFileSync(
     path.join(dir, ".agent-kit/install.json"),
     JSON.stringify({
-      schemaVersion: 2, kitVersion: "2.0.0", mode: "project", installedAt: "", updatedAt: "", components: ["checks"], tools: ["generic"],
+      schemaVersion: 2, kitVersion: "1.0.0", mode: "project", installedAt: "", updatedAt: "", components: ["checks"], tools: ["generic"],
       filesCreated: [{ path: ".git/hooks/pre-commit", componentIds: ["checks"], toolIds: ["generic"], installedHash: hashText(userHook) }],
       filesModified: [], createdDirs: [], backups: [],
     }),

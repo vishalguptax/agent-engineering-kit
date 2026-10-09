@@ -52,6 +52,6 @@ test("suggested components join the recommended preset only", () => {
   assert.deepEqual(suggestedComponents(manifest, { hasFrontend: false }), []);
 });
 
-test("a renamed component id from 1.x still resolves to its new name", () => {
+test("a renamed component id from the pre-release installer still resolves to its new name", () => {
   assert.deepEqual(resolveSelection(manifest, ["claude-snippet", "instructions"]).selected.filter((id) => id === "instructions"), ["instructions"]);
 });

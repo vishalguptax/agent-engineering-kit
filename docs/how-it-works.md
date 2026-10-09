@@ -127,7 +127,7 @@ The full per-tool table is in [supported-tools.md](supported-tools.md).
   - A file it modified that you haven't changed is restored from its original backup.
   - A file you've edited since loses only the kit's parts (its marked block, its JSON entries), or is kept as yours.
   - Empty folders the kit created are removed.
-- **Upgrading from 1.x.** The old record (`.claude/.kit-install.json`) is read and converted. The kit's block moves from CLAUDE.md to AGENTS.md, with CLAUDE.md keeping a marked `@AGENTS.md` import, and the rulebook moves to `docs/agent-engineering/RULES.md`. Files you edited are kept or shown as conflicts. Everything appears in the preview first.
+- **Installs from the pre-release (Claude-only) installer** are converted on the next run: the old record (`.claude/.kit-install.json`) is read, the kit's block moves from CLAUDE.md to AGENTS.md (CLAUDE.md keeps a marked `@AGENTS.md` import), and the rulebook moves to `docs/agent-engineering/RULES.md`. Files you edited are kept or shown as conflicts, and everything appears in the preview first.
 
 ## Safety
 
@@ -137,7 +137,7 @@ The full per-tool table is in [supported-tools.md](supported-tools.md).
   - it never reads or writes through a symlink.
 
   Files are written via a fresh, exclusive temp file and renamed into place.
-- **The install record is treated as untrusted**, because a cloned repo could ship a forged one. Every path in it must be one the installer could have written for some tool and component, every JSON entry it says the kit added must be one the kit actually writes, and backups must live under `.agent-kit/backup/` (or the 1.x `.claude/.kit-backup/`). `.git/` paths are accepted only as files the kit created, never restored from a backup. Otherwise the installer refuses to act and explains why.
+- **The install record is treated as untrusted**, because a cloned repo could ship a forged one. Every path in it must be one the installer could have written for some tool and component, every JSON entry it says the kit added must be one the kit actually writes, and backups must live under `.agent-kit/backup/` (or the pre-release `.claude/.kit-backup/`). `.git/` paths are accepted only as files the kit created, never restored from a backup. Otherwise the installer refuses to act and explains why.
 - **It touches nothing it shouldn't.** It never deletes files it didn't create, makes no network calls, and never runs plugin or package-manager commands. The only external commands it runs are read-only `git` queries (`status`, `rev-parse`, `config core.hooksPath`) and opening your browser.
 - **Git hooks only for the kit's own code.** Git never lets a cloned repo install hooks, and neither does the installer on its behalf: it writes `.git/hooks/pre-commit` only when `.agent-kit/check.sh` and `checks.conf` come from the kit. If the project already has its own, you get the line to add after reading them. A hook is recognised as the kit's by its exact content, never by the install record, and uninstall leaves any other hook alone.
 - **The format hook runs your project's formatter,** the same trust you give a project when you let an agent edit it. In a project you don't trust, a global install would run that project's formatter (e.g. its `node_modules/.bin/prettier`) when an agent edits a file there.

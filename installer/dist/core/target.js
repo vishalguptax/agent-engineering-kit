@@ -21,11 +21,11 @@ export function recordRel() {
 export function backupRel(stamp) {
     return `${BACKUP_PREFIX}${stamp}`;
 }
-/** Where kit 1.x kept its install record. Only read, to migrate an older install. */
+/** Where the pre-release installer kept its install record. Only read, to migrate such an install. */
 export function legacyRecordRel(target) {
     return path.posix.join(claudeDirRel(target), ".kit-install.json");
 }
-/** Where kit 1.x kept its backups (still referenced by migrated records). */
+/** Where the pre-release installer kept its backups (still referenced by migrated records). */
 export function legacyBackupPrefix(target) {
     return `${path.posix.join(claudeDirRel(target), ".kit-backup")}/`;
 }

@@ -230,12 +230,12 @@ test("global install and uninstall with a fake home never leave ~/.claude", () =
   assert.deepEqual(snapshotTree(home, [".claude/.agent-kit"]), original);
 });
 
-// ---------- migration from kit 1.x (Claude Code only, record in .claude/.kit-install.json) ----------
+// ---------- migration from the pre-release installer (Claude Code only, record in .claude/.kit-install.json) ----------
 
 const V1_HOOK = '"$CLAUDE_PROJECT_DIR"/.claude/hooks/format.sh';
 const V1_BLOCK = `${MARKER_START}\n## Engineering rules\nFollow @docs/AGENT_ENGINEERING_RULES.md in addition to this file.\n${MARKER_END}\n`;
 
-/** Writes the files and record a kit 1.x install left behind. */
+/** Writes the files and record a pre-release install left behind. */
 function makeVersion1Install(dir: string, variant: "claude-md" | "agents-route") {
   const write = (rel: string, content: string) => {
     mkdirSync(path.dirname(path.join(dir, rel)), { recursive: true });

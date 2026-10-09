@@ -56,7 +56,7 @@ export interface Plan {
   blockers: string[];
   /** Things the user should know that don't stop the install. */
   notes: string[];
-  /** The install record changes even where no file does: a 1.x record to convert, or other components, tools or file owners. */
+  /** The install record changes even where no file does: a pre-release record to convert, or other components, tools or file owners. */
   updatesRecord: boolean;
 }
 
@@ -218,7 +218,7 @@ function planJson(file: Extract<DesiredFile, { kind: "json" }>, { target, record
 function planBlock(file: Extract<DesiredFile, { kind: "block" }>, { target }: PlanContext): Action {
   const current = readTargetFile(target, file.path);
   const fields = { path: file.path, componentIds: file.componentIds, toolIds: file.toolIds, before: current, block: file.style };
-  // A file holding exactly the block's lines (e.g. kit 1.x's plain "@AGENTS.md" CLAUDE.md) is adopted: wrapped in markers.
+  // A file holding exactly the block's lines (e.g. the pre-release installer's plain "@AGENTS.md" CLAUDE.md) is adopted: wrapped in markers.
   if (current !== null && !hasBlock(current, file.style) && current.trim() === file.content.trim()) {
     const after = upsertBlock(null, file.content, file.style).text;
     return fileAction({ ...fields, after, kind: "UPDATE", summary: `${file.path} already has exactly these lines; they get the kit's markers so updates and uninstall can find them.` });
