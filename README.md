@@ -8,10 +8,7 @@ Left alone, coding agents guess APIs, sprawl across files and call untested work
 - **Clean up and review.** A simplify pass and focused reviewers for tests, silent failures, security and UI, plus a rule file that learns from your corrections.
 - **Enforce it (optional).** A git pre-commit check runs your project's own lint and tests, whichever agent made the change.
 
-It brings together:
-- **Boris Cherny's** (creator of Claude Code) workflow: plan first, a shared CLAUDE.md that learns from mistakes, simplifier and verify agents, an auto-format hook, and verification as the main lever.
-- **Matt Pocock's skills** for day-to-day work: aligning by grilling, shared domain language (`GLOSSARY.md`), TDD, disciplined debugging, code review, and deep-module design.
-- **Principles** from the Karpathy guidelines, Superpowers and Addy Osmani's agent-skills, written into one rulebook, plus a plan template with must-haves, no-gos and a binary "Done When".
+Built on the workflows of Boris Cherny and Matt Pocock, and on principles from the Karpathy guidelines, Superpowers and Addy Osmani's agent-skills (see [Credits](#credits)).
 
 ## Quick start
 
@@ -154,6 +151,15 @@ agent-engineering-kit/
 - **Renamed Matt Pocock skills:** Matt's repo changes often. If a skill used by `/feature` gets renamed, update [`kit/skills/feature/SKILL.md`](kit/skills/feature/SKILL.md). `/feature` falls back to §2 of the rulebook if a skill is missing.
 - **Windows:** the installer and the format hook run on Node, so they work as is. The optional pre-commit check is a POSIX `sh` script, which Git for Windows provides.
 - **Pre-commit checks have limits:** `.git/hooks` isn't shared by clones (each developer installs it), `git commit --no-verify` skips it, and `checks.conf` runs on every commit, so review changes to it like code.
+
+## Credits
+
+The kit stands on other people's work:
+- **[Boris Cherny](https://x.com/bcherny/status/2007179832300581177)** (creator of Claude Code): plan first, one shared instructions file that learns from mistakes, the code-simplifier and verifier agents, the format-on-edit hook, and verification as the main lever.
+- **[Matt Pocock's skills](https://github.com/mattpocock/skills)**: aligning by grilling, shared domain language (`GLOSSARY.md`), TDD, disciplined debugging, code review and deep-module design. The feature skill uses them when they're installed.
+- **[The Karpathy guidelines](https://github.com/multica-ai/andrej-karpathy-skills)**: think before coding, simplicity first, surgical changes, goal-driven execution.
+- **[Superpowers](https://github.com/obra/superpowers)** (Jesse Vincent) and **[Addy Osmani's agent-skills](https://github.com/addyosmani/agent-skills)**: the spec → plan → build → verify → review → ship lifecycle and test-first discipline.
+- **[Anthropic's frontend-design](https://github.com/anthropics/claude-plugins-official)** guidance, for the UI rules.
 
 ## License
 
