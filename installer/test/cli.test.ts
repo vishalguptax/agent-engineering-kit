@@ -59,6 +59,27 @@ test("--project-info adds the user's Markdown above the kit's block", () => {
   assert.ok(read(dir, "AGENTS.md").startsWith("## Project Overview\nA tiny CLI for invoices.\n\n<!-- agent-engineering-kit:start -->"));
 });
 
+test("--checks sets the pre-commit commands from a file, and needs the checks component", () => {
+  const dir = makeFixture("empty");
+  const file = path.join(tempDir("kit-checks-"), "checks.conf");
+  writeFileSync(file, "lint: npm run lint\ntest: npm test\n");
+  assert.equal(cli("--target", dir, "--components", "checks", "--tools", "generic", "--checks", file, "--yes").code, 0);
+  assert.match(read(dir, ".agent-kit/checks.conf"), /^lint: npm run lint\ntest: npm test$/m);
+  assert.match(cli("--target", makeFixture("empty"), "--components", "rules", "--checks", file, "--dry-run").err, /--checks needs the checks component/);
+});
+
+test("--resolve chooses per conflicting file; a path that isn't a conflict is an error", () => {
+  const dir = makeFixture("existing-settings");
+  const preview = cli("--target", dir, "--tools", "claude-code", "--resolve", ".claude/agents/verifier.md=kit-new", "--dry-run");
+  assert.equal(preview.code, 0, preview.err);
+  assert.match(preview.out, /CONFLICT\s+\.claude\/agents\/verifier\.md \[kit-new\]/);
+  assert.equal(cli("--target", dir, "--tools", "claude-code", "--resolve", ".claude/agents/verifier.md=kit-new", "--yes").code, 0);
+  assert.equal(read(dir, ".claude/agents/verifier.md"), "---\nname: verifier\n---\nMy own verifier.\n");
+  assert.ok(read(dir, ".claude/agents/verifier.md.kit-new").includes("name: \"verifier\""));
+  assert.match(cli("--target", makeFixture("existing-settings"), "--tools", "claude-code", "--resolve", "README.md=kit", "--dry-run").err, /README\.md has no conflict/);
+  assert.match(cli("--target", dir, "--resolve", "x=maybe", "--dry-run").err, /--resolve/);
+});
+
 test("invalid settings.json stops with an explanation and a non-zero exit", () => {
   const dir = makeFixture("invalid-settings");
   const before = snapshotTree(dir);

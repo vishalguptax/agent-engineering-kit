@@ -38,8 +38,10 @@ test("guided project install: preset, explanation, project info, per-conflict ch
     "", // keep suggested commands
     "",
     "",
+    "", // no do/don't
+    "Plans live in planning/.", // workflow preferences
     "",
-    "",
+    "", // no notes
     "s", // conflict on verifier.md: save the kit's version alongside
     "y", // apply
   ]);
@@ -51,6 +53,7 @@ test("guided project install: preset, explanation, project info, per-conflict ch
   assert.equal(read(dir, ".claude/agents/verifier.md"), "---\nname: verifier\n---\nMy own verifier.\n");
   assert.ok(existsSync(path.join(dir, ".claude/agents/verifier.md.kit-new")));
   assert.ok(read(dir, "AGENTS.md").includes("## Project Overview\nInvoicing API.\n- Tech stack: JavaScript/Node.js (pnpm)"));
+  assert.ok(read(dir, "AGENTS.md").includes("## Workflow Preferences\nPlans live in planning/.\n"));
 });
 
 test("answering no at the final question writes nothing", async () => {

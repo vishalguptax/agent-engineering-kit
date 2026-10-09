@@ -266,7 +266,7 @@ function targetRequest(value: unknown): TargetRequest {
   return { mode, path: folder };
 }
 
-const PROJECT_INFO_FIELDS = ["overview", "stack", "commands", "keyDirs", "conventions", "doDont", "notes"] as const;
+const PROJECT_INFO_FIELDS = ["overview", "stack", "commands", "keyDirs", "conventions", "doDont", "workflow", "notes"] as const;
 
 function planRequest(body: unknown): PlanRequest {
   const info = field(body, "projectInfo");

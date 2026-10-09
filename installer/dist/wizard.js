@@ -19,6 +19,7 @@ const PROJECT_FIELDS = [
     ["keyDirs", "Key folders and what lives in them", true],
     ["conventions", "Conventions the agent should copy (naming, errors, testing, …)", true],
     ["doDont", "Do / Don't (hard rules, lessons learned)", true],
+    ["workflow", "Workflow preferences: where plans go, test policy, commit style, when to ask first (blank keeps the kit's defaults)", true],
     ["notes", "Anything else the agent should know (domain terms, gotchas, links)", true],
 ];
 const CONFLICT_ANSWERS = { k: "keep", u: "kit", s: "kit-new" };

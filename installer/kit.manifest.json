@@ -1,5 +1,5 @@
 {
-  "kitVersion": "1.0.0",
+  "kitVersion": "1.1.0",
   "ignore": ["**/.DS_Store"],
   "globalRewrites": [
     {
@@ -12,12 +12,15 @@
     }
   ],
   "componentRenames": {
-    "claude-snippet": "instructions"
+    "claude-snippet": "instructions",
+    "fix": "quick-fix",
+    "verify": "verify-change"
   },
+  "retiredSkills": ["simplify", "fix", "verify"],
   "presets": {
-    "recommended": ["rules", "instructions", "code-explorer", "code-architect", "verifier", "code-simplifier", "test-analyzer", "silent-failure-hunter", "security-reviewer", "feature", "fix", "verify", "ship", "learn", "project-conventions", "format-hook", "secret-guard"],
+    "recommended": ["rules", "instructions", "code-explorer", "code-architect", "verifier", "code-simplifier", "test-analyzer", "silent-failure-hunter", "security-reviewer", "feature", "quick-fix", "verify-change", "ship", "learn", "project-conventions", "format-hook", "secret-guard"],
     "minimal": ["rules", "instructions", "format-hook"],
-    "everything": ["rules", "instructions", "code-explorer", "code-architect", "verifier", "code-simplifier", "test-analyzer", "silent-failure-hunter", "security-reviewer", "frontend-reviewer", "feature", "fix", "verify", "ship", "learn", "project-conventions", "format-hook", "secret-guard", "checks"]
+    "everything": ["rules", "instructions", "code-explorer", "code-architect", "verifier", "code-simplifier", "test-analyzer", "silent-failure-hunter", "security-reviewer", "frontend-reviewer", "feature", "quick-fix", "verify-change", "ship", "learn", "project-conventions", "format-hook", "secret-guard", "checks"]
   },
   "components": [
     {
@@ -62,7 +65,7 @@
       "summary": "A strict QA subagent that runs the real checks and reports evidence.",
       "explanation": {
         "what": "An agent that finds your project's format, lint, type-check, test and build commands, runs them, exercises the changed behavior, and reports PASS/FAIL with the actual output. It reads and runs things but does not edit code.",
-        "when": "Before the agent says a task is done. /verify and /feature use it automatically.",
+        "when": "Before the agent says a task is done. /verify-change and /feature use it automatically.",
         "example": "\"Use the verifier subagent to check this change.\""
       },
       "artifacts": [
@@ -210,34 +213,34 @@
       "required": false
     },
     {
-      "id": "fix",
-      "name": "/fix",
+      "id": "quick-fix",
+      "name": "/quick-fix",
       "category": "Workflows/Skills",
       "summary": "Small, contained fixes with a quick verify loop.",
       "explanation": {
         "what": "A skill for clear, small changes: it sizes the change first, reproduces a bug with a failing test, makes the smallest correct fix, and verifies. If the change grows past about 6 files or 2 modules, it stops and switches to /feature.",
         "when": "For bug fixes and small changes where the solution is obvious.",
-        "example": "/fix the date picker shows yesterday in UTC+ timezones"
+        "example": "/quick-fix the date picker shows yesterday in UTC+ timezones"
       },
       "artifacts": [
-        { "kind": "skill", "name": "fix" }
+        { "kind": "skill", "name": "quick-fix" }
       ],
-      "dependsOn": ["rules", "verify"],
+      "dependsOn": ["rules", "verify-change"],
       "external": [],
       "required": false
     },
     {
-      "id": "verify",
-      "name": "/verify",
+      "id": "verify-change",
+      "name": "/verify-change",
       "category": "Workflows/Skills",
       "summary": "Prove a change works, fixing and retrying until it passes.",
       "explanation": {
         "what": "Runs the verifier subagent. If something fails because of the current change, the agent fixes the root cause and verifies again, up to 3 attempts, and never weakens tests to get a pass.",
         "when": "Before saying anything is done, or whenever you want proof.",
-        "example": "/verify"
+        "example": "/verify-change"
       },
       "artifacts": [
-        { "kind": "skill", "name": "verify" }
+        { "kind": "skill", "name": "verify-change" }
       ],
       "dependsOn": ["verifier"],
       "external": ["Optional: Matt Pocock's diagnosing-bugs skill for hard failures."],
@@ -256,7 +259,7 @@
       "artifacts": [
         { "kind": "skill", "name": "ship" }
       ],
-      "dependsOn": ["verify", "test-analyzer", "silent-failure-hunter", "security-reviewer"],
+      "dependsOn": ["verify-change", "test-analyzer", "silent-failure-hunter", "security-reviewer"],
       "external": ["Optional: Matt Pocock's code-review skill for the review gate."],
       "required": false
     },

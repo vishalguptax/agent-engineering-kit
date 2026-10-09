@@ -6,7 +6,7 @@ disable-model-invocation: true
 
 # Feature workflow
 
-The task is what the user asked for when starting this skill. Follow `docs/agent-engineering/RULES.md` throughout; the project's own instructions take priority.
+The task is what the user asked for when starting this skill. Follow `docs/agent-engineering/RULES.md` throughout. The project's instructions (`AGENTS.md`, `CLAUDE.md`), including its **Workflow Preferences** section if there is one, take priority over the steps below (e.g. where plans go, the test policy, the commit style).
 
 > Matt Pocock's skills (grilling, domain-modeling, codebase-design, tdd, diagnosing-bugs, code-review) are optional. If one isn't available, do that phase by following `docs/agent-engineering/RULES.md` §2, and say once which skill is missing.
 
@@ -21,7 +21,7 @@ The task is what the user asked for when starting this skill. Follow `docs/agent
 
 ## Phase 2 — Plan (no edits except the plan file)
 6. Use the **code-architect** agent (with the explorer's report and the agreed decisions) to design the change, applying the **codebase-design** skill's guidance if available: deep modules, a lot of behaviour behind a small interface.
-7. Write the plan to `docs/plans/NNN-<slug>.md` using `docs/agent-engineering/plan-template.md` (NNN = next number in `docs/plans/`). Make sure that:
+7. Write the plan to `docs/plans/NNN-<slug>.md` (or where the Workflow Preferences say) using `docs/agent-engineering/plan-template.md` (NNN = next number in that folder). Make sure that:
    - every requirement is **Must** or **Flexible**, and No-Gos and Rabbit Holes are explicit;
    - every **Done When** item is binary and observable (rewrite "handles", "supports", "works with", "properly");
    - the **Detail check** table accounts for every detail from step 4 — each one is a requirement, a No-Go, or an open question.
@@ -30,10 +30,11 @@ The task is what the user asked for when starting this skill. Follow `docs/agent
 
 ## Phase 3 — Build test-first
 10. One slice at a time, red → green → refactor (the **tdd** skill if available). The code must work after every slice. Add a dated line to the plan's Build log after each slice.
+    - No test setup for this kind of code: agree in Phase 2 how each slice will be checked instead (a command and its expected output, a request and response, a screen), run that check before and after the slice, and recommend adding tests in the report. Don't set up a test framework unless the plan includes it.
 11. Surgical changes only: nothing outside the plan. If the plan proves wrong, STOP and re-plan with me. If a bug or unexpected failure appears, diagnose it properly (the **diagnosing-bugs** skill if available) instead of guessing.
 
 ## Phase 4 — Verify
-12. Use the **verify** skill. Fix every failure you introduced (never by weakening tests, suppressing warnings, or swallowing errors) until it passes, or report clearly what can't be verified.
+12. Use the **verify-change** skill. Fix every failure you introduced (never by weakening tests, suppressing warnings, or swallowing errors) until it passes, or report clearly what can't be verified.
 
 ## Phase 5 — Simplify
 13. Use the **code-simplifier** agent on the changed code. Verify again afterwards.

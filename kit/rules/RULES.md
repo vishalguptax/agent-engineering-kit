@@ -392,6 +392,13 @@ Fill this in per project (or keep it in the existing instructions file). The age
 
 ## Do / Don't (learned from past mistakes)
 - 
+
+## Workflow Preferences
+Optional: how this team wants the workflow skills to behave. Leave out a line to keep the kit's default.
+- Plans: (default: a plan file in docs/plans/ for every feature)
+- Tests: (default: test-first; e.g. "no test suite for scripts/: verify by running them")
+- Commits: (default: Conventional Commits)
+- Ask before: (default: anything non-trivial)
 ```
 
 ---

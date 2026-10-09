@@ -38,7 +38,7 @@ test("(a) empty folder, Claude Code: everything is a CREATE, AGENTS.md is the hu
     "docs/agent-engineering/agents/verifier.md",
     ".claude/agents/verifier.md",
     ".claude/skills/feature/SKILL.md",
-    ".claude/skills/fix/SKILL.md",
+    ".claude/skills/quick-fix/SKILL.md",
     ".agent-kit/format.mjs",
     ".claude/settings.json",
   ]) {

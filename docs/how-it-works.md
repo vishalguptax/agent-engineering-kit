@@ -2,17 +2,18 @@
 
 The installer puts the contents of [`kit/`](../kit) into a project (or `~/.claude` for Claude Code) without breaking or silently overwriting what's already there, in the format of each AI tool you pick. It reads the kit's files live, so edits to `kit/` show up the next time you run it.
 
-## Three ways to run it
+## Four ways to run it
 
 | You have | Run |
 |---|---|
+| An AI coding agent | Paste the prompt from the [README](../README.md#quick-start). The agent follows [install-with-an-agent.md](install-with-an-agent.md): it gathers the project details from evidence, confirms them with you, and runs the CLI below. |
 | A desktop with a browser | `npx agent-engineering-kit` |
 | Only a terminal (SSH, server, container) | `npx agent-engineering-kit --terminal`. This mode is also used automatically over SSH or on Linux without a display. |
 | A script or CI | `npx agent-engineering-kit --target ./my-app --tools claude-code,codex --preset recommended --yes` |
 
 From a clone of this repo, use `node installer/dist/index.js` in place of `npx agent-engineering-kit`. Recently used folders are remembered in your user config folder (`~/.config/agent-engineering-kit/` or `%APPDATA%\agent-engineering-kit\`).
 
-All three use the same core logic, so they behave identically.
+All of them use the same core logic, so they behave identically.
 
 You can also use the GUI over SSH:
 1. Start it with `--no-open`.
@@ -32,6 +33,8 @@ You can also use the GUI over SSH:
 --dry-run                Show what would change; write nothing
 --yes                    Don't ask for confirmation
 --on-conflict <choice>   keep (default) | kit | kit-new, for files that differ from the kit
+--resolve <path>=<choice>  The choice for one conflicting file; repeat for more
+--checks <file>          Commands for the pre-commit checks, one "name: command" per line
 --project-info <file>    Markdown describing your project, added to AGENTS.md once,
                          outside the kit's block (it stays yours)
 --uninstall              Undo the kit's changes using the install record
@@ -57,7 +60,7 @@ The left rail numbers the steps like a manual's table of contents. The current s
    Warnings appear for uncommitted changes, invalid settings, or an untrusted install record. If the kit is installed, you get **Update**, **Add or remove components or tools** and **Uninstall**.
 4. **AI tools** (project installs). A card per tool. Tools with files in the project (`.cursor/`, `.codex/`, `CLAUDE.md`…) are pre-selected; tools only found on this computer get an "installed" stamp but stay unselected, because the project's team may not use them. Each card shows what the tool gets (rules, skills, agents, format on edit, secret guard) and why. Global installs skip this step: they're Claude Code only.
 5. **Components.** Grouped checkboxes with Recommended / Minimal / Everything presets. Each one has a **What is this?** panel: what it is, when it's used, an example, which of your tools get it and how, what it also installs, and what it needs. Dependencies are selected for you with a note saying why, and you can't uncheck something another selected part needs.
-6. **About your project** (optional, project installs only). Fields that follow the rulebook's Appendix A: what it does, stack, commands, key folders, conventions, do/don't, and free-form notes. Stack and commands are pre-filled from `package.json`, lockfiles and `Makefile`. If you chose the pre-commit checks, you confirm their commands here, pre-filled from your project's scripts.
+6. **About your project** (optional, project installs only). Fields that follow the rulebook's Appendix A: what it does, stack, commands, key folders, conventions, do/don't, workflow preferences, and free-form notes. Stack and commands are pre-filled from `package.json`, lockfiles and `Makefile`. If you chose the pre-commit checks, you confirm their commands here, pre-filled from your project's scripts.
 7. **Preview.** Nothing has been written yet. Every file gets a stamp (CREATE, MERGE, APPEND, UPDATE, SKIP, CONFLICT, REMOVE), a one-line explanation, and the tools that read it, with diffs for anything that changes an existing file. Notes explain anything a tool can't get and what to do instead. For each conflict you choose:
    - *Keep mine*;
    - *Use kit version* (yours is backed up);

@@ -223,7 +223,7 @@ export function knownJsonAdditions(target: Target): ArrayAddition[] {
 
 export function installablePaths(manifest: Manifest, target: Target): Set<string> {
   const tools = target.mode === "global" ? [toolById("claude-code")] : TOOL_PROFILES;
-  const skillNames = manifest.components.flatMap((c) => c.artifacts.flatMap((a) => (a.kind === "skill" ? [a.name] : [])));
+  const skillNames = [...manifest.components.flatMap((c) => c.artifacts.flatMap((a) => (a.kind === "skill" ? [a.name] : []))), ...manifest.retiredSkills];
   const agentNames = manifest.components.flatMap((c) => c.artifacts.flatMap((a) => (a.kind === "agent" ? [a.name] : [])));
   const paths = new Set<string>([RULEBOOK_PATH, PLAN_TEMPLATE_PATH, "AGENTS.md", "CLAUDE.md", GEMINI_SETTINGS, FORMAT_SCRIPT, CHECK_SCRIPT, CHECKS_CONF, PROTECTED_LIST]);
   for (const name of agentNames) paths.add(`${KIT_DOCS_DIR}/agents/${name}.md`);

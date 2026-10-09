@@ -2,6 +2,20 @@
 
 This project follows [Semantic Versioning](https://semver.org). The kit version lives in `installer/kit.manifest.json` (`kitVersion`) and is written into every install record.
 
+## 1.1.0 — 2026-10-09
+
+### Install with your AI agent
+- **A copy-paste prompt** (top of the README) lets your coding agent install the kit. It follows [docs/install-with-an-agent.md](docs/install-with-an-agent.md): it works out the stack, commands, folders, conventions and team rules from the project itself, shows you what it found and where, asks only what the code can't tell it, and runs the installer with your approval. Every fact must come from a file or a command; nothing is guessed.
+- **New CLI flags** so an agent (or a script) never needs the interactive installer: `--checks <file>` sets the pre-commit commands, and `--resolve <path>=<choice>` picks keep / kit / kit-new for one conflicting file.
+
+### Skills
+- **Renamed to avoid clashing with built-in commands:** `fix` is now `quick-fix` (GitHub Copilot Chat has a built-in `/fix`), and `verify` is now `verify-change` (a project `verify` skill would replace Claude Code's built-in `/verify`). Update removes the old skills; the old ids still work in `--components`.
+- **Work in projects without tests, git or CI:** the skills and the verifier say what to do instead (an observable check, the list of changed files, what couldn't be verified) rather than stopping or pretending.
+- **Workflow Preferences:** an optional section in the project part of `AGENTS.md` (where plans go, test policy, commit style, when to ask first). Every skill reads it before its own defaults; the installer form and wizard have a field for it.
+
+### Fixes
+- Updating an install whose skills were renamed no longer reports the install record as untrusted.
+
 ## 1.0.0 — 2026-10-09
 
 First public release.

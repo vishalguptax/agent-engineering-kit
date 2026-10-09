@@ -49,6 +49,8 @@ export interface Manifest {
   globalRewrites: { from: string; to: string }[];
   /** Old component ids (from earlier kit versions' install records) and their current names. */
   componentRenames: Record<string, string>;
+  /** Skill names earlier kit versions installed: still valid in install records, so Update can remove them. */
+  retiredSkills: string[];
   presets: Record<string, string[]>;
   components: Component[];
 }
@@ -85,6 +87,11 @@ export function validateManifest(manifest: Manifest): string[] {
   for (const component of manifest.components) {
     if (ids.has(component.id)) problems.push(`duplicate id "${component.id}"`);
     ids.add(component.id);
+  }
+  const skillNames = new Set(manifest.components.flatMap((c) => c.artifacts.flatMap((a) => (a.kind === "skill" ? [a.name] : []))));
+  for (const name of manifest.retiredSkills) {
+    if (skillNames.has(name)) problems.push(`retired skill "${name}" is still a current skill`);
+    if (!/^[a-z0-9]+(-[a-z0-9]+)*$/.test(name)) problems.push(`retired skill "${name}" isn't a valid skill name`);
   }
   for (const component of manifest.components) {
     if (component.suggestFor !== undefined && !SUGGEST_SIGNALS.includes(component.suggestFor)) {

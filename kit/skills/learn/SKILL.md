@@ -8,6 +8,8 @@ disable-model-invocation: true
 
 The lesson is what the user said when starting this skill; if they said nothing specific, use the most recent correction in this conversation.
 
+A lesson about *how this team works* (where plans go, the test policy, commit style, when to ask first) belongs in the **Workflow Preferences** section of the project instructions; create that section if it's missing.
+
 1. Identify the underlying mistake and what would have prevented it.
 2. Put the fix in **exactly one place**, the most reliable one that works:
    - **Can a check catch it?** If `.agent-kit/checks.conf` exists and a command (lint rule, test, script) could detect it, propose that check. Automation beats instructions.

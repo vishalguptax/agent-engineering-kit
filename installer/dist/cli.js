@@ -26,14 +26,22 @@ export async function runCli(manifest, options) {
             if (!why.includes("required"))
                 console.log(`  + ${id} (needed by ${why.join(", ")})`);
         }
+        if (options.checksFile && !selected.includes("checks"))
+            return fail("--checks needs the checks component (add it with --components or --preset everything).");
         const projectInfo = options.projectInfoFile ? { markdown: readFileSync(options.projectInfoFile, "utf8") } : undefined;
+        const checks = options.checksFile ? readFileSync(options.checksFile, "utf8") : undefined;
         const tools = options.tools ?? defaultTools(target.mode, target.root, scanned.record?.tools);
-        plan = planInstall({ manifest, target, selected, tools, projectInfo });
+        plan = planInstall({ manifest, target, selected, tools, projectInfo, checks });
     }
-    print(describePlan(plan, () => ` [${options.onConflict}]`));
+    const conflicts = new Set(plan.actions.filter((a) => a.kind === "CONFLICT").map((a) => a.path));
+    const unknown = Object.keys(options.resolutions).filter((file) => !conflicts.has(file));
+    if (unknown.length > 0)
+        return fail(`--resolve: ${unknown.join(", ")} has no conflict in this plan. Conflicting files: ${[...conflicts].join(", ") || "none"}.`);
+    const choiceFor = (file) => options.resolutions[file] ?? options.onConflict;
+    print(describePlan(plan, (file) => ` [${choiceFor(file)}]`));
     if (plan.blockers.length > 0)
         return fail(`Stopped before changing anything:\n- ${plan.blockers.join("\n- ")}`);
-    if (!hasChanges(plan, () => options.onConflict === "keep")) {
+    if (!hasChanges(plan, (file) => choiceFor(file) === "keep")) {
         console.log("\nNothing to change: everything is already in place.");
         return 0;
     }
@@ -45,7 +53,7 @@ export async function runCli(manifest, options) {
         console.log("Cancelled. Nothing was written.");
         return 1;
     }
-    const resolutions = Object.fromEntries(plan.actions.filter((a) => a.kind === "CONFLICT").map((a) => [a.path, options.onConflict]));
+    const resolutions = Object.fromEntries([...conflicts].map((file) => [file, choiceFor(file)]));
     const result = applyPlan({ manifest, plan, resolutions });
     print(describeResult(result, scanned, plan, options.isUninstall));
     return 0;

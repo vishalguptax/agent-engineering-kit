@@ -49,7 +49,7 @@ export function hashText(text: string): string {
 /** Paths the pre-release installer wrote that are no longer used; allowed in a migrated record so they can be removed. */
 function legacyPaths(target: Target): string[] {
   const claude = target.mode === "global" ? "" : ".claude/";
-  return ["docs/AGENT_ENGINEERING_RULES.md", `${claude}hooks/format.sh`, `${claude}skills/simplify/SKILL.md`].flatMap((p) => [p, `${p}.kit-new`]);
+  return ["docs/AGENT_ENGINEERING_RULES.md", `${claude}hooks/format.sh`].flatMap((p) => [p, `${p}.kit-new`]);
 }
 
 /**

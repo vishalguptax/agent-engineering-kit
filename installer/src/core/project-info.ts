@@ -10,6 +10,8 @@ export interface ProjectInfo {
   keyDirs?: string;
   conventions?: string;
   doDont?: string;
+  /** How the workflow skills should behave here (plans, tests, commits, when to ask). */
+  workflow?: string;
   notes?: string;
   /** CLI --project-info: the user's own Markdown, used as-is instead of the fields. */
   markdown?: string;
@@ -43,6 +45,7 @@ export function renderProjectSection(info: ProjectInfo): string | null {
     ["Key Directories", clean(info.keyDirs)],
     ["Conventions", clean(info.conventions)],
     ["Do / Don't (learned from past mistakes)", clean(info.doDont)],
+    ["Workflow Preferences", clean(info.workflow)],
     ["Additional Context", clean(info.notes)],
   ];
   const filled = sections.filter(([, body]) => body !== "").map(([title, body]) => `## ${title}\n${body}\n`);

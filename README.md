@@ -15,7 +15,15 @@ It brings together:
 
 ## Quick start
 
-You need [Node.js](https://nodejs.org) 18 or newer. In your terminal, run:
+**Let your AI agent install it.** Paste this into your coding agent (Claude Code, Codex, Cursor, Copilot, Gemini CLI…) in your project:
+
+```text
+Install the Agent Engineering Kit in this project. Read and follow https://raw.githubusercontent.com/vishalguptax/agent-engineering-kit/main/docs/install-with-an-agent.md. Ask me before anything that changes my files.
+```
+
+The agent reads your project to work out its stack, commands, folders and conventions, shows you what it found and where it found it, asks only what the code can't tell it, and then runs the installer with your approval. It never guesses, and it never copies kit files by hand, so backups, update and uninstall all work.
+
+**Or run the installer yourself.** You need [Node.js](https://nodejs.org) 18 or newer. In your terminal, run:
 
 ```sh
 npx agent-engineering-kit
@@ -57,7 +65,7 @@ There's nothing to clone or install first. That opens the installer in your brow
 
 "As reference" means the tool has no sub-agents, so the skills tell it to read the agent's instructions and do that review itself. "Note" means it can't be set safely from the project, so the installer tells you the exact steps. The full, generated matrix with reasons and doc links is in [docs/supported-tools.md](docs/supported-tools.md).
 
-Run it again at any time to **update**, **add or remove parts**, or **uninstall**. Uninstall removes only what the kit added and keeps your own edits. Removing one tool keeps the files your other tools still use. Running it twice with the same choices changes nothing. You can also [let your agent install it](docs/install-with-an-agent.md) or [install by hand](docs/manual-install.md). From a clone of this repo, `node installer/dist/index.js` does the same as `npx agent-engineering-kit`.
+Run it again at any time to **update**, **add or remove parts**, or **uninstall**. Uninstall removes only what the kit added and keeps your own edits. Removing one tool keeps the files your other tools still use. Running it twice with the same choices changes nothing. You can also [install by hand](docs/manual-install.md). From a clone of this repo, `node installer/dist/index.js` does the same as `npx agent-engineering-kit`.
 
 ## What's inside
 
@@ -66,7 +74,7 @@ Run it again at any time to **update**, **add or remove parts**, or **uninstall*
 | **Engineering rules** | The rulebook: plan, simplicity, surgical changes, verification, security, an anti-slop checklist, and a definition of done |
 | **Agent instructions** | A short block in `AGENTS.md` that switches the rules on for every tool, between markers so it can be updated or removed cleanly (Claude Code gets a one-line `@AGENTS.md` import in `CLAUDE.md`) |
 | **Agents** | Task-shaped helpers, each with one job and its own context:<br>`code-explorer` (maps existing code) and `code-architect` (designs the change)<br>`verifier` (runs real checks, reports evidence) and `code-simplifier` (cleans up without changing behavior)<br>`test-analyzer`, `silent-failure-hunter`, `security-reviewer`, and optional `frontend-reviewer` (focused reviews) |
-| **Skills** | `feature` (plan file + full pipeline), `fix` (small changes), `verify`, `ship` (commits + PR), `learn` (turns a correction into a rule), and `project-conventions` (detects your stack and commands) |
+| **Skills** | `feature` (plan file + full pipeline), `quick-fix` (small changes), `verify-change` (proof it works), `ship` (commits + PR), `learn` (turns a correction into a rule), and `project-conventions` (detects your stack and commands) |
 | **Auto-format hook** | Formats every file the agent edits with *your* project's formatter (`.agent-kit/format.mjs`, run by Node) |
 | **Secret guard** | Stops agents from reading `.env` files and `secrets/` |
 | **Pre-commit checks** (optional) | Runs the commands in `.agent-kit/checks.conf` before each commit and refuses changes to protected files such as acceptance tests |
@@ -87,7 +95,7 @@ The kit doesn't duplicate Matt Pocock's skills; it builds on them.
 | Build | Matt: `tdd` |
 | Debug | Matt: `diagnosing-bugs` |
 | Review | Matt: `code-review` (or built-in `/code-review`) + kit: `test-analyzer`, `silent-failure-hunter`, `security-reviewer`, `frontend-reviewer` |
-| Verify | kit: `verifier`, `/verify` |
+| Verify | kit: `verifier`, `/verify-change` (and Claude Code's built-in `/verify` for running the app) |
 | Clean up | kit: `code-simplifier`, or built-in `/simplify` |
 | Detect stack/commands | kit: `project-conventions` |
 | Formatting & secrets safety | kit: hook + secret guard |
@@ -100,7 +108,8 @@ The kit doesn't duplicate Matt Pocock's skills; it builds on them.
 | Situation | Do this |
 |---|---|
 | New feature / multi-file change | `/feature <description>` (or "use the feature skill" in tools without slash commands) |
-| Small, contained fix | `/fix <description>` |
+| Small, contained fix | `/quick-fix <description>` |
+| Before saying it's done | `/verify-change` |
 | Just want to think it through | `/grill-with-docs` |
 | Bug | Describe it; the agent uses `diagnosing-bugs` (or say "diagnose this") |
 | Before committing | "review the diff" (code-review) → `/ship` |
@@ -111,6 +120,7 @@ The kit doesn't duplicate Matt Pocock's skills; it builds on them.
 **Tips:**
 - Start in your tool's plan mode when not using `/feature`.
 - Keep `AGENTS.md` short, and never skip verification.
+- Make the workflow fit your team: add a **Workflow Preferences** section to the project part of `AGENTS.md` (where plans go, the test policy, commit style, when to ask first). The skills read it before their own defaults, and updates never touch it.
 - Prefer permission allowlists over `--dangerously-skip-permissions`.
 - Review any third-party skill or MCP server before installing it.
 - Don't also install Superpowers or another full workflow framework; overlapping instructions make the agent inconsistent.
@@ -130,7 +140,7 @@ agent-engineering-kit/
 | [docs/components.md](docs/components.md) | Every installable part: what it is, when it's used, files |
 | [docs/supported-tools.md](docs/supported-tools.md) | What each AI tool gets, and why |
 | [docs/how-it-works.md](docs/how-it-works.md) | How the installer merges, backs up, updates, uninstalls, and stays safe |
-| [docs/install-with-an-agent.md](docs/install-with-an-agent.md) | Hand this to your AI agent to install the kit for you |
+| [docs/install-with-an-agent.md](docs/install-with-an-agent.md) | What your AI agent follows when you paste the install prompt |
 | [docs/manual-install.md](docs/manual-install.md) | Installing without the installer |
 | [DESIGN.md](DESIGN.md) | Design system for the installer's UI ([DESIGN.md format](https://github.com/google-labs-code/design.md)) |
 | [CONTRIBUTING.md](CONTRIBUTING.md) | Developing the installer, adding a component or a tool, running tests |

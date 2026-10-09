@@ -228,7 +228,7 @@ function targetRequest(value) {
         throw new HttpError(400, "target.path must be a string.");
     return { mode, path: folder };
 }
-const PROJECT_INFO_FIELDS = ["overview", "stack", "commands", "keyDirs", "conventions", "doDont", "notes"];
+const PROJECT_INFO_FIELDS = ["overview", "stack", "commands", "keyDirs", "conventions", "doDont", "workflow", "notes"];
 function planRequest(body) {
     const info = field(body, "projectInfo");
     let projectInfo;

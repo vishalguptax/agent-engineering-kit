@@ -1,6 +1,6 @@
 import { test } from "node:test";
 import assert from "node:assert/strict";
-import { existsSync, mkdirSync, readFileSync, symlinkSync, writeFileSync } from "node:fs";
+import { existsSync, mkdirSync, readFileSync, rmSync, symlinkSync, writeFileSync } from "node:fs";
 import path from "node:path";
 import { applyPlan } from "../src/core/apply.js";
 import { loadManifest } from "../src/core/manifest.js";
@@ -79,6 +79,30 @@ test("dropping a tool that owns no files of its own still updates the record, an
   assert.deepEqual(record.tools, ["codex"]);
   assert.deepEqual(record.filesCreated.find((e) => e.path === "AGENTS.md")?.toolIds, ["codex"]);
   assert.equal(hasChanges(plan(target, ["instructions"], ["codex"]), () => true), false, "and then it's settled");
+});
+
+test("updating a 1.0.0 install renames fix and verify to quick-fix and verify-change, without leftovers", () => {
+  const dir = makeFixture("empty");
+  const target = projectTarget(dir);
+  install(target, resolveSelection(manifest, ["quick-fix"]).selected, {}, ["claude-code"]);
+  // Rewrite the install as 1.0.0 left it: the old skill folders and component ids.
+  const recordFile = path.join(dir, ".agent-kit/install.json");
+  for (const [from, to] of [["quick-fix", "fix"], ["verify-change", "verify"]]) {
+    const text = read(dir, `.claude/skills/${from}/SKILL.md`).replace(`name: "${from}"`, `name: "${to}"`);
+    mkdirSync(path.join(dir, `.claude/skills/${to}`), { recursive: true });
+    writeFileSync(path.join(dir, `.claude/skills/${to}/SKILL.md`), text);
+    rmSync(path.join(dir, `.claude/skills/${from}`), { recursive: true });
+    const record = readFileSync(recordFile, "utf8").replaceAll(`.claude/skills/${from}/`, `.claude/skills/${to}/`).replaceAll(`.claude/skills/${from}"`, `.claude/skills/${to}"`).replaceAll(`"${from}"`, `"${to}"`);
+    const entry = JSON.parse(record);
+    for (const e of entry.filesCreated) if (e.path === `.claude/skills/${to}/SKILL.md`) e.installedHash = hashText(text);
+    writeFileSync(recordFile, JSON.stringify(entry));
+  }
+  const update = plan(target, resolveSelection(manifest, readRecord(target, manifest)!.components).selected);
+  assert.deepEqual(update.blockers, []);
+  applyPlan({ manifest, plan: update });
+  assert.ok(existsSync(path.join(dir, ".claude/skills/quick-fix/SKILL.md")) && existsSync(path.join(dir, ".claude/skills/verify-change/SKILL.md")));
+  assert.ok(!existsSync(path.join(dir, ".claude/skills/fix")) && !existsSync(path.join(dir, ".claude/skills/verify")), "the old skills are removed");
+  assert.deepEqual(readRecord(target, manifest)!.components.sort(), ["quick-fix", "rules", "verifier", "verify-change"].sort());
 });
 
 test("backs up every file it changes and writes a v2 install record in .agent-kit/", () => {

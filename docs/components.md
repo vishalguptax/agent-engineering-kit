@@ -6,9 +6,9 @@ Everything the installer can put into a project, grouped the way the installer s
 
 | Preset | Installs |
 |---|---|
-| recommended | Engineering rules, Agent instructions (AGENTS.md), code-explorer agent, code-architect agent, verifier agent, code-simplifier agent, test-analyzer agent, silent-failure-hunter agent, security-reviewer agent, /feature workflow, /fix, /verify, /ship, /learn, project-conventions skill, Auto-format hook, Secret guard |
+| recommended | Engineering rules, Agent instructions (AGENTS.md), code-explorer agent, code-architect agent, verifier agent, code-simplifier agent, test-analyzer agent, silent-failure-hunter agent, security-reviewer agent, /feature workflow, /quick-fix, /verify-change, /ship, /learn, project-conventions skill, Auto-format hook, Secret guard |
 | minimal | Engineering rules, Agent instructions (AGENTS.md), Auto-format hook |
-| everything | Engineering rules, Agent instructions (AGENTS.md), code-explorer agent, code-architect agent, verifier agent, code-simplifier agent, test-analyzer agent, silent-failure-hunter agent, security-reviewer agent, frontend-reviewer agent, /feature workflow, /fix, /verify, /ship, /learn, project-conventions skill, Auto-format hook, Secret guard, Pre-commit checks |
+| everything | Engineering rules, Agent instructions (AGENTS.md), code-explorer agent, code-architect agent, verifier agent, code-simplifier agent, test-analyzer agent, silent-failure-hunter agent, security-reviewer agent, frontend-reviewer agent, /feature workflow, /quick-fix, /verify-change, /ship, /learn, project-conventions skill, Auto-format hook, Secret guard, Pre-commit checks |
 
 Dependencies are added automatically; required components are always installed.
 
@@ -42,7 +42,7 @@ Dependencies are added automatically; required components are always installed.
 `verifier` · A strict QA subagent that runs the real checks and reports evidence.
 
 - **What it is:** An agent that finds your project's format, lint, type-check, test and build commands, runs them, exercises the changed behavior, and reports PASS/FAIL with the actual output. It reads and runs things but does not edit code.
-- **When it's used:** Before the agent says a task is done. /verify and /feature use it automatically.
+- **When it's used:** Before the agent says a task is done. /verify-change and /feature use it automatically.
 - **Example:** `"Use the verifier subagent to check this change."`
 - **Installs:** the `verifier` agent in each selected tool's agent format, plus `docs/agent-engineering/agents/verifier.md`
 
@@ -122,26 +122,26 @@ Dependencies are added automatically; required components are always installed.
 - **Needs (not installed by the tool):** Matt Pocock's skills plugin (grilling, tdd, code-review, …). Without it, /feature falls back to the rules file.
 - **Installs:** the `feature` skill in each selected tool's skills folder
 
-### /fix
+### /quick-fix
 
-`fix` · Small, contained fixes with a quick verify loop.
+`quick-fix` · Small, contained fixes with a quick verify loop.
 
 - **What it is:** A skill for clear, small changes: it sizes the change first, reproduces a bug with a failing test, makes the smallest correct fix, and verifies. If the change grows past about 6 files or 2 modules, it stops and switches to /feature.
 - **When it's used:** For bug fixes and small changes where the solution is obvious.
-- **Example:** `/fix the date picker shows yesterday in UTC+ timezones`
-- **Also installs:** Engineering rules, /verify
-- **Installs:** the `fix` skill in each selected tool's skills folder
+- **Example:** `/quick-fix the date picker shows yesterday in UTC+ timezones`
+- **Also installs:** Engineering rules, /verify-change
+- **Installs:** the `quick-fix` skill in each selected tool's skills folder
 
-### /verify
+### /verify-change
 
-`verify` · Prove a change works, fixing and retrying until it passes.
+`verify-change` · Prove a change works, fixing and retrying until it passes.
 
 - **What it is:** Runs the verifier subagent. If something fails because of the current change, the agent fixes the root cause and verifies again, up to 3 attempts, and never weakens tests to get a pass.
 - **When it's used:** Before saying anything is done, or whenever you want proof.
-- **Example:** `/verify`
+- **Example:** `/verify-change`
 - **Also installs:** verifier agent
 - **Needs (not installed by the tool):** Optional: Matt Pocock's diagnosing-bugs skill for hard failures.
-- **Installs:** the `verify` skill in each selected tool's skills folder
+- **Installs:** the `verify-change` skill in each selected tool's skills folder
 
 ### /ship
 
@@ -150,7 +150,7 @@ Dependencies are added automatically; required components are always installed.
 - **What it is:** Checks that verification and review have passed, groups the changes into focused commits with clear messages, and writes a PR description. It only pushes or opens a PR if you ask it to.
 - **When it's used:** When you're ready to commit.
 - **Example:** `/ship pr`
-- **Also installs:** /verify, test-analyzer agent, silent-failure-hunter agent, security-reviewer agent
+- **Also installs:** /verify-change, test-analyzer agent, silent-failure-hunter agent, security-reviewer agent
 - **Needs (not installed by the tool):** Optional: Matt Pocock's code-review skill for the review gate.
 - **Installs:** the `ship` skill in each selected tool's skills folder
 

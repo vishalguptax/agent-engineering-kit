@@ -27,6 +27,7 @@ export function renderProjectSection(info) {
         ["Key Directories", clean(info.keyDirs)],
         ["Conventions", clean(info.conventions)],
         ["Do / Don't (learned from past mistakes)", clean(info.doDont)],
+        ["Workflow Preferences", clean(info.workflow)],
         ["Additional Context", clean(info.notes)],
     ];
     const filled = sections.filter(([, body]) => body !== "").map(([title, body]) => `## ${title}\n${body}\n`);

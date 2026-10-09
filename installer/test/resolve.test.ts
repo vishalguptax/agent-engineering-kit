@@ -21,10 +21,10 @@ test("selecting /feature pulls in its dependencies transitively and explains why
   assert.ok(reasons["rules"]?.includes("feature"));
 });
 
-test("/ship pulls in /verify, which pulls in the verifier agent", () => {
+test("/ship pulls in /verify-change, which pulls in the verifier agent", () => {
   const { selected, reasons } = resolveSelection(manifest, ["ship"]);
-  assert.ok(selected.includes("verify") && selected.includes("verifier"));
-  assert.deepEqual(reasons["verifier"], ["verify"]);
+  assert.ok(selected.includes("verify-change") && selected.includes("verifier"));
+  assert.deepEqual(reasons["verifier"], ["verify-change"]);
 });
 
 test("required components are always selected", () => {

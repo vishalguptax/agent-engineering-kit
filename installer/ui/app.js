@@ -26,6 +26,7 @@ const PROJECT_FIELDS = [
   ["keyDirs", "Key folders", "Where the important code lives, e.g. src/api: HTTP handlers.", true],
   ["conventions", "Conventions", "Naming, error handling, state, styling, testing: whatever the agent should copy.", true],
   ["doDont", "Do / Don't", "Hard rules and lessons learned, e.g. \"Never edit generated files in gen/\".", true],
+  ["workflow", "Workflow preferences", "Optional. How the feature, quick-fix and ship skills should work here, e.g. \"Plans in planning/\", \"No tests for scripts/: run them instead\". Blank keeps the kit's defaults.", true],
   ["notes", "Anything else the agent should know", "Domain terms, gotchas, people to ask, links. Free-form Markdown.", true],
 ];
 
