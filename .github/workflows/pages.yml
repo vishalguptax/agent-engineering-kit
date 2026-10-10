@@ -58,3 +58,16 @@ jobs:
       - name: Deploy
         id: deployment
         uses: actions/deploy-pages@v4
+      # IndexNow tells Bing, Yandex and other participating engines which pages changed. The key is public by
+      # design: site/<key>.txt proves the site owns it. Only on pushes, not the 12-hour number refresh.
+      - name: Tell search engines (IndexNow)
+        if: github.event_name == 'push'
+        env:
+          INDEXNOW_KEY: 79c2001290f5ea7fb79977088a7dfa3a
+          SITE: https://agentengineeringkit.vishalg.in
+        run: |
+          urls=$(curl -sf "$SITE/sitemap.xml" | grep -o '<loc>[^<]*' | sed 's/<loc>//' | jq -R . | jq -sc .)
+          body=$(jq -nc --arg key "$INDEXNOW_KEY" --arg loc "$SITE/$INDEXNOW_KEY.txt" --argjson urls "$urls" '{host: "agentengineeringkit.vishalg.in", key: $key, keyLocation: $loc, urlList: $urls}')
+          status=$(curl -s -o /dev/null -w '%{http_code}' -X POST https://api.indexnow.org/indexnow -H 'Content-Type: application/json; charset=utf-8' -d "$body")
+          echo "IndexNow answered $status"
+          case "$status" in 200|202) ;; *) echo "::warning title=IndexNow::the ping answered $status";; esac

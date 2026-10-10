@@ -187,8 +187,10 @@ test("renderHead has canonical, Open Graph, Twitter card and valid JSON-LD", () 
     const types = blocks.flatMap((b) => (b["@graph"] ?? [b]).map((n) => n["@type"]));
     if (page.path === "/") {
       assert.ok(types.includes("SoftwareApplication") && types.includes("WebSite") && types.includes("FAQPage"));
+    } else if (page.guide || page.article) {
+      assert.deepEqual(types, ["BreadcrumbList", "TechArticle", ...(page.faq ? ["FAQPage"] : [])], page.path);
     } else {
-      assert.deepEqual(types, ["BreadcrumbList"]);
+      assert.deepEqual(types, ["BreadcrumbList"], page.path);
     }
   }
 });
@@ -206,11 +208,21 @@ test("the home page's SoftwareApplication carries the fields search engines need
   assert.match(app.softwareVersion, /^\d+\.\d+\.\d+$/);
 });
 
-test("the home page's FAQPage matches the FAQ visible on the page", () => {
-  const html = read("site/index.html");
-  const head = renderHead(PAGES[0], siteData());
-  const faq = JSON.parse(head.match(/<script type="application\/ld\+json">([\s\S]*?)<\/script>/)[1])["@graph"].find((n) => n["@type"] === "FAQPage");
-  for (const q of faq.mainEntity) assert.ok(html.includes(`>${q.name}</`), `visible FAQ lacks: ${q.name}`);
+test("every FAQPage matches an FAQ visible on its page", () => {
+  for (const page of PAGES.filter((p) => p.faq)) {
+    const html = read(page.file);
+    const graph = JSON.parse(renderHead(page, siteData()).match(/<script type="application\/ld\+json">([\s\S]*?)<\/script>/)[1])["@graph"];
+    const faq = graph.find((n) => n["@type"] === "FAQPage");
+    assert.ok(faq.mainEntity.length > 0, page.path);
+    for (const q of faq.mainEntity) assert.ok(html.includes(`>${q.name}</`), `${page.path} visible FAQ lacks: ${q.name}`);
+  }
+});
+
+test("a guide's breadcrumbs run Home > Guides > the guide", () => {
+  const guide = PAGES.find((p) => p.guide);
+  const ld = JSON.parse(renderHead(guide, siteData()).match(/<script type="application\/ld\+json">([\s\S]*?)<\/script>/)[1]);
+  const crumbs = ld["@graph"].find((n) => n["@type"] === "BreadcrumbList").itemListElement.map((i) => i.item);
+  assert.deepEqual(crumbs, [`${SITE_URL}/`, `${SITE_URL}/guides/`, SITE_URL + guide.path]);
 });
 
 test("sitemap lists every indexable page with the build date, and parses as a urlset", () => {
@@ -298,6 +310,15 @@ test("the Pages workflow deploys site/ on the right triggers with the right perm
   assert.match(yml, /group: pages/);
   assert.match(yml, /node scripts\/build-site\.mjs/);
   assert.match(yml, /path: site/);
+});
+
+test("IndexNow: the deploy pings with the key that site/<key>.txt serves, only on pushes", () => {
+  const yml = read(".github/workflows/pages.yml");
+  const key = yml.match(/INDEXNOW_KEY: ([0-9a-f]{32})$/m)?.[1];
+  assert.ok(key, "INDEXNOW_KEY is set in pages.yml");
+  assert.equal(read(`site/${key}.txt`).trim(), key);
+  assert.match(yml, /api\.indexnow\.org\/indexnow/);
+  assert.match(yml, /if: github\.event_name == 'push'/);
 });
 
 test("site/CNAME names the custom domain", () => {

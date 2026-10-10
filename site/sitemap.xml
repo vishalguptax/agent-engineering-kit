@@ -2,38 +2,150 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
     <loc>https://agentengineeringkit.vishalg.in/</loc>
-    <lastmod>2026-10-09</lastmod>
+    <lastmod>2026-10-10</lastmod>
   </url>
   <url>
     <loc>https://agentengineeringkit.vishalg.in/rules/</loc>
-    <lastmod>2026-10-09</lastmod>
+    <lastmod>2026-10-10</lastmod>
   </url>
   <url>
     <loc>https://agentengineeringkit.vishalg.in/agents/</loc>
-    <lastmod>2026-10-09</lastmod>
+    <lastmod>2026-10-10</lastmod>
   </url>
   <url>
     <loc>https://agentengineeringkit.vishalg.in/skills/</loc>
-    <lastmod>2026-10-09</lastmod>
+    <lastmod>2026-10-10</lastmod>
   </url>
   <url>
     <loc>https://agentengineeringkit.vishalg.in/safety/</loc>
-    <lastmod>2026-10-09</lastmod>
+    <lastmod>2026-10-10</lastmod>
   </url>
   <url>
     <loc>https://agentengineeringkit.vishalg.in/tools/</loc>
-    <lastmod>2026-10-09</lastmod>
+    <lastmod>2026-10-10</lastmod>
   </url>
   <url>
     <loc>https://agentengineeringkit.vishalg.in/install/</loc>
-    <lastmod>2026-10-09</lastmod>
+    <lastmod>2026-10-10</lastmod>
   </url>
   <url>
     <loc>https://agentengineeringkit.vishalg.in/how-it-works/</loc>
-    <lastmod>2026-10-09</lastmod>
+    <lastmod>2026-10-10</lastmod>
+  </url>
+  <url>
+    <loc>https://agentengineeringkit.vishalg.in/guides/</loc>
+    <lastmod>2026-10-10</lastmod>
+  </url>
+  <url>
+    <loc>https://agentengineeringkit.vishalg.in/guides/agents-md-vs-claude-md/</loc>
+    <lastmod>2026-10-10</lastmod>
+  </url>
+  <url>
+    <loc>https://agentengineeringkit.vishalg.in/guides/stop-ai-agents-reading-env/</loc>
+    <lastmod>2026-10-10</lastmod>
+  </url>
+  <url>
+    <loc>https://agentengineeringkit.vishalg.in/guides/format-on-edit-hooks/</loc>
+    <lastmod>2026-10-10</lastmod>
+  </url>
+  <url>
+    <loc>https://agentengineeringkit.vishalg.in/guides/stop-ai-slop/</loc>
+    <lastmod>2026-10-10</lastmod>
+  </url>
+  <url>
+    <loc>https://agentengineeringkit.vishalg.in/guides/stop-ai-weakening-tests/</loc>
+    <lastmod>2026-10-10</lastmod>
+  </url>
+  <url>
+    <loc>https://agentengineeringkit.vishalg.in/guides/verify-ai-generated-code/</loc>
+    <lastmod>2026-10-10</lastmod>
+  </url>
+  <url>
+    <loc>https://agentengineeringkit.vishalg.in/guides/ai-code-review-agents/</loc>
+    <lastmod>2026-10-10</lastmod>
+  </url>
+  <url>
+    <loc>https://agentengineeringkit.vishalg.in/setup/</loc>
+    <lastmod>2026-10-10</lastmod>
+  </url>
+  <url>
+    <loc>https://agentengineeringkit.vishalg.in/setup/claude-code/</loc>
+    <lastmod>2026-10-10</lastmod>
+  </url>
+  <url>
+    <loc>https://agentengineeringkit.vishalg.in/setup/codex/</loc>
+    <lastmod>2026-10-10</lastmod>
+  </url>
+  <url>
+    <loc>https://agentengineeringkit.vishalg.in/setup/cursor/</loc>
+    <lastmod>2026-10-10</lastmod>
+  </url>
+  <url>
+    <loc>https://agentengineeringkit.vishalg.in/setup/copilot/</loc>
+    <lastmod>2026-10-10</lastmod>
+  </url>
+  <url>
+    <loc>https://agentengineeringkit.vishalg.in/setup/gemini/</loc>
+    <lastmod>2026-10-10</lastmod>
+  </url>
+  <url>
+    <loc>https://agentengineeringkit.vishalg.in/setup/antigravity/</loc>
+    <lastmod>2026-10-10</lastmod>
+  </url>
+  <url>
+    <loc>https://agentengineeringkit.vishalg.in/setup/grok/</loc>
+    <lastmod>2026-10-10</lastmod>
+  </url>
+  <url>
+    <loc>https://agentengineeringkit.vishalg.in/setup/windsurf/</loc>
+    <lastmod>2026-10-10</lastmod>
+  </url>
+  <url>
+    <loc>https://agentengineeringkit.vishalg.in/setup/kiro/</loc>
+    <lastmod>2026-10-10</lastmod>
+  </url>
+  <url>
+    <loc>https://agentengineeringkit.vishalg.in/setup/opencode/</loc>
+    <lastmod>2026-10-10</lastmod>
+  </url>
+  <url>
+    <loc>https://agentengineeringkit.vishalg.in/setup/kilo/</loc>
+    <lastmod>2026-10-10</lastmod>
+  </url>
+  <url>
+    <loc>https://agentengineeringkit.vishalg.in/setup/junie/</loc>
+    <lastmod>2026-10-10</lastmod>
+  </url>
+  <url>
+    <loc>https://agentengineeringkit.vishalg.in/setup/augment/</loc>
+    <lastmod>2026-10-10</lastmod>
+  </url>
+  <url>
+    <loc>https://agentengineeringkit.vishalg.in/setup/cline/</loc>
+    <lastmod>2026-10-10</lastmod>
+  </url>
+  <url>
+    <loc>https://agentengineeringkit.vishalg.in/setup/zed/</loc>
+    <lastmod>2026-10-10</lastmod>
+  </url>
+  <url>
+    <loc>https://agentengineeringkit.vishalg.in/setup/amp/</loc>
+    <lastmod>2026-10-10</lastmod>
+  </url>
+  <url>
+    <loc>https://agentengineeringkit.vishalg.in/setup/warp/</loc>
+    <lastmod>2026-10-10</lastmod>
+  </url>
+  <url>
+    <loc>https://agentengineeringkit.vishalg.in/setup/aider/</loc>
+    <lastmod>2026-10-10</lastmod>
+  </url>
+  <url>
+    <loc>https://agentengineeringkit.vishalg.in/setup/generic/</loc>
+    <lastmod>2026-10-10</lastmod>
   </url>
   <url>
     <loc>https://agentengineeringkit.vishalg.in/changelog/</loc>
-    <lastmod>2026-10-09</lastmod>
+    <lastmod>2026-10-10</lastmod>
   </url>
 </urlset>
