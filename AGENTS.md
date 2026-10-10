@@ -21,7 +21,7 @@ Run these inside `installer/`:
 - `installer/kit.manifest.json`: every component and preset
 - `installer/test/`: node:test tests and fixtures
 - `docs/`: user docs (`components.md` and `supported-tools.md` are generated)
-- `site/`: the website (static HTML; `site/DESIGN.md` is its design system); `scripts/build-site.mjs` fills its `bake:` regions
+- `site/`: the website (static HTML; `site/DESIGN.md` is its design system); `scripts/build-site.mjs` fills its `bake:` regions; page titles, descriptions, FAQs and per-tool search terms are in `scripts/site-content.json`
 
 ## Conventions
 - Kit content is written for every tool: no Claude-only syntax; canonical frontmatter only.

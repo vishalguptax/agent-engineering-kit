@@ -8,6 +8,7 @@ on:
     paths:
       - "site/**"
       - "scripts/build-site.mjs"
+      - "scripts/site-content.json"
       - ".github/workflows/pages.yml"
       # The build reads these, so a change to them changes the site too.
       - "CHANGELOG.md"

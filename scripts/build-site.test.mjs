@@ -218,6 +218,10 @@ test("every FAQPage matches an FAQ visible on its page", () => {
   }
 });
 
+test("site-content.json placeholders are filled in, never shipped", () => {
+  for (const page of PAGES) assert.doesNotMatch(read(page.file), /\{toolCount\}/, page.file);
+});
+
 test("a guide's breadcrumbs run Home > Guides > the guide", () => {
   const guide = PAGES.find((p) => p.guide);
   const ld = JSON.parse(renderHead(guide, siteData()).match(/<script type="application\/ld\+json">([\s\S]*?)<\/script>/)[1]);
@@ -301,7 +305,7 @@ test("the npm package doesn't ship the site or the build script", () => {
 
 test("the Pages workflow deploys site/ on the right triggers with the right permissions", () => {
   const yml = read(".github/workflows/pages.yml").replace(/^\s*#.*$/gm, "");
-  const inputs = ["site/**", "scripts/build-site.mjs", ".github/workflows/pages.yml", "CHANGELOG.md", "kit/**", "installer/kit.manifest.json", "installer/dist/**", "package.json", "scripts/live-numbers.json"];
+  const inputs = ["site/**", "scripts/build-site.mjs", ".github/workflows/pages.yml", "CHANGELOG.md", "kit/**", "installer/kit.manifest.json", "installer/dist/**", "package.json", "scripts/live-numbers.json", "scripts/site-content.json"];
   for (const p of inputs) assert.match(yml, new RegExp(`^\\s+- "${p.replace(/[.*/]/g, "\\$&")}"$`, "m"), p);
   assert.match(yml, /workflow_dispatch:/);
   assert.match(yml, /cron: "0 \*\/12 \* \* \*"/);

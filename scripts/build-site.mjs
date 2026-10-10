@@ -28,29 +28,12 @@ const AUTHOR = { "@type": "Person", name: "Vishal Gupta", url: "https://vishalg.
 
 // ---------- per-tool setup pages ----------
 
+// Page text (titles, descriptions, FAQs, per-tool search terms) lives in site-content.json; the logic stays here.
+const CONTENT = JSON.parse(readFileSync(path.join(ROOT, "scripts", "site-content.json"), "utf8"));
+
 // Each tool's page is titled for what people search for that tool ("Cursor rules", "Copilot instructions", "GEMINI.md", …),
 // and says only what the installer really does for it.
-const SETUP_KEYWORDS = {
-  "claude-code": { title: "Best Claude Code Setup: CLAUDE.md, Subagents, Skills, Hooks", rules: "CLAUDE.md and AGENTS.md rules" },
-  codex: { title: "Best Codex Setup: AGENTS.md, Subagents and Skills", rules: "AGENTS.md rules" },
-  cursor: { title: "Best Cursor Setup: Cursor Rules, Subagents, Skills, Hooks", rules: "AGENTS.md rules for Cursor" },
-  copilot: { title: "Best GitHub Copilot Setup: Instructions, Agents, Skills", rules: "AGENTS.md instructions" },
-  gemini: { title: "Best Gemini CLI Setup: GEMINI.md, AGENTS.md, Skills, Agents", rules: "GEMINI.md and AGENTS.md rules" },
-  antigravity: { title: "Best Google Antigravity Setup: Rules, Skills and Agents", rules: "AGENTS.md rules" },
-  grok: { title: "Best Grok Build Setup: AGENTS.md Rules and Skills", rules: "AGENTS.md rules" },
-  windsurf: { title: "Best Windsurf Setup: Windsurf Rules, Skills and Hooks", rules: "AGENTS.md rules for Windsurf", name: "Windsurf" },
-  kiro: { title: "Best Kiro Setup: Steering Rules, Skills and Agents", rules: "AGENTS.md steering rules" },
-  opencode: { title: "Best opencode Setup: AGENTS.md, Agents and Skills", rules: "AGENTS.md rules" },
-  kilo: { title: "Best Kilo Code Setup: AGENTS.md, Subagents and Skills", rules: "AGENTS.md rules" },
-  junie: { title: "Best JetBrains Junie Setup: Guidelines, Skills, Agents", rules: "AGENTS.md guidelines" },
-  augment: { title: "Best Augment Code Setup: Rules, Skills and Subagents", rules: "AGENTS.md rules" },
-  cline: { title: "Best Cline Setup: Rules for Cline, Skills and Reviews", rules: "AGENTS.md rules for Cline" },
-  zed: { title: "Best Zed AI Setup: Agent Rules and Skills", rules: "AGENTS.md rules" },
-  amp: { title: "Best Amp Setup: AGENTS.md Rules and Skills", rules: "AGENTS.md rules" },
-  warp: { title: "Best Warp AI Setup: Agent Rules and Skills", rules: "AGENTS.md rules" },
-  aider: { title: "Best Aider Setup: Conventions, Rules and .aiderignore", rules: "AGENTS.md conventions" },
-  generic: { title: "Best AGENTS.md Setup for Any AI Coding Agent", rules: "AGENTS.md rules", name: "your coding agent" },
-};
+const SETUP_KEYWORDS = CONTENT.setupKeywords;
 
 const setupName = (tool) => SETUP_KEYWORDS[tool.id]?.name ?? tool.name;
 
@@ -111,247 +94,13 @@ const SETUP_PAGES = TOOL_PROFILES.map((tool) => ({
   faq: () => setupFaq(tool),
 }));
 
-export const PAGES = [
-  {
-    path: "/",
-    file: "site/index.html",
-    og: "home",
-    title: "AGENTS.md Rules, Sub-agents & Skills for Any AI Coding Agent",
-    description: "Stop AI slop in any AI coding agent: one npx installer adds AGENTS.md rules, sub-agents, skills and hooks to your project, in each tool's own format.",
-    ogTitle: "Make AI coding agents ship clean code, not AI slop.",
-    llms: "What the kit is, the six-step workflow, the parts, supported tools, the installer's safety, and an FAQ.",
-    faq: () => FAQ,
-  },
-  {
-    path: "/rules/",
-    file: "site/rules/index.html",
-    og: "rules",
-    nav: "Rules",
-    title: "AGENTS.md Template: Rules That Stop AI Coding Agent Slop",
-    description: "A short, always-on AGENTS.md rules block that stops AI coding agents guessing APIs, over-engineering and weakening tests. Works with CLAUDE.md too.",
-    ogTitle: "An AGENTS.md rules block your agent reads every session.",
-    llms: "The always-on rules block in AGENTS.md, word for word, and the ten sections of the rulebook.",
-  },
-  {
-    path: "/agents/",
-    file: "site/agents/index.html",
-    og: "agents",
-    nav: "Agents",
-    title: "Code Review Sub-agents for Every AI Coding Agent",
-    description: "Code review and verification sub-agents for any coding agent: verifier, code-simplifier, test-analyzer, silent-failure-hunter, security-reviewer and more.",
-    ogTitle: "Sub-agents with one job each.",
-    llms: "Each sub-agent: what it does, when it's used, an example, and whether it can edit code.",
-  },
-  {
-    path: "/skills/",
-    file: "site/skills/index.html",
-    og: "skills",
-    nav: "Skills",
-    title: "Agent Skills (SKILL.md) for Every AI Coding Agent",
-    description: "SKILL.md workflows for any coding agent: feature, quick-fix, verify-change, ship, learn and project-conventions. Plan, build test-first, verify, then ship.",
-    ogTitle: "Skills that run the whole workflow.",
-    llms: "Each skill (feature, quick-fix, verify-change, ship, learn, project-conventions): what it does, when to use it, and what it needs.",
-  },
-  {
-    path: "/safety/",
-    file: "site/safety/index.html",
-    og: "safety",
-    nav: "Safety",
-    title: "Stop AI Coding Agents Reading .env: Guardrails & Hooks",
-    description: "Keep AI coding agents out of .env files, format every edit with your own formatter, and run your lint and tests before each commit, whichever agent edits.",
-    ogTitle: "Guardrails your agent can't forget.",
-    llms: "The format-on-edit hook, the secret guard and the pre-commit checks, with what each AI tool supports.",
-  },
-  {
-    path: "/tools/",
-    file: "site/tools/index.html",
-    og: "tools",
-    nav: "Tools",
-    title: "Supported AI Coding Tools: AGENTS.md, Cursor Rules and More",
-    description: "What every supported AI coding tool gets, in its own format: AGENTS.md or CLAUDE.md rules, skills, sub-agents, format on edit and secret guard.",
-    ogTitle: "One kit, each tool in its own format.",
-    llms: "A per-tool table of rules, skills, agents, format on edit and secret guard, with the reason and docs for each.",
-  },
-  {
-    path: "/install/",
-    file: "site/install/index.html",
-    og: "install",
-    nav: "Install",
-    title: "Install the Agent Engineering Kit with npx or your agent",
-    description: "Run npx agent-engineering-kit, or paste one prompt into your coding agent. Terminal and CI modes, global install, update and uninstall.",
-    ogTitle: "Install it in a couple of minutes.",
-    llms: "The npx command, the install-with-your-agent prompt, terminal and CI usage, global installs, flags, update and uninstall.",
-  },
-  {
-    path: "/how-it-works/",
-    file: "site/how-it-works/index.html",
-    og: "how-it-works",
-    nav: "How it works",
-    title: "How the Installer Works: Preview, Merge, Back Up, Undo",
-    description: "How the installer previews every change, merges AGENTS.md and settings without overwriting, backs up files, records what it did and uninstalls cleanly.",
-    ogTitle: "What the installer does to your files.",
-    llms: "Where files go, how existing files are merged, backups, the install record, update, uninstall and the safety checks.",
-  },
-  {
-    path: "/guides/",
-    file: "site/guides/index.html",
-    og: "guides",
-    nav: "Guides",
-    title: "Guides: AGENTS.md, .env Safety and Hooks for AI Coding",
-    description: "Practical guides for AI coding agents: which rules file each tool reads, keeping agents out of .env, and formatting every edit automatically.",
-    ogTitle: "Guides for working with AI coding agents.",
-    llms: "Index of the guides.",
-  },
-  {
-    path: "/guides/agents-md-vs-claude-md/",
-    file: "site/guides/agents-md-vs-claude-md/index.html",
-    og: "guide-agents-md",
-    parent: "/guides/",
-    guide: { published: "2026-10-11" },
-    title: "AGENTS.md vs CLAUDE.md: Which File Each AI Tool Reads",
-    description: "AGENTS.md, CLAUDE.md, GEMINI.md, copilot-instructions.md or Cursor rules? Which file each AI coding tool reads, and how to keep one source of truth.",
-    ogTitle: "AGENTS.md vs CLAUDE.md: which file each AI tool reads.",
-    llms: "Which rules file each AI coding tool reads (AGENTS.md, CLAUDE.md, GEMINI.md, copilot-instructions.md, Cursor rules), the tool-specific catches, and how to keep one source of truth.",
-    faq: [
-      {
-        q: "Should I keep both AGENTS.md and CLAUDE.md?",
-        a: "Keep your rules in `AGENTS.md`, which most tools read, and keep `CLAUDE.md` for anything specific to Claude Code plus a one-line `@AGENTS.md` import. Then every tool reads the same rules and you edit them in one place.",
-      },
-      {
-        q: "How do I make Claude Code use AGENTS.md?",
-        a: "Add a line containing `@AGENTS.md` to `CLAUDE.md`. Claude Code imports the file it names, so it reads the same rules as every other tool.",
-      },
-      {
-        q: "Does Gemini CLI read AGENTS.md?",
-        a: "It reads `GEMINI.md` by default. Add `AGENTS.md` to `context.fileName` in `.gemini/settings.json` and it reads both.",
-      },
-      {
-        q: "Which tools need extra setup to read AGENTS.md?",
-        a: "Claude Code (an `@AGENTS.md` import in `CLAUDE.md`), Gemini CLI (a `context.fileName` setting) and Aider (`read: AGENTS.md` in `.aider.conf.yml`). Zed and JetBrains Junie read it unless another rules file takes precedence.",
-      },
-    ],
-  },
-  {
-    path: "/guides/stop-ai-agents-reading-env/",
-    file: "site/guides/stop-ai-agents-reading-env/index.html",
-    og: "guide-env",
-    parent: "/guides/",
-    guide: { published: "2026-10-11" },
-    title: "How to Stop AI Coding Agents Reading .env Files",
-    description: "Block Claude Code, Cursor, Gemini CLI and every other AI coding agent from reading .env files and secrets: the setting for each tool and what it misses.",
-    ogTitle: "Stop AI coding agents reading your .env.",
-    llms: "How to keep each AI coding tool out of .env files and secrets: Claude Code deny rules and what they don't cover, ignore files for Cursor, Gemini CLI and others.",
-  },
-  {
-    path: "/guides/format-on-edit-hooks/",
-    file: "site/guides/format-on-edit-hooks/index.html",
-    og: "guide-format",
-    parent: "/guides/",
-    guide: { published: "2026-10-11" },
-    title: "Auto-format Every AI Agent Edit with Hooks (Prettier, ruff)",
-    description: "Claude Code PostToolUse, Cursor and Windsurf hooks that run your own formatter after every AI edit (Prettier, Biome, ruff, gofmt), plus a fallback.",
-    ogTitle: "Format every file your AI agent edits.",
-    llms: "A format-on-edit hook for Claude Code, Cursor and Windsurf that runs the project's own formatter (Prettier, Biome, ruff, gofmt, rustfmt, …) after every edit.",
-  },
-  {
-    path: "/guides/stop-ai-slop/",
-    file: "site/guides/stop-ai-slop/index.html",
-    og: "guide-slop",
-    parent: "/guides/",
-    guide: { published: "2026-10-11" },
-    title: "How to Stop AI Coding Agents Writing Slop",
-    description: "Vague names, dead code, TODO stubs, swallowed errors, weakened tests: why AI coding agents write slop, and the rules, reviews and checks that stop it.",
-    ogTitle: "How to stop AI coding agents writing slop.",
-    llms: "What AI slop looks like in code, and the habits and checks that prevent it: plan first, surgical changes, verification with evidence, a simplify pass and focused reviews.",
-  },
-  {
-    path: "/guides/stop-ai-weakening-tests/",
-    file: "site/guides/stop-ai-weakening-tests/index.html",
-    og: "guide-tests",
-    parent: "/guides/",
-    guide: { published: "2026-10-11" },
-    title: "Stop AI Coding Agents Deleting or Weakening Your Tests",
-    description: "AI agents loosen assertions, skip tests and delete failing ones to make checks pass. A rule, a test reviewer and a pre-commit guard that stop it.",
-    ogTitle: "Stop AI agents weakening your tests.",
-    llms: "How to stop AI coding agents deleting, skipping or loosening tests: an always-on rule, the test-analyzer reviewer, and a pre-commit check that refuses changes to protected test files.",
-  },
-  {
-    path: "/guides/verify-ai-generated-code/",
-    file: "site/guides/verify-ai-generated-code/index.html",
-    og: "guide-verify",
-    parent: "/guides/",
-    guide: { published: "2026-10-11" },
-    title: "Make AI Coding Agents Prove Their Code Works",
-    description: "Stop AI agents calling untested work done: run the project's real checks, exercise the change, retry from the root cause, and list what wasn't verified.",
-    ogTitle: "Make AI agents prove their code works.",
-    llms: "A verification loop for AI coding agents: real format, lint, type-check, test and build commands, exercising the change, fixing from the root cause, and reporting what wasn't verified.",
-  },
-  {
-    path: "/guides/ai-code-review-agents/",
-    file: "site/guides/ai-code-review-agents/index.html",
-    og: "guide-review",
-    parent: "/guides/",
-    guide: { published: "2026-10-11" },
-    title: "AI Code Review Agents: Tests, Silent Failures, Security, UI",
-    description: "Review AI-written code with focused sub-agents: one for tests, one for swallowed errors, one for security, one for UI. When each runs and what it checks.",
-    ogTitle: "Review AI-written code with focused agents.",
-    llms: "Code review with focused sub-agents for AI-written changes: test-analyzer, silent-failure-hunter, security-reviewer and frontend-reviewer, when each runs and how tools without sub-agents use them.",
-  },
-  {
-    path: "/setup/",
-    file: "site/setup/index.html",
-    og: "setup",
-    section: "/tools/",
-    title: "Best AI Coding Agent Setup for Every Tool | Agent Eng. Kit",
-    description: "The best setup for Claude Code, Cursor, Codex, GitHub Copilot, Gemini CLI, Windsurf, Kiro and every other supported AI coding tool, one page per tool.",
-    ogTitle: "The best setup for each AI coding tool.",
-    llms: "Index of the per-tool setup pages.",
-  },
-  ...SETUP_PAGES,
-  {
-    path: "/changelog/",
-    file: "site/changelog/index.html",
-    og: "changelog",
-    nav: "Changelog",
-    title: "Changelog | Agent Engineering Kit",
-    description: "Every release of the Agent Engineering Kit and its installer, newest first: what changed and why.",
-    ogTitle: "Changelog",
-    llms: "Every release, newest first.",
-  },
-  {
-    path: "/404.html",
-    file: "site/404.html",
-    title: "Page not found | Agent Engineering Kit",
-    description: "This page isn't in this edition of the Agent Engineering Kit site.",
-  },
-];
+export const FAQ = CONTENT.homeFaq;
 
-export const FAQ = [
-  {
-    q: "Does the installer change my files without asking?",
-    a: "No. It shows every change as a diff first, and nothing is written until you confirm. Files that change are backed up to `.agent-kit/backup/`, and `AGENTS.md`, `CLAUDE.md` and settings files are merged, never overwritten.",
-  },
-  {
-    q: "Which AI coding tools does it work with?",
-    a: (d) => `${d.toolCount} named tools, including Claude Code, OpenAI Codex, Cursor, GitHub Copilot and Gemini CLI, plus any other agent that reads \`AGENTS.md\`. Each one gets the kit in its own format.`,
-  },
-  {
-    q: "How much context does it use?",
-    a: "The always-on rules in `AGENTS.md` are about 600 tokens per session. The full rulebook is reference: skills and agents open only the section they need.",
-  },
-  {
-    q: "Does it need dependencies or make network calls?",
-    a: "`npx` downloads only the installer and the kit, about 100 kB with no dependencies. Once running, the installer makes no network calls.",
-  },
-  {
-    q: "How do I update or uninstall it?",
-    a: "Run the installer again. It offers Update, Add or remove components or tools, and Uninstall. Uninstall removes only what the kit added and keeps your own edits.",
-  },
-  {
-    q: "Does it work on Windows?",
-    a: "The installer and the format hook run on Node, so they work as is, though Windows hasn't been tested by hand yet. The optional pre-commit check is a POSIX `sh` script, which Git for Windows provides.",
-  },
-];
+export const PAGES = CONTENT.pages.flatMap((entry) => {
+  const page = entry.faq === "home" ? { ...entry, faq: FAQ } : entry;
+  return entry.path === "/setup/" ? [page, ...SETUP_PAGES] : [page];
+});
+
 
 // ---------- markers and numbers ----------
 
@@ -575,7 +324,7 @@ export function siteData(live = {}) {
   };
 }
 
-const faqAnswer = (item, data) => (typeof item.a === "function" ? item.a(data) : item.a);
+const faqAnswer = (item, data) => item.a.replace(/\{toolCount\}/g, String(data.toolCount));
 const faqOf = (page) => (typeof page.faq === "function" ? page.faq() : page.faq) ?? [];
 const crumbName = (page) => page.nav ?? page.ogTitle.replace(/\.$/, "");
 const plain = (md) => md.replace(/`([^`]+)`/g, "$1");
